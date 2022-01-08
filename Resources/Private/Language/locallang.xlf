@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:form_translator/Resources/Private/Language/locallang.xlf" date="2021-12-28T19:37:26Z" product-name="form_translator">
+		<header/>
+		<body>
+			<trans-unit id="mod.title.index">
+				<source>Form Localization</source>
+			</trans-unit>
+			<trans-unit id="language.original">
+				<source>Original (Form)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

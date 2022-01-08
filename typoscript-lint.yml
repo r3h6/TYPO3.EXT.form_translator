@@ -1,0 +1,10 @@
+paths:
+  - Configuration/TypoScript/
+
+sniffs:
+  - class: Indentation
+    parameters:
+      indentPerLevel: 2
+  - class: NestingConsistency
+    parameters:
+      commonPathPrefixThreshold: 3

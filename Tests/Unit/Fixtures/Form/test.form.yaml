@@ -1,0 +1,168 @@
+renderingOptions:
+  submitButtonLabel: Submit
+type: Form
+identifier: test
+label: Test
+prototypeName: standard
+finishers:
+  -
+    options:
+      subject: Subject
+      recipients:
+        test@test.test: Test
+      senderAddress: test@test.test
+      senderName: Test
+      addHtmlPart: true
+      attachUploads: true
+      useFluidEmail: false
+      title: 'Fluid email title'
+    identifier: EmailToSender
+  -
+    options:
+      subject: Subject
+      recipients:
+        test@test.test: Test
+      senderAddress: test@test.test
+      senderName: Test
+      addHtmlPart: true
+      attachUploads: true
+      translation:
+        language: Default
+      useFluidEmail: false
+      title: 'Fluid email title'
+    identifier: EmailToReceiver
+  -
+    options:
+      message: 'Confirmation message'
+      contentElementUid: '1'
+    identifier: Confirmation
+renderables:
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Step 2'
+    type: Page
+    identifier: page-1
+    label: 'Step 1'
+    renderables:
+      -
+        type: Fieldset
+        identifier: fieldset-2
+        label: 'Fieldset 1'
+        renderables:
+          -
+            defaultValue: 'Text default value'
+            type: Text
+            identifier: text-1
+            label: Text
+            properties:
+              elementDescription: 'Text description'
+              fluidAdditionalAttributes:
+                placeholder: 'Text placeholder'
+                required: required
+            validators:
+              -
+                identifier: NotEmpty
+          -
+            defaultValue: default@email.address
+            validators:
+              -
+                identifier: EmailAddress
+            type: Email
+            identifier: email-1
+            label: 'Email address'
+            properties:
+              elementDescription: 'Email address description'
+              fluidAdditionalAttributes:
+                placeholder: 'Email address placeholder'
+          -
+            type: Checkbox
+            identifier: checkbox-1
+            label: Checkbox
+            properties:
+              elementDescription: 'Checkbox description'
+          -
+            properties:
+              options:
+                a: 'Value A'
+                b: 'Value B'
+              elementDescription: 'Multi checkbox description'
+            type: MultiCheckbox
+            identifier: multicheckbox-1
+            label: 'Multi checkbox'
+          -
+            properties:
+              options:
+                a: 'Option A'
+                b: 'Option B'
+              elementDescription: 'Single select option'
+              prependOptionLabel: 'First option'
+            type: SingleSelect
+            identifier: singleselect-1
+            label: 'Single select'
+          -
+            properties:
+              dateFormat: Y-m-d
+              enableDatePicker: true
+              displayTimeSelector: false
+              elementDescription: 'Date picker description'
+              fluidAdditionalAttributes:
+                placeholder: 'Date picker description'
+            type: DatePicker
+            identifier: datepicker-1
+            label: 'Date picker (jQuery)'
+          -
+            properties:
+              confirmationLabel: 'Advanced password confirmation label'
+              elementDescription: 'Advanced password description'
+              fluidAdditionalAttributes:
+                placeholder: 'Advanced password placeholder'
+            type: AdvancedPassword
+            identifier: advancedpassword-1
+            label: 'Advanced password'
+          -
+            properties:
+              text: 'Lorem ipsum dolores...'
+            type: StaticText
+            identifier: statictext-1
+            label: 'Static text'
+      -
+        type: Fieldset
+        identifier: fieldset-1
+        label: 'Fieldset 2'
+        renderables:
+          -
+            type: Fieldset
+            identifier: fieldset-3
+            label: 'Fieldset 2.1'
+            renderables:
+              -
+                type: GridRow
+                identifier: gridrow-1
+                label: 'Grid: Row'
+                renderables:
+                  -
+                    defaultValue: ''
+                    type: Text
+                    identifier: text-2
+                    label: 'Text in grid'
+  -
+    renderingOptions:
+      previousButtonLabel: 'Step 1'
+      nextButtonLabel: 'Next step'
+    type: Page
+    identifier: page-2
+    label: 'Step 2'
+    renderables:
+      -
+        defaultValue: ''
+        type: Text
+        identifier: text-3
+        label: 'Text in step 2'
+  -
+    renderingOptions:
+      previousButtonLabel: 'Step 2'
+      nextButtonLabel: 'Next step'
+    type: SummaryPage
+    identifier: summarypage-1
+    label: 'Summary step'

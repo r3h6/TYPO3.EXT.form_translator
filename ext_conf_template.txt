@@ -1,0 +1,8 @@
+# cat=Basic//0; type=string; label=Language files directory: Absolute, relative or extension path where translation files get stored.
+languageFilesDirectory=./l10n
+
+# cat=Basic//1; type=string; label=API: URL
+libreTranslate.api=
+
+# cat=Basic//2; type=string; label=API Key
+libreTranslate.apiKey=

@@ -1,0 +1,15 @@
+
+# Module configuration
+module.tx_formtranslator_web_formtranslatortranslator {
+    persistence {
+        storagePid = {$module.tx_formtranslator_translator.persistence.storagePid}
+    }
+    view {
+        templateRootPaths.0 = EXT:form_translator/Resources/Private/Backend/Templates/
+        templateRootPaths.1 = {$module.tx_formtranslator_translator.view.templateRootPath}
+        partialRootPaths.0 = EXT:form_translator/Resources/Private/Backend/Partials/
+        partialRootPaths.1 = {$module.tx_formtranslator_translator.view.partialRootPath}
+        layoutRootPaths.0 = EXT:form_translator/Resources/Private/Backend/Layouts/
+        layoutRootPaths.1 = {$module.tx_formtranslator_translator.view.layoutRootPath}
+    }
+}

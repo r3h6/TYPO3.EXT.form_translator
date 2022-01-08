@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ruleset name="TYPO3 extension"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        TYPO3 extension rulset.
+    </description>
+    <rule ref=".Build/vendor/phpmd/phpmd/src/main/resources/rulesets/cleancode.xml">
+        <exclude name="StaticAccess" />
+        <exclude name="MissingImport" />
+    </rule>
+    <rule ref=".Build/vendor/phpmd/phpmd/src/main/resources/rulesets/codesize.xml" />
+    <rule ref=".Build/vendor/phpmd/phpmd/src/main/resources/rulesets/controversial.xml">
+        <exclude name="Superglobals"/>
+    </rule>
+    <rule ref=".Build/vendor/phpmd/phpmd/src/main/resources/rulesets/design.xml" />
+    <rule ref=".Build/vendor/phpmd/phpmd/src/main/resources/rulesets/unusedcode.xml" />
+</ruleset>

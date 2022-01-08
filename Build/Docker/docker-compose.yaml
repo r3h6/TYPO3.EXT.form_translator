@@ -1,0 +1,34 @@
+version: '2.3'
+services:
+
+  composer:
+    image: ${DOCKER_PHP_IMAGE:?err}
+    user: ${HOST_UID:?err}
+    volumes:
+    - ${ROOT_DIR:?err}:${ROOT_DIR:?err}
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
+    working_dir: ${ROOT_DIR:?err}
+    entrypoint: composer
+
+  unit:
+    image: ${DOCKER_PHP_IMAGE:?err}
+    user: ${HOST_UID:?err}
+    volumes:
+    - ${ROOT_DIR:?err}:${ROOT_DIR:?err}
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
+    working_dir: ${ROOT_DIR:?err}
+    entrypoint: .Build/bin/phpunit
+
+  functional:
+    image: ${DOCKER_PHP_IMAGE:?err}
+    user: ${HOST_UID:?err}
+    volumes:
+    - ${ROOT_DIR:?err}:${ROOT_DIR:?err}
+    - /etc/passwd:/etc/passwd:ro
+    - /etc/group:/etc/group:ro
+    environment:
+      typo3DatabaseDriver: pdo_sqlite
+    working_dir: ${ROOT_DIR:?err}
+    entrypoint: .Build/bin/phpunit

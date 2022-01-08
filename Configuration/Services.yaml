@@ -1,0 +1,51 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  R3H6\FormTranslator\:
+    resource: '../Classes/*'
+
+  R3H6\FormTranslator\Controller\TranslationController:
+    public: true
+
+  extensionconfiguration.form_translator.libreTranslate.api:
+    class: 'string'
+    factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
+    arguments: ['form_translator', 'libreTranslate/api']
+
+  extensionconfiguration.form_translator.libreTranslate.apiKey:
+    class: 'string'
+    factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
+    arguments: ['form_translator', 'libreTranslate/apiKey']
+
+  extensionconfiguration.form_translator.languageFilesDirectory:
+    class: 'string'
+    factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
+    arguments: ['form_translator', 'languageFilesDirectory']
+
+  R3H6\FormTranslator\Service\LibreTranslateTranslationService:
+    arguments:
+      $api: '@extensionconfiguration.form_translator.libreTranslate.api'
+      $apiKey: '@extensionconfiguration.form_translator.libreTranslate.apiKey'
+
+
+  R3H6\FormTranslator\Service\LocalizationService:
+    arguments:
+      $storage: '@extensionconfiguration.form_translator.languageFilesDirectory'
+
+  R3H6\FormTranslator\Service\TranslationServiceInterface: '@R3H6\FormTranslator\Service\LibreTranslateTranslationService'
+
+
+  TYPO3\CMS\Core\Cache\Frontend\FrontendInterface $l10nCache: '@cache.l10n'
+  cache.l10n:
+    class: 'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface'
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', getCache]
+    arguments: ['l10n']
+
+  R3H6\FormTranslator\Command\CreateXliffCommand:
+    tags:
+      - name: 'console.command'
+        command: 'form:create:xliff'
+        description: 'An example description for a command'
