@@ -17,17 +17,17 @@ class LibreTranslateTranslationService implements TranslationServiceInterface
     /**
      * @var string
      */
-    protected $api;
+    protected $host;
 
     /**
      * @var string
      */
     protected $apiKey;
 
-    public function __construct(RequestFactory $requestFactory, string $api, string $apiKey)
+    public function __construct(RequestFactory $requestFactory, string $host, string $apiKey)
     {
         $this->requestFactory = $requestFactory;
-        $this->api = $api;
+        $this->host = $host;
         $this->apiKey = $apiKey;
     }
 
@@ -38,23 +38,29 @@ class LibreTranslateTranslationService implements TranslationServiceInterface
 
     public function isEnabled(): bool
     {
-        return empty($this->api) === false;
+        return empty($this->host) === false;
     }
 
     public function translate(string $text, SiteLanguage $targetLanguage): string
     {
+        $params = [
+            'q' => $text,
+            'source' => 'auto',
+            'target' => $targetLanguage->getTwoLetterIsoCode(),
+            'format' => 'text',
+        ];
+
+        if ($this->apiKey) {
+            $params['api_key'] = $this->apiKey;
+        }
+
         $additionalOptions = [
             RequestOptions::TIMEOUT => 5,
-            RequestOptions::JSON => [
-                'q' => $text,
-                'source' => 'auto',
-                'target' => $targetLanguage->getTwoLetterIsoCode(),
-                'format' => 'text',
-            ],
+            RequestOptions::JSON => $params,
         ];
 
         /** @var \Psr\Http\Message\ResponseInterface $response */
-        $response = $this->requestFactory->request(rtrim($this->api, '/') . '/translate', 'POST', $additionalOptions);
+        $response = $this->requestFactory->request(rtrim($this->host, '/') . '/translate', 'POST', $additionalOptions);
         if ($response->getStatusCode() !== 200) {
             throw new \RuntimeException($response->getBody(), $response->getStatusCode());
         }

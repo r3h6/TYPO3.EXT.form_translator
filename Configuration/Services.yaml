@@ -10,10 +10,10 @@ services:
   R3H6\FormTranslator\Controller\TranslationController:
     public: true
 
-  extensionconfiguration.form_translator.libreTranslate.api:
+  extensionconfiguration.form_translator.libreTranslate.host:
     class: 'string'
     factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
-    arguments: ['form_translator', 'libreTranslate/api']
+    arguments: ['form_translator', 'libreTranslate/host']
 
   extensionconfiguration.form_translator.libreTranslate.apiKey:
     class: 'string'
@@ -27,7 +27,7 @@ services:
 
   R3H6\FormTranslator\Service\LibreTranslateTranslationService:
     arguments:
-      $api: '@extensionconfiguration.form_translator.libreTranslate.api'
+      $host: '@extensionconfiguration.form_translator.libreTranslate.host'
       $apiKey: '@extensionconfiguration.form_translator.libreTranslate.apiKey'
 
 
@@ -48,7 +48,6 @@ services:
     tags:
       - name: 'console.command'
         command: 'form:create:xliff'
-        description: 'An example description for a command'
 
   R3H6\FormTranslator\EventListener\RemoveEmptyItems:
     tags:
