@@ -14,7 +14,7 @@ final class PathUtility
         if (Typo3PathUtility::isAbsolutePath($path)) {
             return $path;
         }
-        if (Typo3PathUtility::isExtensionPath($path)) {
+        if (static::isExtensionPath($path)) {
             return GeneralUtility::getFileAbsFileName($path);
         }
         if (Typo3PathUtility::isAbsolutePath($basePath)) {
@@ -32,7 +32,7 @@ final class PathUtility
 
     public static function getAbsPathForPersistenceIdentifier(string $persistenceIdentifier): string
     {
-        if (Typo3PathUtility::isExtensionPath($persistenceIdentifier)) {
+        if (static::isExtensionPath($persistenceIdentifier)) {
             return GeneralUtility::getFileAbsFileName($persistenceIdentifier);
         }
 
@@ -44,6 +44,11 @@ final class PathUtility
     public static function makeRelative(string $path): string
     {
         return ltrim(str_replace(Environment::getPublicPath(), '', $path), '/');
+    }
+
+    public static function isExtensionPath(string $path): bool
+    {
+        return str_starts_with($path, 'EXT:');
     }
 
     private function __construct()

@@ -22,6 +22,9 @@ class SiteLanguageConverter extends AbstractTypeConverter
      */
     protected $siteLanguageService;
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function convertFrom($source, string $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null)
     {
         if (MathUtility::canBeInterpretedAsInteger($source)) {

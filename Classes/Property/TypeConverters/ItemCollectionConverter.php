@@ -25,6 +25,9 @@ class ItemCollectionConverter extends AbstractTypeConverter
      */
     protected $priority = 2;
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function convertFrom($source, string $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null)
     {
         $items = new ItemCollection();
