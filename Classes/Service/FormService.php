@@ -105,18 +105,23 @@ class FormService
         return Yaml::parse($content);
     }
 
-    public function addTranslation(string $persistenceIdentifier, string $fileName): void
+    public function addTranslation(string $persistenceIdentifier, string $locallangFile): void
     {
+        $formPath = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
+
+        $locallangFile = (strpos($locallangFile, Environment::getExtensionsPath()) === 0) ?
+            'EXT:' . ltrim(str_replace(Environment::getExtensionsPath(), '', $locallangFile), '/') :
+            ltrim(str_replace(Environment::getPublicPath(), '', $locallangFile), '/');
+
         $form = $this->parseForm($persistenceIdentifier);
         $translationFiles = $form['renderingOptions']['translation']['translationFiles'] ?? [];
-        if (in_array($fileName, $translationFiles)) {
+        if (in_array($locallangFile, $translationFiles)) {
             return;
         }
-        $form['renderingOptions']['translation']['translationFiles'][time()] = $fileName;
+        $form['renderingOptions']['translation']['translationFiles'][time()] = $locallangFile;
         $yaml = Yaml::dump($form, 99, 2);
 
-        $path = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
-        file_put_contents($path, $yaml);
+        file_put_contents($formPath, $yaml);
     }
 
     public function getLocallangFileFromPersistenceIdentifier(string $persistenceIdentifier): string

@@ -42,11 +42,6 @@ final class PathUtility
         return rtrim(Environment::getPublicPath(), '/') . '/' . ltrim($file->getPublicUrl(), '/');
     }
 
-    public static function makeRelative(string $path): string
-    {
-        return ltrim(str_replace(Environment::getPublicPath(), '', $path), '/');
-    }
-
     public static function isExtensionPath(string $path): bool
     {
         return str_starts_with($path, 'EXT:');
