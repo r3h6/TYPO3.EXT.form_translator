@@ -5,7 +5,7 @@ namespace R3H6\FormTranslator\Controller;
 use R3H6\FormTranslator\Service\FormService;
 use R3H6\FormTranslator\Service\LocalizationService;
 use R3H6\FormTranslator\Service\SiteLanguageService;
-use R3H6\FormTranslator\Translation\Items;
+use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
@@ -77,7 +77,7 @@ class FormController extends ActionController
         );
     }
 
-    public function saveAction(string $persistenceIdentifier, SiteLanguage $siteLanguage, Items $items): void
+    public function saveAction(string $persistenceIdentifier, SiteLanguage $siteLanguage, ItemCollection $items): void
     {
         $fileName = $this->localizationService->saveXliff($persistenceIdentifier, $siteLanguage, $items);
         $this->formService->addTranslation($persistenceIdentifier, $fileName);

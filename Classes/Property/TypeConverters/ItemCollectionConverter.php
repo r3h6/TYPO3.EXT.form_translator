@@ -3,7 +3,7 @@
 namespace R3H6\FormTranslator\Property\TypeConverters;
 
 use R3H6\FormTranslator\Translation\Item;
-use R3H6\FormTranslator\Translation\Items;
+use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
@@ -18,7 +18,7 @@ class ItemCollectionConverter extends AbstractTypeConverter
     /**
      * @var string
      */
-    protected $targetType = Items::class;
+    protected $targetType = ItemCollection::class;
 
     /**
      * @var int
@@ -27,7 +27,7 @@ class ItemCollectionConverter extends AbstractTypeConverter
 
     public function convertFrom($source, string $targetType, array $convertedChildProperties = [], ?PropertyMappingConfigurationInterface $configuration = null)
     {
-        $items = new Items();
+        $items = new ItemCollection();
         foreach ($source as $sourceItem) {
             $item = new Item($sourceItem['identifier']);
             $item->setSource($sourceItem['source']);

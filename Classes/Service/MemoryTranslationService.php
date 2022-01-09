@@ -2,7 +2,7 @@
 
 namespace R3H6\FormTranslator\Service;
 
-use R3H6\FormTranslator\Translation\Items;
+use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 
 class MemoryTranslationService implements TranslationServiceInterface
@@ -30,7 +30,7 @@ class MemoryTranslationService implements TranslationServiceInterface
     public function translate(string $text, SiteLanguage $targetLanguage): string
     {
         $forms = $this->formService->listForms();
-        $items = new Items();
+        $items = new ItemCollection();
         foreach ($forms as $form) {
             $this->formService->getTranslation($items, $form['persistenceIdentifier'], $targetLanguage);
         }

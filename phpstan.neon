@@ -1,8 +1,10 @@
 includes:
-	- .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
+    - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
 
 parameters:
-	level: 7
-	checkMissingIterableValueType: false
-	paths:
-		- Classes/
+    level: 7
+    checkMissingIterableValueType: false
+    paths:
+        - Classes/
+    ignoreErrors:
+        - '#Method R3H6\\FormTranslator\\Command\\CreateXliffCommand::configure\(\) has no return type specified\.#'

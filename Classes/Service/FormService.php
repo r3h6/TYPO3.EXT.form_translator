@@ -4,7 +4,7 @@ namespace R3H6\FormTranslator\Service;
 
 use R3H6\FormTranslator\Parser\FormDefinitionLabelsParser;
 use R3H6\FormTranslator\Translation\Item;
-use R3H6\FormTranslator\Translation\Items;
+use R3H6\FormTranslator\Translation\ItemCollection;
 use R3H6\FormTranslator\Utility\PathUtility;
 use Symfony\Component\Yaml\Yaml;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
@@ -35,7 +35,7 @@ class FormService
         $this->formPersistenceManager = $formPersistenceManager;
     }
 
-    public function getItems(string $persistenceIdentifier, SiteLanguage $siteLanguage): Items
+    public function getItems(string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
     {
         $items = $this->extractLabels($persistenceIdentifier);
 
@@ -49,9 +49,9 @@ class FormService
         return $this->formPersistenceManager->listForms();
     }
 
-    public function extractLabels(string $persistenceIdentifier): Items
+    public function extractLabels(string $persistenceIdentifier): ItemCollection
     {
-        $items = new Items();
+        $items = new ItemCollection();
         $form = $this->parseForm($persistenceIdentifier);
         foreach ($this->formDefinitionLabelsParser->parse($form) as $identifier => $original) {
             $item = new Item($identifier);
@@ -61,7 +61,7 @@ class FormService
         return $items;
     }
 
-    public function getTranslation(Items $items, string $persistenceIdentifier, SiteLanguage $siteLanguage): Items
+    public function getTranslation(ItemCollection $items, string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
     {
         $form = $this->parseForm($persistenceIdentifier);
         $dir = dirname(PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier));

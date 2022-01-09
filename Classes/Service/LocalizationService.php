@@ -2,7 +2,7 @@
 
 namespace R3H6\FormTranslator\Service;
 
-use R3H6\FormTranslator\Translation\Items;
+use R3H6\FormTranslator\Translation\ItemCollection;
 use R3H6\FormTranslator\Utility\PathUtility;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
@@ -28,7 +28,7 @@ class LocalizationService
         $this->storage = $storage;
     }
 
-    public function saveXliff(string $persistenceIdentifier, SiteLanguage $siteLanguage, Items $items): string
+    public function saveXliff(string $persistenceIdentifier, SiteLanguage $siteLanguage, ItemCollection $items): string
     {
         $languagePrefix = $siteLanguage->getTypo3Language() === 'default' ? '' : $siteLanguage->getTypo3Language() . '.';
 

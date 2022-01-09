@@ -5,7 +5,7 @@ namespace R3H6\FormTranslator\Translation;
 /**
  * @implements \IteratorAggregate<Item>
  */
-final class Items implements \IteratorAggregate, \Countable
+final class ItemCollection implements \IteratorAggregate, \Countable
 {
     /**
      * @var Item[]
