@@ -4,6 +4,7 @@ namespace R3H6\FormTranslator\Parser;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use R3H6\FormTranslator\Event\AfterParseFormEvent;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FormDefinitionLabelsParser
 {
@@ -32,6 +33,10 @@ class FormDefinitionLabelsParser
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
+
+        if (!class_exists('Flow\\JSONPath\\JSONPath')) {
+            require_once 'phar://' . GeneralUtility::getFileAbsFileName('EXT:form_translator/Resources/Private/Php/jsonpath.phar') . '/vendor/autoload.php';
+        }
     }
 
     public function parse(array $form): array
