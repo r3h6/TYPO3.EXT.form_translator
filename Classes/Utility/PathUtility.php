@@ -36,8 +36,9 @@ final class PathUtility
             return GeneralUtility::getFileAbsFileName($persistenceIdentifier);
         }
 
+        /** @var ResourceFactory $resourceFactory */
         $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
-        $file = $resourceFactory->getFileObjectFromCombinedIdentifier($persistenceIdentifier);
+        $file = $resourceFactory->getObjectFromCombinedIdentifier($persistenceIdentifier);
         return rtrim(Environment::getPublicPath(), '/') . '/' . ltrim($file->getPublicUrl(), '/');
     }
 

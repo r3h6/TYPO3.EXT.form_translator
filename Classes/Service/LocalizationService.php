@@ -3,41 +3,22 @@
 namespace R3H6\FormTranslator\Service;
 
 use R3H6\FormTranslator\Translation\ItemCollection;
-use R3H6\FormTranslator\Utility\PathUtility;
 use TYPO3\CMS\Core\Http\Uri;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class LocalizationService
 {
-    /**
-     * @var ResourceFactory
-     */
-    protected $resourceFactory;
-
-    /**
-     * @var string
-     */
-    protected $storage;
-
-    public function __construct(ResourceFactory $resourceFactory, string $storage)
+    public function saveXliff(string $locallangFile, SiteLanguage $siteLanguage, ItemCollection $items): void
     {
-        $this->resourceFactory = $resourceFactory;
-        $this->storage = $storage;
-    }
+        $originalFile = $locallangFile;
+        $locallangDir = dirname($locallangFile);
+        if ($siteLanguage->getTypo3Language() !== 'default') {
+            $locallangFile = $locallangDir . '/' . $siteLanguage->getTypo3Language() . '.' . basename($locallangFile);
+        }
 
-    public function saveXliff(string $persistenceIdentifier, SiteLanguage $siteLanguage, ItemCollection $items): string
-    {
-        $languagePrefix = $siteLanguage->getTypo3Language() === 'default' ? '' : $siteLanguage->getTypo3Language() . '.';
-
-        $formPath = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
-        $storage = PathUtility::makeAbsolute($this->storage, dirname($formPath));
-        $fileName = rtrim($storage, '/') . '/' . $languagePrefix . basename($formPath, '.form.yaml') . '.xlf';
-        $originalFile = rtrim($storage, '/') . '/' . basename($formPath, '.form.yaml') . '.xlf';
-
-        GeneralUtility::mkdir_deep($storage);
+        GeneralUtility::mkdir_deep($locallangDir);
 
         if (!file_exists($originalFile)) {
             file_put_contents($originalFile, $this->renderXliff([
@@ -47,13 +28,11 @@ class LocalizationService
             ]));
         }
 
-        file_put_contents($fileName, $this->renderXliff([
+        file_put_contents($locallangFile, $this->renderXliff([
             'items' => $items,
             'siteLanguage' => $siteLanguage,
             'originalFile' => $originalFile,
         ]));
-
-        return PathUtility::makeRelative($originalFile);
     }
 
     public function renderXliff(array $variables): string

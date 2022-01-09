@@ -7,6 +7,7 @@ use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
 use R3H6\FormTranslator\Utility\PathUtility;
 use Symfony\Component\Yaml\Yaml;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
@@ -28,11 +29,21 @@ class FormService
      */
     protected $formPersistenceManager;
 
-    public function __construct(FormDefinitionLabelsParser $formDefinitionLabelsParser, LocalizationFactory $localizationFactory, FormPersistenceManagerInterface $formPersistenceManager)
-    {
+    /**
+     * @var string
+     */
+    protected $locallangPath;
+
+    public function __construct(
+        FormDefinitionLabelsParser $formDefinitionLabelsParser,
+        LocalizationFactory $localizationFactory,
+        FormPersistenceManagerInterface $formPersistenceManager,
+        string $locallangPath
+    ) {
         $this->formDefinitionLabelsParser = $formDefinitionLabelsParser;
         $this->localizationFactory = $localizationFactory;
         $this->formPersistenceManager = $formPersistenceManager;
+        $this->locallangPath = $locallangPath;
     }
 
     public function getItems(string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
@@ -106,5 +117,30 @@ class FormService
 
         $path = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
         file_put_contents($path, $yaml);
+    }
+
+    public function getLocallangFileFromPersistenceIdentifier(string $persistenceIdentifier): string
+    {
+        $formPath = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
+        $storage = PathUtility::makeAbsolute($this->locallangPath, dirname($formPath));
+        if (false === $this->isWritable($persistenceIdentifier)) {
+            $storageIdentifier = (string)array_key_first($this->formPersistenceManager->getAccessibleFormStorageFolders());
+            $storage = PathUtility::getAbsPathForPersistenceIdentifier($storageIdentifier);
+        }
+
+        return rtrim($storage, '/') . '/' . basename($formPath, '.form.yaml') . '.xlf';
+    }
+
+    public function isWritable(string $persistenceIdentifier): bool
+    {
+        if (Environment::getContext()->isDevelopment()) {
+            return true;
+        }
+        foreach ($this->formPersistenceManager->listForms() as $form) {
+            if ($form['persistenceIdentifier'] === $persistenceIdentifier && $form['readOnly'] === false) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -2,8 +2,16 @@
 
 namespace R3H6\FormTranslator\Parser;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
+use R3H6\FormTranslator\Event\AfterParseFormEvent;
+
 class FormDefinitionLabelsParser
 {
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected $dispatcher;
+
     /**
      * @var array<string, string>
      */
@@ -20,6 +28,11 @@ class FormDefinitionLabelsParser
         '$.renderable.properties.elementDescription' => '<form-identifier>.element.<element-identifier>.properties.elementDescription',
         '$.renderable.properties.prependOptionLabel' => '<form-identifier>.element.<element-identifier>.properties.prependOptionLabel',
     ];
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
 
     public function parse(array $form): array
     {
@@ -69,6 +82,8 @@ class FormDefinitionLabelsParser
         //     $items[$id] = '';
         // }
 
-        return $items;
+        $event = new AfterParseFormEvent($items);
+        $this->dispatcher->dispatch($event);
+        return $event->getItems();
     }
 }

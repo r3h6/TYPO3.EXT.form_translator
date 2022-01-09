@@ -1,0 +1,8 @@
+TYPO3:
+  CMS:
+    Form:
+      persistenceManager:
+        allowedExtensionPaths:
+          10: EXT:form_translator/Tests/Unit/Fixtures/Form
+        allowSaveToExtensionPaths: false
+        allowDeleteFromExtensionPaths: false

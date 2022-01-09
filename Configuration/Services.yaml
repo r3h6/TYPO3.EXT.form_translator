@@ -31,9 +31,9 @@ services:
       $apiKey: '@extensionconfiguration.form_translator.libreTranslate.apiKey'
 
 
-  R3H6\FormTranslator\Service\LocalizationService:
+  R3H6\FormTranslator\Service\FormService:
     arguments:
-      $storage: '@extensionconfiguration.form_translator.languageFilesDirectory'
+      $locallangPath: '@extensionconfiguration.form_translator.languageFilesDirectory'
 
   R3H6\FormTranslator\Service\TranslationServiceInterface: '@R3H6\FormTranslator\Service\LibreTranslateTranslationService'
 
@@ -49,3 +49,9 @@ services:
       - name: 'console.command'
         command: 'form:create:xliff'
         description: 'An example description for a command'
+
+  R3H6\FormTranslator\EventListener\RemoveEmptyItems:
+    tags:
+      - name: event.listener
+        identifier: 'form_translator.removeEmptyItems'
+        event: R3H6\FormTranslator\Event\AfterParseFormEvent

@@ -79,10 +79,13 @@ class FormController extends ActionController
 
     public function saveAction(string $persistenceIdentifier, SiteLanguage $siteLanguage, ItemCollection $items): void
     {
-        $fileName = $this->localizationService->saveXliff($persistenceIdentifier, $siteLanguage, $items);
-        $this->formService->addTranslation($persistenceIdentifier, $fileName);
+        $locallangFile = $this->formService->getLocallangFileFromPersistenceIdentifier($persistenceIdentifier);
+        $this->localizationService->saveXliff($locallangFile, $siteLanguage, $items);
+        $this->addFlashMessage('Saved translation to ' . $locallangFile);
+        if ($this->formService->isWritable($persistenceIdentifier)) {
+            $this->formService->addTranslation($persistenceIdentifier, $locallangFile);
+        }
         $this->l10nCache->flush();
-        $this->addFlashMessage('Saved translation to ' . $fileName);
         $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'siteLanguage' => $siteLanguage->getLanguageId()]);
     }
 
