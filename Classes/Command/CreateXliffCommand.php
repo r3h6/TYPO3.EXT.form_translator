@@ -29,7 +29,7 @@ class CreateXliffCommand extends Command
         $this
             ->setDescription('Prints an xliff file with all found sources for a given form.')
             ->addArgument('formIdentifier', InputArgument::REQUIRED, 'Path to *.form.yaml file.')
-            ->addOption('output', 'O', InputOption::VALUE_OPTIONAL, 'Save output to file')
+            ->addOption('output', 'O', InputOption::VALUE_OPTIONAL, 'Save output to a file')
         ;
     }
 

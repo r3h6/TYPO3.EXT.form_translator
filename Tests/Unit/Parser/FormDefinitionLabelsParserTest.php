@@ -41,21 +41,21 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsPrependOptionLabel()
-    {
-        $result = $this->subject->parse($this->form);
-        self::assertArrayHasKey('test.element.singleselect-1.properties.prependOptionLabel', $result);
-        self::assertSame('First option', $result['test.element.singleselect-1.properties.prependOptionLabel']);
-    }
-
-    /**
-     * @test
-     */
     public function resultContainsLabelFromText2()
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.element.text-2.properties.label', $result);
         self::assertSame('Text in grid', $result['test.element.text-2.properties.label']);
+    }
+
+    /**
+     * @test
+     */
+    public function resultContainsPrependOptionLabel()
+    {
+        $result = $this->subject->parse($this->form);
+        self::assertArrayHasKey('test.element.singleselect-1.properties.prependOptionLabel', $result);
+        self::assertSame('First option', $result['test.element.singleselect-1.properties.prependOptionLabel']);
     }
 
     /**
@@ -68,5 +68,67 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
         self::assertSame('Option A', $result['test.element.singleselect-1.properties.options.a']);
         self::assertArrayHasKey('test.element.singleselect-1.properties.options.b', $result);
         self::assertSame('Option B', $result['test.element.singleselect-1.properties.options.b']);
+    }
+
+    /**
+     * @test
+     */
+    public function resultContainsEmailToSenderLabels()
+    {
+        $result = $this->subject->parse($this->form);
+        self::assertArrayHasKey('test.finisher.EmailToSender.subject', $result);
+        self::assertSame('Subject', $result['test.finisher.EmailToSender.subject']);
+        self::assertArrayHasKey('test.finisher.EmailToSender.title', $result);
+        self::assertSame('Fluid email title', $result['test.finisher.EmailToSender.title']);
+        self::assertArrayHasKey('test.finisher.EmailToSender.senderName', $result);
+        self::assertSame('Test', $result['test.finisher.EmailToSender.senderName']);
+    }
+
+    /**
+     * @test
+     */
+    public function resultContainsEmailToReceiverLabels()
+    {
+        $result = $this->subject->parse($this->form);
+        self::assertArrayHasKey('test.finisher.EmailToReceiver.subject', $result);
+        self::assertSame('Subject', $result['test.finisher.EmailToReceiver.subject']);
+        self::assertArrayHasKey('test.finisher.EmailToReceiver.title', $result);
+        self::assertSame('Fluid email title', $result['test.finisher.EmailToReceiver.title']);
+        self::assertArrayHasKey('test.finisher.EmailToReceiver.senderName', $result);
+        self::assertSame('Test', $result['test.finisher.EmailToReceiver.senderName']);
+    }
+
+    /**
+     * @test
+     */
+    public function resultContainsConfirmationMessage()
+    {
+        $result = $this->subject->parse($this->form);
+        self::assertArrayHasKey('test.finisher.Confirmation.message', $result);
+        self::assertSame('Confirmation message', $result['test.finisher.Confirmation.message']);
+    }
+
+    /**
+     * @test
+     */
+    public function resultContainsStaticText()
+    {
+        $result = $this->subject->parse($this->form);
+        self::assertArrayHasKey('test.element.statictext-1.properties.text', $result);
+        self::assertSame('Lorem ipsum dolores...', $result['test.element.statictext-1.properties.text']);
+    }
+
+    /**
+     * @test
+     */
+    public function resultContainsStandardFields()
+    {
+        $result = $this->subject->parse($this->form);
+        self::assertArrayHasKey('test.element.text-1.properties.label', $result);
+        self::assertSame('Text', $result['test.element.text-1.properties.label']);
+        self::assertArrayHasKey('test.element.text-1.properties.placeholder', $result);
+        self::assertSame('Text placeholder', $result['test.element.text-1.properties.placeholder']);
+        self::assertArrayHasKey('test.element.text-1.properties.elementDescription', $result);
+        self::assertSame('Text description', $result['test.element.text-1.properties.elementDescription']);
     }
 }
