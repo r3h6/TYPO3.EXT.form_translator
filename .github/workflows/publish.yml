@@ -33,7 +33,7 @@ jobs:
           readonly local comment=$(git tag -n10 -l ${{ steps.get-version.outputs.version }} | sed "s/^[0-9.]*[ ]*//g")
 
           if [[ -z "${comment// }" ]]; then
-            echo ::set-output name=comment::Released version ${{ steps.get-version.outputs.version }} of form_typolink_checkbox
+            echo ::set-output name=comment::Released version ${{ steps.get-version.outputs.version }} of form_translator
           else
             echo ::set-output name=comment::$comment
           fi
