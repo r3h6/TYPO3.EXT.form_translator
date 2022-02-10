@@ -14,6 +14,8 @@ use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class FormService
 {
+    protected const TRANSLATION_FILE_KEY = 99;
+
     /**
      * @var FormDefinitionLabelsParser
      */
@@ -75,7 +77,7 @@ class FormService
     public function getTranslation(ItemCollection $items, string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
     {
         $form = $this->parseForm($persistenceIdentifier);
-        $dir = dirname(PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier));
+        $dir = Environment::getPublicPath();
         $localLanguage = [];
         $translationFiles = $form['renderingOptions']['translation']['translationFiles'] ?? [];
         foreach ($translationFiles as $translationFile) {
@@ -95,9 +97,15 @@ class FormService
         return $items;
     }
 
+    public function getTitle(string $persistenceIdentifier): string
+    {
+        $form = $this->parseForm($persistenceIdentifier);
+        return $form['label'] ?? 'Undefined';
+    }
+
     public function parseForm(string $persistenceIdentifier): array
     {
-        $path = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
+        $path = PathUtility::makeAbsolute($persistenceIdentifier);
         $content = file_get_contents($path);
         if ($content === false) {
             throw new \RuntimeException('Could not read file', 1641680505885);
@@ -105,10 +113,9 @@ class FormService
         return Yaml::parse($content);
     }
 
-    public function addTranslation(string $persistenceIdentifier, string $locallangFile): void
+    public function addTranslationFile(string $persistenceIdentifier, string $locallangFile): void
     {
-        $formPath = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
-
+        // Normalize locallang path
         $locallangFile = (strpos($locallangFile, Environment::getExtensionsPath()) === 0) ?
             'EXT:' . ltrim(str_replace(Environment::getExtensionsPath(), '', $locallangFile), '/') :
             ltrim(str_replace(Environment::getPublicPath(), '', $locallangFile), '/');
@@ -118,19 +125,26 @@ class FormService
         if (in_array($locallangFile, $translationFiles)) {
             return;
         }
-        $form['renderingOptions']['translation']['translationFiles'][time()] = $locallangFile;
+        $form['renderingOptions']['translation']['translationFiles'][self::TRANSLATION_FILE_KEY] = $locallangFile;
         $yaml = Yaml::dump($form, 99, 2);
 
+        $formPath = PathUtility::makeAbsolute($persistenceIdentifier);
         file_put_contents($formPath, $yaml);
     }
 
     public function getLocallangFileFromPersistenceIdentifier(string $persistenceIdentifier): string
     {
-        $formPath = PathUtility::getAbsPathForPersistenceIdentifier($persistenceIdentifier);
+        $form = $this->parseForm($persistenceIdentifier);
+        $translationFile = $form['renderingOptions']['translation']['translationFiles'][self::TRANSLATION_FILE_KEY] ?? null;
+        if ($translationFile !== null) {
+            return PathUtility::makeAbsolute($translationFile, Environment::getPublicPath());
+        }
+
+        $formPath = PathUtility::makeAbsolute($persistenceIdentifier);
         $storage = PathUtility::makeAbsolute($this->locallangPath, dirname($formPath));
         if (false === $this->isWritable($persistenceIdentifier)) {
             $storageIdentifier = (string)array_key_first($this->formPersistenceManager->getAccessibleFormStorageFolders());
-            $storage = PathUtility::getAbsPathForPersistenceIdentifier($storageIdentifier);
+            $storage = PathUtility::makeAbsolute($storageIdentifier);
         }
 
         return rtrim($storage, '/') . '/' . basename($formPath, '.form.yaml') . '.xlf';

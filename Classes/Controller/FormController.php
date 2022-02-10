@@ -8,12 +8,19 @@ use R3H6\FormTranslator\Service\SiteLanguageService;
 use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class FormController extends ActionController
 {
     /**
@@ -47,15 +54,28 @@ class FormController extends ActionController
     {
         $this->view->assign('siteLanguages', $this->siteLanguageService->findAll());
         $this->view->assign('forms', $this->formService->listForms());
+
+        $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
+        $this->addReloadButtonToButtonBar($buttonBar);
+        $this->addShortcutButtonToButtonBar($buttonBar, LocalizationUtility::translate('mod.title.index', 'FormTranslator'));
     }
 
     public function localizeAction(string $persistenceIdentifier, SiteLanguage $siteLanguage): void
     {
+        $docTitle = LocalizationUtility::translate('mod.title.localize', 'FormTranslator', [
+            $this->formService->getTitle($persistenceIdentifier),
+            $siteLanguage->getTitle(),
+        ]);
+
+        $this->view->assign('docTitle', $docTitle);
         $this->view->assign('items', $this->formService->getItems($persistenceIdentifier, $siteLanguage));
         $this->view->assign('siteLanguage', $siteLanguage);
         $this->view->assign('persistenceIdentifier', $persistenceIdentifier);
 
         $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
+        $this->addReloadButtonToButtonBar($buttonBar);
+        $this->addShortcutButtonToButtonBar($buttonBar, $docTitle);
+
         $buttonBar->addButton(
             $buttonBar->makeLinkButton()
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:close'))
@@ -83,7 +103,7 @@ class FormController extends ActionController
         $this->localizationService->saveXliff($locallangFile, $siteLanguage, $items);
         $this->addFlashMessage('Saved translation to ' . $locallangFile);
         if ($this->formService->isWritable($persistenceIdentifier)) {
-            $this->formService->addTranslation($persistenceIdentifier, $locallangFile);
+            $this->formService->addTranslationFile($persistenceIdentifier, $locallangFile);
         }
         $this->l10nCache->flush();
         $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'siteLanguage' => $siteLanguage->getLanguageId()]);
@@ -112,5 +132,40 @@ class FormController extends ActionController
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
+    }
+
+    protected function getBackendUser(): BackendUserAuthentication
+    {
+        return $GLOBALS['BE_USER'];
+    }
+
+    protected function addReloadButtonToButtonBar(ButtonBar $buttonBar): void
+    {
+        $buttonBar->addButton(
+            $buttonBar->makeLinkButton()
+                ->setHref(GeneralUtility::getIndpEnv('REQUEST_URI'))
+                ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
+                ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-refresh', Icon::SIZE_SMALL)),
+            ButtonBar::BUTTON_POSITION_RIGHT,
+            1
+        );
+    }
+
+    protected function addShortcutButtonToButtonBar(ButtonBar $buttonBar, string $title): void
+    {
+        $mayMakeShortcut = $this->getBackendUser()->mayMakeShortcut();
+        if ($mayMakeShortcut) {
+            $uri = new Uri(GeneralUtility::getIndpEnv('REQUEST_URI'));
+            $queryParams = [];
+            parse_str($uri->getQuery(), $queryParams);
+            $getVars = array_diff(array_keys($queryParams), ['token']);
+
+            $moduleName = $this->controllerContext->getRequest()->getPluginName();
+            $shortcutButton = $buttonBar->makeShortcutButton()
+                ->setModuleName($moduleName)
+                ->setDisplayName($title)
+                ->setGetVariables($getVars);
+            $buttonBar->addButton($shortcutButton, ButtonBar::BUTTON_POSITION_RIGHT);
+        }
     }
 }

@@ -13,6 +13,21 @@ If you like use machine translation by [LibreTranslate](https://libretranslate.c
 you must only configure a api host in the extension configuration.
 See available [mirrors](https://github.com/LibreTranslate/LibreTranslate#mirrors).
 
+## How it works
+
+The extensions adds a translation file path to the *.form.yaml file when localize through the backend module.
+```yaml
+# example.form.yaml
+renderingOptions:
+  translation:
+    translationFiles:
+      99: fileadmin/form_definitions/l10n/example.xlf
+```
+
+## Known issues
+
+1. Localization of error messages is not possible
+
 ## Develpment/Contribution
 
 Pull request are welcome!

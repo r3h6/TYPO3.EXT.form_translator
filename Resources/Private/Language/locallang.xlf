@@ -6,6 +6,9 @@
 			<trans-unit id="mod.title.index">
 				<source>Form Localization</source>
 			</trans-unit>
+			<trans-unit id="mod.title.localize">
+				<source>Localize form "%s" to %s</source>
+			</trans-unit>
 			<trans-unit id="language.original">
 				<source>Original (Form)</source>
 			</trans-unit>

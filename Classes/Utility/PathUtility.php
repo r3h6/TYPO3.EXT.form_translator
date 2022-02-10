@@ -17,29 +17,23 @@ final class PathUtility
         if (static::isExtensionPath($path)) {
             return GeneralUtility::getFileAbsFileName($path);
         }
+        if (preg_match('/[0-9]+\:.+/', $path)) {
+            /** @var ResourceFactory $resourceFactory */
+            $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
+            $file = $resourceFactory->getObjectFromCombinedIdentifier($path);
+            return rtrim(Environment::getPublicPath(), '/') . '/' . ltrim($file->getPublicUrl(), '/');
+        }
         if (Typo3PathUtility::isAbsolutePath($basePath)) {
             if (!class_exists('Symfony\\Component\\Filesystem\\Path')) {
                 require_once GeneralUtility::getFileAbsFileName('EXT:form_translator/Resources/Private/Php/Path.php');
             }
-            return \Symfony\Component\Filesystem\Path::canonicalize(rtrim($basePath, '/') . '/' . $path);
+            return \Symfony\Component\Filesystem\Path::makeAbsolute($path, $basePath);
         }
         $absPath = GeneralUtility::getFileAbsFileName($path);
         if ($absPath === '') {
             throw new \InvalidArgumentException('Could not make path "' . $path . '" absolute', 1641503695577);
         }
         return $absPath;
-    }
-
-    public static function getAbsPathForPersistenceIdentifier(string $persistenceIdentifier): string
-    {
-        if (static::isExtensionPath($persistenceIdentifier)) {
-            return GeneralUtility::getFileAbsFileName($persistenceIdentifier);
-        }
-
-        /** @var ResourceFactory $resourceFactory */
-        $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
-        $file = $resourceFactory->getObjectFromCombinedIdentifier($persistenceIdentifier);
-        return rtrim(Environment::getPublicPath(), '/') . '/' . ltrim($file->getPublicUrl(), '/');
     }
 
     public static function isExtensionPath(string $path): bool
