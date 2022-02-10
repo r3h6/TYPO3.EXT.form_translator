@@ -34,8 +34,8 @@ jobs:
       - name: PHPStan
         run: ./Build/Scripts/runTests.sh composer ci:php:stan
 
-      - name: PHP Mess Detector
-        run: ./Build/Scripts/runTests.sh composer ci:php:md
+      # - name: PHP Mess Detector
+      #   run: ./Build/Scripts/runTests.sh composer ci:php:md
 
       - name: Unit tests
         run: ./Build/Scripts/runTests.sh unit
