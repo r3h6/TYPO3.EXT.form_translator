@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2022-05-21T18:31:58Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+			<trans-unit id="language.original" approved="yes">
+				<source><![CDATA[Original (from form yaml)]]></source>
+				<target><![CDATA[Original (aus Formular Yaml)]]></target>
+			</trans-unit>
+			<trans-unit id="mod.title.index" approved="yes">
+				<source><![CDATA[Form Localization]]></source>
+				<target><![CDATA[Formular Übersetzungen]]></target>
+			</trans-unit>
+			<trans-unit id="mod.title.localize" approved="yes">
+				<source><![CDATA[Localize form "%s" to %s]]></source>
+				<target><![CDATA[Übersetze Formular "%s" nach %s]]></target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

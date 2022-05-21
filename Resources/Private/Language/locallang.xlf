@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:form_translator/Resources/Private/Language/locallang.xlf" date="2021-12-28T19:37:26Z" product-name="form_translator">
-		<header/>
+	<file source-language="en" datatype="plaintext" original="messages" date="2022-05-21T18:31:58Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
 		<body>
+			<trans-unit id="language.original">
+				<source><![CDATA[Original (from form yaml)]]></source>
+			</trans-unit>
 			<trans-unit id="mod.title.index">
-				<source>Form Localization</source>
+				<source><![CDATA[Form Localization]]></source>
 			</trans-unit>
 			<trans-unit id="mod.title.localize">
-				<source>Localize form "%s" to %s</source>
-			</trans-unit>
-			<trans-unit id="language.original">
-				<source>Original (Form)</source>
+				<source><![CDATA[Localize form "%s" to %s]]></source>
 			</trans-unit>
 		</body>
 	</file>
