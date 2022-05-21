@@ -141,9 +141,11 @@ class FormController extends ActionController
 
     protected function addReloadButtonToButtonBar(ButtonBar $buttonBar): void
     {
+        /** @var string $requestUri */
+        $requestUri = GeneralUtility::getIndpEnv('REQUEST_URI');
         $buttonBar->addButton(
             $buttonBar->makeLinkButton()
-                ->setHref(GeneralUtility::getIndpEnv('REQUEST_URI'))
+                ->setHref($requestUri)
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
                 ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-refresh', Icon::SIZE_SMALL)),
             ButtonBar::BUTTON_POSITION_RIGHT,
@@ -155,7 +157,9 @@ class FormController extends ActionController
     {
         $mayMakeShortcut = $this->getBackendUser()->mayMakeShortcut();
         if ($mayMakeShortcut) {
-            $uri = new Uri(GeneralUtility::getIndpEnv('REQUEST_URI'));
+            /** @var string $requestUri */
+            $requestUri = GeneralUtility::getIndpEnv('REQUEST_URI');
+            $uri = new Uri($requestUri);
             $queryParams = [];
             parse_str($uri->getQuery(), $queryParams);
             $getVars = array_diff(array_keys($queryParams), ['token']);
