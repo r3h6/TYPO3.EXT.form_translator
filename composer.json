@@ -1,7 +1,7 @@
 {
 	"name": "r3h6/form-translator",
 	"type": "typo3-cms-extension",
-	"description": "Backend module for translate forms.",
+	"description": "Provides a backend module and cli for translating forms.",
 	"authors": [
 		{
 			"name": "R3 H6",
