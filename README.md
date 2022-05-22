@@ -18,7 +18,7 @@ Either from TYPO3 TER or through composer `$ composer req r3h6/form-translator`.
 ## Integration
 
 If you like use machine translation by [LibreTranslate](https://libretranslate.com/)
-you must only configure a api host in the extension configuration.
+you must only configure an api host in the extension configuration.
 See available [mirrors](https://github.com/LibreTranslate/LibreTranslate#mirrors).
 
 ## How it works
