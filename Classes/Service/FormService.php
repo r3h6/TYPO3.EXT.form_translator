@@ -85,7 +85,7 @@ class FormService
             $localLanguage = array_replace_recursive($localLanguage, $this->localizationFactory->getParsedData($path, $siteLanguage->getTypo3Language()));
         }
 
-        if (is_array($localLanguage[$siteLanguage->getTypo3Language()])) {
+        if (array_key_exists($siteLanguage->getTypo3Language(), $localLanguage) && is_array($localLanguage[$siteLanguage->getTypo3Language()])) {
             foreach ($localLanguage[$siteLanguage->getTypo3Language()] as $identifier => $values) {
                 $item = $items->getItem($identifier) ?? new Item($identifier);
                 $item->setSource($values[0]['source']);
@@ -142,7 +142,7 @@ class FormService
 
         $formPath = PathUtility::makeAbsolute($persistenceIdentifier);
         $storage = PathUtility::makeAbsolute($this->locallangPath, dirname($formPath));
-        if (false === $this->isWritable($persistenceIdentifier)) {
+        if ($this->isWritable($persistenceIdentifier) === false) {
             $storageIdentifier = (string)array_key_first($this->formPersistenceManager->getAccessibleFormStorageFolders());
             $storage = PathUtility::makeAbsolute($storageIdentifier);
         }

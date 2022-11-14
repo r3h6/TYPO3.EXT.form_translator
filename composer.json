@@ -13,10 +13,10 @@
 		"typo3/cms-core": "^10.4 || ^11.5",
 		"typo3/cms-form": "^10.4 || ^11.5",
 		"softcreatr/jsonpath": "^0.7.5",
-		"php": ">= 7.2, < 8.1"
+		"php": ">= 7.2, < 8.2"
 	},
 	"require-dev": {
-		"typo3/testing-framework": "^6.9.0",
+		"typo3/testing-framework": "^6.16.0",
 		"saschaegerer/phpstan-typo3": "^1.0",
 		"friendsofphp/php-cs-fixer": "^3.3",
 		"helmich/typo3-typoscript-lint": "^2.5",
@@ -39,7 +39,11 @@
 	},
 	"config": {
 		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin"
+		"bin-dir": ".Build/bin",
+		"allow-plugins": {
+			"typo3/cms-composer-installers": true,
+			"typo3/class-alias-loader": true
+		}
 	},
 	"scripts": {
 		"ci:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --using-cache no --diff",
