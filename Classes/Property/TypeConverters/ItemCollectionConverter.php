@@ -9,7 +9,6 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
 class ItemCollectionConverter extends AbstractTypeConverter
 {
-
     /**
      * @var array<string>
      */
