@@ -34,6 +34,7 @@ class FormDefinitionLabelsParser
         '$.renderable.properties.elementDescription' => '<form-identifier>.element.<element-identifier>.properties.elementDescription',
         '$.renderable.properties.prependOptionLabel' => '<form-identifier>.element.<element-identifier>.properties.prependOptionLabel',
         '$.renderable.properties.text' => '<form-identifier>.element.<element-identifier>.properties.text',
+        '$.renderable.properties.linkText' => '<form-identifier>.element.<element-identifier>.properties.linkText',
     ];
 
     public function __construct(EventDispatcherInterface $dispatcher)
