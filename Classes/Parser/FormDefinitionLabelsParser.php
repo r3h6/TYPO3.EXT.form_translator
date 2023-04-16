@@ -48,8 +48,6 @@ class FormDefinitionLabelsParser
     {
         $items = [];
 
-
-
         $json = new JSONPath($form);
         $formIdentifier = $form['identifier'];
 

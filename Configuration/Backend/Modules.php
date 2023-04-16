@@ -1,6 +1,7 @@
 <?php
 
 use R3H6\FormTranslator\Controller\FormController;
+
 return [
     'web_FormTranslator' => [
         'parent' => 'web',
