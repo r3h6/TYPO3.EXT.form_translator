@@ -19,7 +19,7 @@
 		"typo3/testing-framework": "7.x-dev",
 		"saschaegerer/phpstan-typo3": "^1.0",
 		"friendsofphp/php-cs-fixer": "^3.3",
-		"helmich/typo3-typoscript-lint": "^2.5",
+		"helmich/typo3-typoscript-lint": "^3.1",
 		"typo3/coding-standards": "^0.5.0",
 		"phpmd/phpmd": "@stable",
 		"clue/phar-composer": "^1.3",
