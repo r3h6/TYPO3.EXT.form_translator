@@ -16,7 +16,7 @@
 		"php": ">= 7.4, < 8.3"
 	},
 	"require-dev": {
-		"typo3/testing-framework": "^6.16.0",
+		"typo3/testing-framework": "7.x-dev",
 		"saschaegerer/phpstan-typo3": "^1.0",
 		"friendsofphp/php-cs-fixer": "^3.3",
 		"helmich/typo3-typoscript-lint": "^2.5",
