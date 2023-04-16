@@ -5,9 +5,10 @@ return [
     'web_FormTranslator' => [
         'parent' => 'web',
         'position' => ['after' => 'web_FormFormbuilder'],
-        'access' => 'user,group',
+        'access' => 'user',
         'workspaces' => 'live',
         'iconIdentifier' => 'module-web-formtranslator',
+        'inheritNavigationComponentFromMainModule' => false,
         'path' => '/module/web/FormTranslator',
         'labels' => 'LLL:EXT:form_translator/Resources/Private/Language/locallang_translator.xlf',
         'extensionName' => 'FormTranslator',
