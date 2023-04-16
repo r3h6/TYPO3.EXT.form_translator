@@ -66,7 +66,7 @@ class FormController extends ActionController
 
     public function localizeAction(string $persistenceIdentifier, SiteLanguage $siteLanguage): ResponseInterface
     {
-        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/FormTranslator/Mod', null, true); // @todo Migrate to loadJavaScriptModule
+        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/FormTranslator/Mod');
         $this->pageRenderer->addCssFile('EXT:form_translator/Resources/Public/StyleSheets/Mod.css');
 
         $docTitle = LocalizationUtility::translate('mod.title.localize', 'FormTranslator', [

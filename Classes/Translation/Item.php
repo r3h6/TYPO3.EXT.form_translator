@@ -4,15 +4,9 @@ namespace R3H6\FormTranslator\Translation;
 
 final class Item
 {
-    private string $source = '';
-
-    private string $target = '';
-
     private string $identifier;
-
-    /**
-     * @var mixed
-     */
+    private string $source = '';
+    private string $target = '';
     private string $original = '';
 
     public function __construct(string $identifier)
