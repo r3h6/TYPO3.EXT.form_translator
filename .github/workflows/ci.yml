@@ -27,7 +27,7 @@ jobs:
         run: ./Build/Scripts/runTests.sh composer require typo3/cms-core="${TYPO3_VERSION}" --no-suggest
 
       - name: Lint PHP
-        run: ./Build/Scripts/runTests.sh composer ci:php:lint
+        run: PHP_CS_FIXER_IGNORE_ENV=true ./Build/Scripts/runTests.sh composer ci:php:lint
 
       - name: PHP Coding Standards Fixer
         run: ./Build/Scripts/runTests.sh composer ci:php:cs
