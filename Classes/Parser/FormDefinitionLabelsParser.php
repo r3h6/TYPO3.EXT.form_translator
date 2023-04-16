@@ -2,16 +2,14 @@
 
 namespace R3H6\FormTranslator\Parser;
 
+use Flow\JSONPath\JSONPath;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use R3H6\FormTranslator\Event\AfterParseFormEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FormDefinitionLabelsParser
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $dispatcher;
+    protected EventDispatcherInterface $dispatcher;
 
     /**
      * @var array<string, string>
@@ -50,14 +48,16 @@ class FormDefinitionLabelsParser
     {
         $items = [];
 
-        $json = new \Flow\JSONPath\JSONPath($form);
+
+
+        $json = new JSONPath($form);
         $formIdentifier = $form['identifier'];
 
         $items['element.' . $formIdentifier . '.renderingOptions.submitButtonLabel'] = $form['renderingOptions']['submitButtonLabel'];
 
         $finishers = $json->find('..finishers[*]')->getData();
         foreach ($finishers as $finisher) {
-            $sub = new \Flow\JSONPath\JSONPath(['finisher' => $finisher]);
+            $sub = new JSONPath(['finisher' => $finisher]);
             $identifier = $finisher['identifier'];
             foreach ($this->labels as $path => $id) {
                 $value = $sub->find($path)->getData();
@@ -70,7 +70,7 @@ class FormDefinitionLabelsParser
 
         $renderables = $json->find('..renderables[*]')->getData();
         foreach ($renderables as $renderable) {
-            $sub = new \Flow\JSONPath\JSONPath(['renderable' => $renderable]);
+            $sub = new JSONPath(['renderable' => $renderable]);
             $identifier = $renderable['identifier'];
             foreach ($this->labels as $path => $id) {
                 $value = $sub->find($path)->getData();

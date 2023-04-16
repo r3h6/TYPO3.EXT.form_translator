@@ -31,7 +31,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsFormSubmitButtonLabel()
+    public function resultContainsFormSubmitButtonLabel(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('element.test.renderingOptions.submitButtonLabel', $result);
@@ -41,7 +41,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsLabelFromText2()
+    public function resultContainsLabelFromText2(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.element.text-2.properties.label', $result);
@@ -51,7 +51,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsPrependOptionLabel()
+    public function resultContainsPrependOptionLabel(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.element.singleselect-1.properties.prependOptionLabel', $result);
@@ -61,7 +61,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsOptionValues()
+    public function resultContainsOptionValues(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.element.singleselect-1.properties.options.a', $result);
@@ -73,7 +73,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsEmailToSenderLabels()
+    public function resultContainsEmailToSenderLabels(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.finisher.EmailToSender.subject', $result);
@@ -87,7 +87,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsEmailToReceiverLabels()
+    public function resultContainsEmailToReceiverLabels(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.finisher.EmailToReceiver.subject', $result);
@@ -101,7 +101,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsConfirmationMessage()
+    public function resultContainsConfirmationMessage(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.finisher.Confirmation.message', $result);
@@ -111,7 +111,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsStaticText()
+    public function resultContainsStaticText(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.element.statictext-1.properties.text', $result);
@@ -121,7 +121,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
     /**
      * @test
      */
-    public function resultContainsStandardFields()
+    public function resultContainsStandardFields(): void
     {
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.element.text-1.properties.label', $result);

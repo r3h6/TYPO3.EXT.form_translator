@@ -8,8 +8,6 @@ class RemoveEmptyItems
 {
     public function __invoke(AfterParseFormEvent $event): void
     {
-        $event->setItems(array_filter($event->getItems(), function ($value) {
-            return $value !== '';
-        }));
+        $event->setItems(array_filter($event->getItems(), fn($value): bool => $value !== ''));
     }
 }

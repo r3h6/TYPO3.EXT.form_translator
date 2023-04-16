@@ -16,25 +16,13 @@ class FormService
 {
     protected const TRANSLATION_FILE_KEY = 99;
 
-    /**
-     * @var FormDefinitionLabelsParser
-     */
-    protected $formDefinitionLabelsParser;
+    protected FormDefinitionLabelsParser $formDefinitionLabelsParser;
 
-    /**
-     * @var LocalizationFactory
-     */
-    protected $localizationFactory;
+    protected LocalizationFactory $localizationFactory;
 
-    /**
-     * @var FormPersistenceManagerInterface
-     */
-    protected $formPersistenceManager;
+    protected FormPersistenceManagerInterface $formPersistenceManager;
 
-    /**
-     * @var string
-     */
-    protected $locallangPath;
+    protected string $locallangPath;
 
     public function __construct(
         FormDefinitionLabelsParser $formDefinitionLabelsParser,

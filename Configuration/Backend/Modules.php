@@ -1,5 +1,6 @@
 <?php
 
+use R3H6\FormTranslator\Controller\FormController;
 return [
     'web_FormTranslator' => [
         'parent' => 'web',
@@ -11,7 +12,7 @@ return [
         'labels' => 'LLL:EXT:form_translator/Resources/Private/Language/locallang_translator.xlf',
         'extensionName' => 'FormTranslator',
         'controllerActions' => [
-            \R3H6\FormTranslator\Controller\FormController::class => [
+            FormController::class => [
                 'index',
                 'localize',
                 'save',

@@ -2,6 +2,7 @@
 
 namespace R3H6\FormTranslator\Utility;
 
+use Symfony\Component\Filesystem\Path;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -27,7 +28,7 @@ final class PathUtility
             if (!class_exists('Symfony\\Component\\Filesystem\\Path')) {
                 require_once GeneralUtility::getFileAbsFileName('EXT:form_translator/Resources/Private/Php/Path.php');
             }
-            return \Symfony\Component\Filesystem\Path::makeAbsolute($path, $basePath);
+            return Path::makeAbsolute($path, $basePath);
         }
         $absPath = GeneralUtility::getFileAbsFileName($path);
         if ($absPath === '') {
