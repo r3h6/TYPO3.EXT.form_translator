@@ -5,7 +5,6 @@ namespace R3H6\FormTranslator\Tests\Unit\Parser;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use R3H6\FormTranslator\Parser\FormDefinitionLabelsParser;
 use Symfony\Component\Yaml\Yaml;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class FormDefinitionLabelsParserTest extends UnitTestCase
@@ -25,7 +24,7 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
         parent::setUp();
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->subject = new FormDefinitionLabelsParser($dispatcher);
-        $this->form = Yaml::parseFile(GeneralUtility::getFileAbsFileName('EXT:form_translator/Tests/Unit/Fixtures/Form/test.form.yaml'));
+        $this->form = Yaml::parseFile(__DIR__ . '/../Fixtures/Form/test.form.yaml');
     }
 
     /**
