@@ -6,5 +6,4 @@ parameters:
     checkMissingIterableValueType: false
     paths:
         - Classes/
-    ignoreErrors:
-        - '#Method R3H6\\FormTranslator\\Command\\CreateXliffCommand::configure\(\) has no return type specified\.#'
+        - Tests/

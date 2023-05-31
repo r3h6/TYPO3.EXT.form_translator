@@ -24,6 +24,9 @@ class CreateXliffCommand extends Command
      */
     protected $localizationService;
 
+    /**
+     * @phpstan-return void
+     */
     protected function configure()
     {
         $this

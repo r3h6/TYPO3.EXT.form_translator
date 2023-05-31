@@ -15,20 +15,11 @@ class TranslationController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var TranslationServiceInterface
-     */
-    protected $translationService;
+    protected TranslationServiceInterface $translationService;
 
-    /**
-     * @var SiteLanguageService
-     */
-    protected $siteLanguageService;
+    protected SiteLanguageService $siteLanguageService;
 
-    /**
-     * @var MemoryTranslationService
-     */
-    protected $memoryTranslationService;
+    protected MemoryTranslationService $memoryTranslationService;
 
     public function __construct(MemoryTranslationService $memoryTranslationService, TranslationServiceInterface $translationService, SiteLanguageService $siteLanguageService)
     {
