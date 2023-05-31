@@ -10,8 +10,8 @@ jobs:
     strategy:
       matrix:
         env:
-          - { PHP: '8.2', TYPO3_VERSION: ^12.3 }
-          - { PHP: '8.1', TYPO3_VERSION: ^12.3 }
+          - { PHP: '8.2', TYPO3_VERSION: ^12.4 }
+          - { PHP: '8.1', TYPO3_VERSION: ^12.4 }
           - { PHP: '8.2', TYPO3_VERSION: ^11.5 }
           - { PHP: '8.1', TYPO3_VERSION: ^11.5 }
           - { PHP: '8.0', TYPO3_VERSION: ^11.5 }

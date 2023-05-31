@@ -10,8 +10,8 @@
 	],
 	"license": "GPL-2.0-or-later",
 	"require": {
-		"typo3/cms-core": "^11.5 || ^12.3",
-		"typo3/cms-form": "^11.5 || ^12.3",
+		"typo3/cms-core": "^11.5 || ^12.4",
+		"typo3/cms-form": "^11.5 || ^12.4",
 		"softcreatr/jsonpath": "^0.7.5 || ^0.8.2",
 		"php": ">= 7.4, < 8.3"
 	},
