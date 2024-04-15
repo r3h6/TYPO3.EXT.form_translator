@@ -9,38 +9,28 @@ use R3H6\FormTranslator\Utility\PathUtility;
 use Symfony\Component\Yaml\Yaml;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class FormService
 {
     protected const TRANSLATION_FILE_KEY = 99;
 
-    protected FormDefinitionLabelsParser $formDefinitionLabelsParser;
-
-    protected LocalizationFactory $localizationFactory;
-
-    protected FormPersistenceManagerInterface $formPersistenceManager;
-
     protected string $locallangPath;
 
     public function __construct(
-        FormDefinitionLabelsParser $formDefinitionLabelsParser,
-        LocalizationFactory $localizationFactory,
-        FormPersistenceManagerInterface $formPersistenceManager,
+        readonly FormDefinitionLabelsParser $formDefinitionLabelsParser,
+        readonly LocalizationFactory $localizationFactory,
+        readonly FormPersistenceManagerInterface $formPersistenceManager,
         string $locallangPath
     ) {
-        $this->formDefinitionLabelsParser = $formDefinitionLabelsParser;
-        $this->localizationFactory = $localizationFactory;
-        $this->formPersistenceManager = $formPersistenceManager;
         $this->locallangPath = $locallangPath;
     }
 
-    public function getItems(string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
+    public function getItems(string $persistenceIdentifier, string $locale): ItemCollection
     {
         $items = $this->extractLabels($persistenceIdentifier);
 
-        $this->getTranslation($items, $persistenceIdentifier, $siteLanguage);
+        $this->getTranslation($items, $persistenceIdentifier, $locale);
 
         return $items;
     }
@@ -62,7 +52,7 @@ class FormService
         return $items;
     }
 
-    public function getTranslation(ItemCollection $items, string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
+    public function getTranslation(ItemCollection $items, string $persistenceIdentifier, string $locale): ItemCollection
     {
         $form = $this->parseForm($persistenceIdentifier);
         $dir = Environment::getPublicPath();
@@ -70,11 +60,11 @@ class FormService
         $translationFiles = $form['renderingOptions']['translation']['translationFiles'] ?? [];
         foreach ($translationFiles as $translationFile) {
             $path = PathUtility::makeAbsolute($translationFile, $dir);
-            $localLanguage = array_replace_recursive($localLanguage, $this->localizationFactory->getParsedData($path, $siteLanguage->getTypo3Language()));
+            $localLanguage = array_replace_recursive($localLanguage, $this->localizationFactory->getParsedData($path, $locale));
         }
 
-        if (array_key_exists($siteLanguage->getTypo3Language(), $localLanguage) && is_array($localLanguage[$siteLanguage->getTypo3Language()])) {
-            foreach ($localLanguage[$siteLanguage->getTypo3Language()] as $identifier => $values) {
+        if (array_key_exists($locale, $localLanguage) && is_array($localLanguage[$locale])) {
+            foreach ($localLanguage[$locale] as $identifier => $values) {
                 $item = $items->getItem($identifier) ?? new Item($identifier);
                 $item->setSource($values[0]['source']);
                 $item->setTarget($values[0]['target']);

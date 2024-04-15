@@ -10,13 +10,12 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class LocalizationService
 {
-    public function saveXliff(string $locallangFile, SiteLanguage $siteLanguage, ItemCollection $items): void
+    public function saveXliff(string $locallangFile, string $locale, ItemCollection $items): string
     {
         $originalFile = $locallangFile;
         $locallangDir = dirname($locallangFile);
-        if ($siteLanguage->getTypo3Language() !== 'default') {
-            $locallangFile = $locallangDir . '/' . $siteLanguage->getTypo3Language() . '.' . basename($locallangFile);
-        }
+
+        $locallangFile = $locallangDir . '/' . $locale . '.' . basename($locallangFile);
 
         GeneralUtility::mkdir_deep($locallangDir);
 
@@ -30,9 +29,11 @@ class LocalizationService
 
         file_put_contents($locallangFile, $this->renderXliff([
             'items' => $items,
-            'siteLanguage' => $siteLanguage,
+            'locale' => $locale,
             'originalFile' => $originalFile,
         ]));
+
+        return $locallangFile;
     }
 
     public function renderXliff(array $variables): string

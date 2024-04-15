@@ -26,13 +26,13 @@
                             <td><code>{form.persistenceIdentifier}</code></td>
                             <td class="col-localizationb nowrap">
                                 <div class="btn-group">
-                                    <f:for each="{siteLanguages}" as="siteLanguage">
+                                    <f:for each="{locales}" as="locale">
                                         <f:link.action
-                                            title="{siteLanguage.title}"
+                                            title="{locale}"
                                             class="btn btn-default"
                                             action="localize"
-                                            arguments="{persistenceIdentifier: form.persistenceIdentifier, siteLanguage: siteLanguage.languageId}">
-                                            <core:icon identifier="{siteLanguage.flagIdentifier}" size="small"/>
+                                            arguments="{persistenceIdentifier: form.persistenceIdentifier, locale: locale}">
+                                            {locale}
                                         </f:link.action>
                                     </f:for>
                                 </div>
