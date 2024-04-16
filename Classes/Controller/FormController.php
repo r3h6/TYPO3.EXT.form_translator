@@ -58,7 +58,7 @@ class FormController extends ActionController
         $locales = [];
         /** @var SiteLanguage $siteLanguage */
         foreach ($siteLanguages as $siteLanguage) {
-            if ($siteLanguage->getTypo3Language() === 'default') {
+            if ($siteLanguage->getLocale()->getLanguageCode() === 'en') {
                 continue;
             }
             $locales[$siteLanguage->getLocale()->getLanguageCode()] = $siteLanguage->getLocale()->getLanguageCode();
