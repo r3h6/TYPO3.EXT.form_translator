@@ -1,0 +1,36 @@
+base: 'https://typo3-form-translator.ddev.site/'
+languages:
+  -
+    title: English
+    enabled: true
+    languageId: 0
+    base: /
+    locale: en_US.UTF-8
+    navigationTitle: English
+    flag: us
+  -
+    title: French
+    enabled: true
+    locale: fr_FR
+    hreflang: ''
+    base: /fr/
+    websiteTitle: ''
+    navigationTitle: Français
+    fallbackType: strict
+    fallbacks: ''
+    flag: fr
+    languageId: 1
+  -
+    title: 'Chinese (Simplified)'
+    enabled: true
+    locale: zh_CN
+    hreflang: ''
+    base: /cn/
+    websiteTitle: ''
+    navigationTitle: 汉语
+    fallbackType: strict
+    fallbacks: ''
+    flag: cn
+    languageId: 2
+rootPageId: 1
+websiteTitle: ''
