@@ -36,10 +36,7 @@ class CreateXliffCommand extends Command
         ;
     }
 
-    /**
-     * @return int
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $formIdentifier = $input->getArgument('formIdentifier');
         $siteLanguage = new SiteLanguage(0, 'en_US.UTF-8', new Uri('/'), []);
