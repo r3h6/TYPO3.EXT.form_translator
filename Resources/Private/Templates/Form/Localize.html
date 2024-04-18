@@ -8,7 +8,7 @@
 
    <f:section name="Content">
         <h1>{docTitle}</h1>
-        <f:form id="LocalizationForm" action="save" arguments="{persistenceIdentifier: persistenceIdentifier, siteLanguage: siteLanguage.languageId}" method="post" enctype="multipart/form-data">
+        <f:form id="LocalizationForm" action="save" arguments="{persistenceIdentifier: persistenceIdentifier, locale: locale}" method="post" enctype="multipart/form-data">
          <table>
             <thead>
                <tr>
@@ -32,7 +32,7 @@
                   <td>
                      <f:form.hidden name="items[{i.index}][identifier]" value="{item.identifier}" />
                      <f:form.hidden name="items[{i.index}][source]" value="{item.original}" />
-                     <f:form.textarea id="Target{i.index}" name="items[{i.index}][target]" class="form-control" value="{f:if(condition: '{siteLanguage.typo3Language} == \'default\'', then: item.source, else: item.target)}" />
+                     <f:form.textarea id="Target{i.index}" name="items[{i.index}][target]" class="form-control" value="{item.target}" />
                      <small class="form-text text-muted">{item.identifier}</small>
                   </td>
                </tr>

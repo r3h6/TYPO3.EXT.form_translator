@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en"{f:if(condition: '{siteLanguage.typo3Language} != default', then: ' target-language="{siteLanguage.twoLetterIsoCode}"')} datatype="plaintext" original="{originalFile}" date="{f:format.date(format: 'Y-m-dTH:i:s')}" product-name="form">
+	<file source-language="en" target-language="{locale}" datatype="plaintext" original="{originalFile}" date="{f:format.date(format: 'Y-m-dTH:i:s')}" product-name="form">
 		<header/>
 		<body>
 			<f:for each="{items}" as="item">
 				<trans-unit id="{item.identifier}">
-					<f:if condition="{siteLanguage.typo3Language} != default">
-						<f:then>
-							<source>{item.source}</source>
-							<target>{item.target}</target>
-						</f:then>
-						<f:else>
-							<source>{item.target}</source>
-						</f:else>
-					</f:if>
+					<source>{item.source}</source>
+					<target>{item.target}</target>
 				</trans-unit>
 			</f:for>
 		</body>

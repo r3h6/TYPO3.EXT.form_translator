@@ -54,7 +54,16 @@ class FormController extends ActionController
 
     public function indexAction(): ResponseInterface
     {
-        $this->view->assign('siteLanguages', $this->siteLanguageService->findAll());
+        $siteLanguages = $this->siteLanguageService->findAll();
+        $locales = [];
+        /** @var SiteLanguage $siteLanguage */
+        foreach ($siteLanguages as $siteLanguage) {
+            if ($siteLanguage->getLocale()->getLanguageCode() === 'en') {
+                continue;
+            }
+            $locales[$siteLanguage->getLocale()->getLanguageCode()] = $siteLanguage->getLocale()->getLanguageCode();
+        }
+        $this->view->assign('locales', $locales);
         $this->view->assign('forms', $this->formService->listForms());
 
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
@@ -64,19 +73,20 @@ class FormController extends ActionController
         return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
-    public function localizeAction(string $persistenceIdentifier, SiteLanguage $siteLanguage): ResponseInterface
+    public function localizeAction(string $persistenceIdentifier, string $locale): ResponseInterface
     {
+        $this->l10nCache->flush();
         $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/FormTranslator/Mod');
         $this->pageRenderer->addCssFile('EXT:form_translator/Resources/Public/StyleSheets/Mod.css');
 
         $docTitle = LocalizationUtility::translate('mod.title.localize', 'FormTranslator', [
             $this->formService->getTitle($persistenceIdentifier),
-            $siteLanguage->getTitle(),
+            $locale,
         ]);
 
         $this->view->assign('docTitle', $docTitle);
-        $this->view->assign('items', $this->formService->getItems($persistenceIdentifier, $siteLanguage));
-        $this->view->assign('siteLanguage', $siteLanguage);
+        $this->view->assign('items', $this->formService->getItems($persistenceIdentifier, $locale));
+        $this->view->assign('locale', $locale);
         $this->view->assign('persistenceIdentifier', $persistenceIdentifier);
 
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
@@ -109,16 +119,16 @@ class FormController extends ActionController
         return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
-    public function saveAction(string $persistenceIdentifier, SiteLanguage $siteLanguage, ItemCollection $items): ResponseInterface
+    public function saveAction(string $persistenceIdentifier, string $locale, ItemCollection $items): ResponseInterface
     {
         $locallangFile = $this->formService->getLocallangFileFromPersistenceIdentifier($persistenceIdentifier);
-        $this->localizationService->saveXliff($locallangFile, $siteLanguage, $items);
-        $this->addFlashMessage('Saved translation to ' . $locallangFile);
+        $newLocallangFile = $this->localizationService->saveXliff($locallangFile, $locale, $items);
+        $this->addFlashMessage('Saved translation to ' . $newLocallangFile);
         if ($this->formService->isWritable($persistenceIdentifier)) {
             $this->formService->addTranslationFile($persistenceIdentifier, $locallangFile);
         }
         $this->l10nCache->flush();
-        return $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'siteLanguage' => $siteLanguage->getLanguageId()]);
+        return $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'locale' => $locale]);
     }
 
     protected function getLanguageService(): LanguageService
