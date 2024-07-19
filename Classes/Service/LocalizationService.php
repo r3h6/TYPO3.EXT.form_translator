@@ -21,14 +21,14 @@ class LocalizationService
         GeneralUtility::mkdir_deep($locallangDir);
 
         if (!file_exists($originalFile)) {
-            file_put_contents($originalFile, $this->renderXliff([
+            GeneralUtility::writeFile($originalFile, $this->renderXliff([
                 'items' => [],
                 'siteLanguage' => new SiteLanguage(0, 'en_US.UTF-8', new Uri('/'), []),
                 'originalFile' => $originalFile,
             ]));
         }
 
-        file_put_contents($locallangFile, $this->renderXliff([
+        GeneralUtility::writeFile($locallangFile, $this->renderXliff([
             'items' => $items,
             'siteLanguage' => $siteLanguage,
             'originalFile' => $originalFile,
