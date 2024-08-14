@@ -4,14 +4,8 @@ namespace R3H6\FormTranslator\Event;
 
 final class AfterParseFormEvent
 {
-    /**
-     * @var array
-     */
-    private $items;
-
-    public function __construct(array $items)
+    public function __construct(private array $items)
     {
-        $this->items = $items;
     }
 
     public function getItems(): array

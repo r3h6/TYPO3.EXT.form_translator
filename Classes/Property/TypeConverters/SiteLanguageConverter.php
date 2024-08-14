@@ -11,16 +11,13 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
 class SiteLanguageConverter extends AbstractTypeConverter
 {
-    protected $sourceTypes = ['int', 'string'];
+    protected array $sourceTypes = ['int', 'string'];
+    protected string $targetType = SiteLanguage::class;
+    protected int $priority = 1;
 
-    protected $targetType = SiteLanguage::class;
-
-    protected $priority = 1;
-
-    /**
-     * @var SiteLanguageService
-     */
-    protected $siteLanguageService;
+    public function __construct(protected SiteLanguageService $siteLanguageService)
+    {
+    }
 
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -34,10 +31,5 @@ class SiteLanguageConverter extends AbstractTypeConverter
             }
         }
         throw new TargetNotFoundException('SiteLanguage with languageId "' . print_r($source, true) . '" not found', 1640815204297);
-    }
-
-    public function injectSiteLanguageService(SiteLanguageService $siteLanguageService): void
-    {
-        $this->siteLanguageService = $siteLanguageService;
     }
 }

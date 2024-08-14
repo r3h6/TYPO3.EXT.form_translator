@@ -9,17 +9,8 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 
 class LibreTranslateTranslationService implements TranslationServiceInterface
 {
-    protected RequestFactory $requestFactory;
-
-    protected string $host;
-
-    protected string $apiKey;
-
-    public function __construct(RequestFactory $requestFactory, string $host, string $apiKey)
+    public function __construct(protected RequestFactory $requestFactory, protected string $host, protected string $apiKey)
     {
-        $this->requestFactory = $requestFactory;
-        $this->host = $host;
-        $this->apiKey = $apiKey;
     }
 
     public function getName(): string
@@ -37,7 +28,7 @@ class LibreTranslateTranslationService implements TranslationServiceInterface
         $params = [
             'q' => $text,
             'source' => 'auto',
-            'target' => $targetLanguage->getTwoLetterIsoCode(),
+            'target' => $targetLanguage->getLocale()->getLanguageCode(),
             'format' => 'text',
         ];
 

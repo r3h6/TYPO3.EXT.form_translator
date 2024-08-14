@@ -10,30 +10,23 @@ use Symfony\Component\Yaml\Yaml;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as FormConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class FormService
 {
     protected const TRANSLATION_FILE_KEY = 99;
 
-    protected FormDefinitionLabelsParser $formDefinitionLabelsParser;
-
-    protected LocalizationFactory $localizationFactory;
-
-    protected FormPersistenceManagerInterface $formPersistenceManager;
-
-    protected string $locallangPath;
-
     public function __construct(
-        FormDefinitionLabelsParser $formDefinitionLabelsParser,
-        LocalizationFactory $localizationFactory,
-        FormPersistenceManagerInterface $formPersistenceManager,
-        string $locallangPath
+        protected FormDefinitionLabelsParser $formDefinitionLabelsParser,
+        protected LocalizationFactory $localizationFactory,
+        protected FormPersistenceManagerInterface $formPersistenceManager,
+        protected ConfigurationManagerInterface $configurationManager,
+        protected FormConfigurationManagerInterface $extFormConfigurationManager,
+        protected string $locallangPath,
     ) {
-        $this->formDefinitionLabelsParser = $formDefinitionLabelsParser;
-        $this->localizationFactory = $localizationFactory;
-        $this->formPersistenceManager = $formPersistenceManager;
-        $this->locallangPath = $locallangPath;
     }
 
     public function getItems(string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
@@ -47,7 +40,8 @@ class FormService
 
     public function listForms(): array
     {
-        return $this->formPersistenceManager->listForms();
+        $settings = $this->getFormSettings();
+        return $this->formPersistenceManager->listForms($settings);
     }
 
     public function extractLabels(string $persistenceIdentifier): ItemCollection
@@ -117,7 +111,7 @@ class FormService
         $yaml = Yaml::dump($form, 99, 2);
 
         $formPath = PathUtility::makeAbsolute($persistenceIdentifier);
-        file_put_contents($formPath, $yaml);
+        GeneralUtility::writeFile($formPath, $yaml);
     }
 
     public function getLocallangFileFromPersistenceIdentifier(string $persistenceIdentifier): string
@@ -131,7 +125,8 @@ class FormService
         $formPath = PathUtility::makeAbsolute($persistenceIdentifier);
         $storage = PathUtility::makeAbsolute($this->locallangPath, dirname($formPath));
         if ($this->isWritable($persistenceIdentifier) === false) {
-            $storageIdentifier = (string)array_key_first($this->formPersistenceManager->getAccessibleFormStorageFolders());
+            $settings = $this->getFormSettings();
+            $storageIdentifier = (string)array_key_first($this->formPersistenceManager->getAccessibleFormStorageFolders($settings));
             $storage = PathUtility::makeAbsolute($storageIdentifier);
         }
 
@@ -143,11 +138,24 @@ class FormService
         if (Environment::getContext()->isDevelopment()) {
             return true;
         }
-        foreach ($this->formPersistenceManager->listForms() as $form) {
+        $settings = $this->getFormSettings();
+        foreach ($this->formPersistenceManager->listForms($settings) as $form) {
             if ($form['persistenceIdentifier'] === $persistenceIdentifier && $form['readOnly'] === false) {
                 return true;
             }
         }
         return false;
+    }
+
+    protected function getFormSettings(): array
+    {
+        $typoScriptSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'form');
+        $formSettings = $this->extFormConfigurationManager->getYamlConfiguration($typoScriptSettings, false);
+        if (!isset($formSettings['formManager'])) {
+            // Config sub array formManager is crucial and should always exist. If it does
+            // not, this indicates an issue in config loading logic. Except in this case.
+            throw new \LogicException('Configuration could not be loaded', 1723717461);
+        }
+        return $formSettings;
     }
 }

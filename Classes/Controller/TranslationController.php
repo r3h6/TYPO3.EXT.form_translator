@@ -15,17 +15,8 @@ class TranslationController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    protected TranslationServiceInterface $translationService;
-
-    protected SiteLanguageService $siteLanguageService;
-
-    protected MemoryTranslationService $memoryTranslationService;
-
-    public function __construct(MemoryTranslationService $memoryTranslationService, TranslationServiceInterface $translationService, SiteLanguageService $siteLanguageService)
+    public function __construct(protected MemoryTranslationService $memoryTranslationService, protected TranslationServiceInterface $translationService, protected SiteLanguageService $siteLanguageService)
     {
-        $this->translationService = $translationService;
-        $this->siteLanguageService = $siteLanguageService;
-        $this->memoryTranslationService = $memoryTranslationService;
     }
 
     public function translateAction(ServerRequestInterface $request): ResponseInterface

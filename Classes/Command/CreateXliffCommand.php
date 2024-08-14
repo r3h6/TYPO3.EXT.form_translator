@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class CreateXliffCommand extends Command
 {
@@ -23,6 +24,11 @@ class CreateXliffCommand extends Command
      * @var LocalizationService
      */
     protected $localizationService;
+    public function __construct(FormService $formService, LocalizationService $localizationService)
+    {
+        $this->formService = $formService;
+        $this->localizationService = $localizationService;
+    }
 
     /**
      * @phpstan-return void
@@ -50,7 +56,7 @@ class CreateXliffCommand extends Command
 
         $outputOption = $input->getOption('output');
         if ($outputOption) {
-            if (file_put_contents($outputOption, $xliff) === false) {
+            if (GeneralUtility::writeFile($outputOption, $xliff) === false) {
                 return Command::FAILURE;
             }
             return Command::SUCCESS;
@@ -58,15 +64,5 @@ class CreateXliffCommand extends Command
 
         $output->writeln($xliff);
         return Command::SUCCESS;
-    }
-
-    public function injectFormService(FormService $formService): void
-    {
-        $this->formService = $formService;
-    }
-
-    public function injectLocalizationService(LocalizationService $localizationService): void
-    {
-        $this->localizationService = $localizationService;
     }
 }
