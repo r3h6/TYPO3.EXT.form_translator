@@ -9,8 +9,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FormDefinitionLabelsParser
 {
-    protected EventDispatcherInterface $dispatcher;
-
     /**
      * @var array<string, string>
      */
@@ -35,10 +33,8 @@ class FormDefinitionLabelsParser
         '$.renderable.properties.linkText' => '<form-identifier>.element.<element-identifier>.properties.linkText',
     ];
 
-    public function __construct(EventDispatcherInterface $dispatcher)
+    public function __construct(protected EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = $dispatcher;
-
         if (!class_exists('Flow\\JSONPath\\JSONPath')) {
             require_once 'phar://' . GeneralUtility::getFileAbsFileName('EXT:form_translator/Resources/Private/Php/jsonpath.phar') . '/vendor/autoload.php';
         }

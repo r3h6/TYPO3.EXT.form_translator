@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
 	<file source-language="en" datatype="plaintext" original="messages" date="2022-05-21T18:33:51Z">
-		<header>
-			<generator>LFEditor</generator>
-		</header>
+		<header/>
 		<body>
 			<trans-unit id="mlang_labels_tabdescr">
 				<source><![CDATA[Provides a backend module and cli for translating forms.]]></source>

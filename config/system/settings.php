@@ -3,7 +3,7 @@
 return [
     'BE' => [
         'debug' => true,
-        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$ak1RQUpHWXkwZVh5VzBRdQ$/GPP38ClHRA7XvbOejLbrJWIV/YXsheedSKS7o3Ap/Q',
+        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$SzlrbktKSGwxMWpXU2didA$eIYlrXM0j2XtLjOI1xDItIYEGgh/QXNTvVigf/Vjdng',
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
             'options' => [],
@@ -36,15 +36,11 @@ return [
             'loginLogo' => '',
             'loginLogoAlt' => '',
         ],
-        'extensionmanager' => [
-            'automaticInstallation' => '1',
-            'offlineMode' => '0',
-        ],
         'form_translator' => [
             'languageFilesDirectory' => './l10n',
             'libreTranslate' => [
                 'apiKey' => '',
-                'host' => '',
+                'host' => 'http://host.docker.internal:5000/',
             ],
         ],
     ],
@@ -61,8 +57,6 @@ return [
     ],
     'GFX' => [
         'processor' => 'GraphicsMagick',
-        'processor_allowTemporaryMasksAsPng' => false,
-        'processor_colorspace' => 'RGB',
         'processor_effects' => false,
         'processor_enabled' => true,
         'processor_path' => '/usr/bin/',
@@ -83,11 +77,11 @@ return [
         ],
     ],
     'MAIL' => [
-        'transport' => 'smtp',
-        'transport_sendmail_command' => '/usr/local/bin/mailhog sendmail test@example.org --smtp-addr 127.0.0.1:1025',
+        'transport' => 'sendmail',
+        'transport_sendmail_command' => '/usr/local/bin/mailpit sendmail -t --smtp-addr 127.0.0.1:1025',
         'transport_smtp_encrypt' => '',
         'transport_smtp_password' => '',
-        'transport_smtp_server' => 'localhost:1025',
+        'transport_smtp_server' => '',
         'transport_smtp_username' => '',
     ],
     'SYS' => [
@@ -96,12 +90,6 @@ return [
             'cacheConfigurations' => [
                 'hash' => [
                     'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
-                ],
-                'imagesizes' => [
-                    'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
-                    'options' => [
-                        'compression' => true,
-                    ],
                 ],
                 'pages' => [
                     'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
@@ -119,11 +107,10 @@ return [
         ],
         'devIPmask' => '*',
         'displayErrors' => 1,
-        'encryptionKey' => '3b71bd4c055aac627ef32822967d3858304e15b6004aa7c9241bcbf0c8de64c27a7e6f895284ddc8518344f6e744da11',
+        'encryptionKey' => '9d0fd8398fadc665ffb6d6ede41a32257a8c0d68ac299b3fb55901f34b3e76aa8fdcebbf1329138fa18880d4de56d20f',
         'exceptionalErrors' => 12290,
         'features' => [
-            'security.backend.enforceContentSecurityPolicy' => true,
-            'security.usePasswordPolicyForFrontendUsers' => true,
+            'frontend.cache.autoTagging' => true,
         ],
         'sitename' => 'New TYPO3 site',
         'systemMaintainers' => [

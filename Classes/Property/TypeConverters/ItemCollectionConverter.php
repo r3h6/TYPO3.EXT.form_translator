@@ -9,20 +9,9 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
 class ItemCollectionConverter extends AbstractTypeConverter
 {
-    /**
-     * @var array<string>
-     */
-    protected $sourceTypes = ['array'];
-
-    /**
-     * @var string
-     */
-    protected $targetType = ItemCollection::class;
-
-    /**
-     * @var int
-     */
-    protected $priority = 2;
+    protected array $sourceTypes = ['array'];
+    protected string $targetType = ItemCollection::class;
+    protected int $priority = 2;
 
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

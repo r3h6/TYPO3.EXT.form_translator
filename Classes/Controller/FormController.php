@@ -12,78 +12,54 @@ use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-/**
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- */
 class FormController extends ActionController
 {
-    protected SiteLanguageService $siteLanguageService;
-    protected FormService $formService;
-    protected LocalizationService $localizationService;
-    protected FrontendInterface $l10nCache;
-    protected ModuleTemplateFactory $moduleTemplateFactory;
-    protected IconFactory $iconFactory;
-    protected PageRenderer $pageRenderer;
-
     public function __construct(
-        SiteLanguageService $siteLanguageService,
-        FormService $formService,
-        LocalizationService $localizationService,
-        FrontendInterface $l10nCache,
-        ModuleTemplateFactory $moduleTemplateFactory,
-        IconFactory $iconFactory,
-        PageRenderer $pageRenderer
+        protected SiteLanguageService $siteLanguageService,
+        protected FormService $formService,
+        protected LocalizationService $localizationService,
+        protected FrontendInterface $l10nCache,
+        protected ModuleTemplateFactory $moduleTemplateFactory,
+        protected IconFactory $iconFactory,
+        protected PageRenderer $pageRenderer,
     ) {
-        $this->siteLanguageService = $siteLanguageService;
-        $this->formService = $formService;
-        $this->localizationService = $localizationService;
-        $this->l10nCache = $l10nCache;
-        $this->moduleTemplateFactory = $moduleTemplateFactory;
-        $this->iconFactory = $iconFactory;
-        $this->pageRenderer = $pageRenderer;
     }
 
     public function indexAction(): ResponseInterface
     {
-        $this->view->assign('siteLanguages', $this->siteLanguageService->findAll());
-        $this->view->assign('forms', $this->formService->listForms());
+        $title = LocalizationUtility::translate('mod.title.index', 'FormTranslator');
 
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-        $this->addReloadButtonToButtonBar($moduleTemplate);
-        $this->addShortcutButtonToButtonBar($moduleTemplate, LocalizationUtility::translate('mod.title.index', 'FormTranslator'));
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        $moduleTemplate = $this->initializeModuleTemplate($title);
+        $moduleTemplate->assign('siteLanguages', $this->siteLanguageService->findAll());
+        $moduleTemplate->assign('forms', $this->formService->listForms());
+        $moduleTemplate->assign('title', $title);
+
+        return $moduleTemplate->renderResponse('Form/Index');
     }
 
     public function localizeAction(string $persistenceIdentifier, SiteLanguage $siteLanguage): ResponseInterface
     {
-        $this->pageRenderer->loadRequireJsModule('TYPO3/CMS/FormTranslator/Mod');
+        $this->pageRenderer->loadJavaScriptModule('@r3h6/form-translator/Mod.js');
         $this->pageRenderer->addCssFile('EXT:form_translator/Resources/Public/StyleSheets/Mod.css');
 
-        $docTitle = LocalizationUtility::translate('mod.title.localize', 'FormTranslator', [
+        $title = LocalizationUtility::translate('mod.title.localize', 'FormTranslator', [
             $this->formService->getTitle($persistenceIdentifier),
             $siteLanguage->getTitle(),
         ]);
 
-        $this->view->assign('docTitle', $docTitle);
-        $this->view->assign('items', $this->formService->getItems($persistenceIdentifier, $siteLanguage));
-        $this->view->assign('siteLanguage', $siteLanguage);
-        $this->view->assign('persistenceIdentifier', $persistenceIdentifier);
-
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-
-        $this->addReloadButtonToButtonBar($moduleTemplate);
-        $this->addShortcutButtonToButtonBar($moduleTemplate, $docTitle);
+        $moduleTemplate = $this->initializeModuleTemplate($title);
+        $moduleTemplate->assign('title', $title);
+        $moduleTemplate->assign('items', $this->formService->getItems($persistenceIdentifier, $siteLanguage));
+        $moduleTemplate->assign('siteLanguage', $siteLanguage);
+        $moduleTemplate->assign('persistenceIdentifier', $persistenceIdentifier);
 
         $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
         $buttonBar->addButton(
@@ -91,7 +67,7 @@ class FormController extends ActionController
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:close'))
                 ->setShowLabelText(true)
                 ->setHref($this->uriBuilder->reset()->uriFor('index'))
-                ->setIcon($this->iconFactory->getIcon('actions-close', Icon::SIZE_SMALL)),
+                ->setIcon($this->iconFactory->getIcon('actions-close', IconSize::SMALL->value)),
             ButtonBar::BUTTON_POSITION_LEFT,
             1
         );
@@ -101,12 +77,12 @@ class FormController extends ActionController
                 ->setShowLabelText(true)
                 ->setHref('#')
                 ->setDataAttributes(['save' => '#LocalizationForm'])
-                ->setIcon($this->iconFactory->getIcon('actions-save', Icon::SIZE_SMALL)),
+                ->setIcon($this->iconFactory->getIcon('actions-save', IconSize::SMALL->value)),
             ButtonBar::BUTTON_POSITION_LEFT,
             2
         );
 
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        return $moduleTemplate->renderResponse('Form/Localize');
     }
 
     public function saveAction(string $persistenceIdentifier, SiteLanguage $siteLanguage, ItemCollection $items): ResponseInterface
@@ -121,34 +97,23 @@ class FormController extends ActionController
         return $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'siteLanguage' => $siteLanguage->getLanguageId()]);
     }
 
-    protected function getLanguageService(): LanguageService
+    protected function initializeModuleTemplate(string $title): ModuleTemplate
     {
-        return $GLOBALS['LANG'];
-    }
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setTitle($title);
 
-    protected function getBackendUser(): BackendUserAuthentication
-    {
-        return $GLOBALS['BE_USER'];
-    }
-
-    protected function addReloadButtonToButtonBar(ModuleTemplate $moduleTemplate): void
-    {
         $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
-        /** @var string $requestUri */
-        $requestUri = GeneralUtility::getIndpEnv('REQUEST_URI');
+
+        $requestUri = (string)$this->request->getUri();
         $buttonBar->addButton(
             $buttonBar->makeLinkButton()
                 ->setHref($requestUri)
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
-                ->setIcon($this->iconFactory->getIcon('actions-refresh', Icon::SIZE_SMALL)),
+                ->setIcon($this->iconFactory->getIcon('actions-refresh', IconSize::SMALL->value)),
             ButtonBar::BUTTON_POSITION_RIGHT,
             1
         );
-    }
 
-    protected function addShortcutButtonToButtonBar(ModuleTemplate $moduleTemplate, string $title): void
-    {
-        $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
         $mayMakeShortcut = $this->getBackendUser()->mayMakeShortcut();
         if ($mayMakeShortcut) {
             $queryParams = [];
@@ -161,5 +126,17 @@ class FormController extends ActionController
                 ->setArguments($getVars);
             $buttonBar->addButton($shortcutButton, ButtonBar::BUTTON_POSITION_RIGHT);
         }
+
+        return $moduleTemplate;
+    }
+
+    protected function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
+    }
+
+    protected function getBackendUser(): BackendUserAuthentication
+    {
+        return $GLOBALS['BE_USER'];
     }
 }

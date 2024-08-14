@@ -9,28 +9,16 @@ languages:
     navigationTitle: English
     flag: us
   -
-    title: French
+    title: German
     enabled: true
-    locale: fr_FR
+    locale: de_DE
     hreflang: ''
-    base: /fr/
+    base: /de/
     websiteTitle: ''
-    navigationTitle: Français
+    navigationTitle: Deutsch
     fallbackType: strict
     fallbacks: ''
-    flag: fr
+    flag: de
     languageId: 1
-  -
-    title: 'Chinese (Simplified)'
-    enabled: true
-    locale: zh_CN
-    hreflang: ''
-    base: /cn/
-    websiteTitle: ''
-    navigationTitle: 汉语
-    fallbackType: strict
-    fallbacks: ''
-    flag: cn
-    languageId: 2
 rootPageId: 1
 websiteTitle: ''

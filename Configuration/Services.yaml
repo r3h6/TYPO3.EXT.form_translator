@@ -55,7 +55,6 @@ services:
         identifier: 'form_translator.removeEmptyItems'
         event: R3H6\FormTranslator\Event\AfterParseFormEvent
 
-  # Experimental FAL<->extbase converter
   R3H6\FormTranslator\Property\TypeConverters\SiteLanguageConverter:
     tags:
       - name: extbase.type_converter
@@ -63,7 +62,6 @@ services:
         target: TYPO3\CMS\Core\Site\Entity\SiteLanguage
         sources: integer, string
 
-  # Experimental FAL<->extbase converter
   R3H6\FormTranslator\Property\TypeConverters\ItemCollectionConverter:
     tags:
       - name: extbase.type_converter
