@@ -32,5 +32,17 @@ languages:
     fallbacks: ''
     flag: cn
     languageId: 2
+  -
+    title: Canada
+    enabled: true
+    locale: fr_CA
+    hreflang: ''
+    base: /fr-ca/
+    websiteTitle: ''
+    navigationTitle: Canada
+    fallbackType: strict
+    fallbacks: ''
+    flag: ca
+    languageId: 3
 rootPageId: 1
 websiteTitle: ''

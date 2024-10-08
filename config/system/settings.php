@@ -1,5 +1,4 @@
 <?php
-
 return [
     'BE' => [
         'debug' => true,
@@ -85,7 +84,7 @@ return [
     'MAIL' => [
         'transport' => 'smtp',
         'transport_sendmail_command' => '/usr/local/bin/mailhog sendmail test@example.org --smtp-addr 127.0.0.1:1025',
-        'transport_smtp_encrypt' => '',
+        'transport_smtp_encrypt' => false,
         'transport_smtp_password' => '',
         'transport_smtp_server' => 'localhost:1025',
         'transport_smtp_username' => '',

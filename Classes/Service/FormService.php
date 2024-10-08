@@ -17,12 +17,21 @@ class FormService
 
     protected string $locallangPath;
 
+    protected FormDefinitionLabelsParser $formDefinitionLabelsParser;
+
+    protected LocalizationFactory $localizationFactory;
+
+    protected FormPersistenceManagerInterface $formPersistenceManager;
+
     public function __construct(
-        readonly FormDefinitionLabelsParser $formDefinitionLabelsParser,
-        readonly LocalizationFactory $localizationFactory,
-        readonly FormPersistenceManagerInterface $formPersistenceManager,
+        FormDefinitionLabelsParser $formDefinitionLabelsParser,
+        LocalizationFactory $localizationFactory,
+        FormPersistenceManagerInterface $formPersistenceManager,
         string $locallangPath
     ) {
+        $this->formDefinitionLabelsParser = $formDefinitionLabelsParser;
+        $this->localizationFactory = $localizationFactory;
+        $this->formPersistenceManager = $formPersistenceManager;
         $this->locallangPath = $locallangPath;
     }
 

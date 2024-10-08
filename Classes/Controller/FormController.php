@@ -58,10 +58,11 @@ class FormController extends ActionController
         $locales = [];
         /** @var SiteLanguage $siteLanguage */
         foreach ($siteLanguages as $siteLanguage) {
-            if ($siteLanguage->getLocale()->getLanguageCode() === 'en') {
+            $locale = $siteLanguage->getTypo3Language();
+            if ($locale === 'en') {
                 continue;
             }
-            $locales[$siteLanguage->getLocale()->getLanguageCode()] = $siteLanguage->getLocale()->getLanguageCode();
+            $locales[$locale] = $locale;
         }
         $this->view->assign('locales', $locales);
         $this->view->assign('forms', $this->formService->listForms());
