@@ -3,8 +3,7 @@ includes:
 
 parameters:
     level: 7
-    ignoreErrors:
-        - identifier: missingType.iterableValue
+    checkMissingIterableValueType: false
     paths:
         - Classes/
         - Tests/
