@@ -42,7 +42,5 @@ final class PathUtility
         return str_starts_with($path, 'EXT:');
     }
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 }

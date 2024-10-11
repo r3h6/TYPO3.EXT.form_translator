@@ -26,8 +26,7 @@ class FormService
         protected ConfigurationManagerInterface $configurationManager,
         protected FormConfigurationManagerInterface $extFormConfigurationManager,
         protected string $locallangPath,
-    ) {
-    }
+    ) {}
 
     public function getItems(string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
     {
@@ -98,7 +97,7 @@ class FormService
     public function addTranslationFile(string $persistenceIdentifier, string $locallangFile): void
     {
         // Normalize locallang path
-        $locallangFile = (strpos($locallangFile, Environment::getExtensionsPath()) === 0) ?
+        $locallangFile = (str_starts_with($locallangFile, Environment::getExtensionsPath())) ?
             'EXT:' . ltrim(str_replace(Environment::getExtensionsPath(), '', $locallangFile), '/') :
             ltrim(str_replace(Environment::getPublicPath(), '', $locallangFile), '/');
 

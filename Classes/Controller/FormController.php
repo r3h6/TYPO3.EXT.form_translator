@@ -30,8 +30,7 @@ class FormController extends ActionController
         protected ModuleTemplateFactory $moduleTemplateFactory,
         protected IconFactory $iconFactory,
         protected PageRenderer $pageRenderer,
-    ) {
-    }
+    ) {}
 
     public function indexAction(): ResponseInterface
     {

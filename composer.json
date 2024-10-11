@@ -20,7 +20,7 @@
 		"saschaegerer/phpstan-typo3": "^1.0",
 		"friendsofphp/php-cs-fixer": "^3.3",
 		"helmich/typo3-typoscript-lint": "^3.1",
-		"typo3/coding-standards": "^0.5.0",
+		"typo3/coding-standards": "^0.8",
 		"phpmd/phpmd": "@stable",
 		"michielroos/typo3scan": "^1.7",
 		"phpcompatibility/php-compatibility": "^9.3",

@@ -15,9 +15,7 @@ class SiteLanguageConverter extends AbstractTypeConverter
     protected string $targetType = SiteLanguage::class;
     protected int $priority = 1;
 
-    public function __construct(protected SiteLanguageService $siteLanguageService)
-    {
-    }
+    public function __construct(protected SiteLanguageService $siteLanguageService) {}
 
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)

@@ -7,9 +7,7 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 
 class MemoryTranslationService implements TranslationServiceInterface
 {
-    public function __construct(protected FormService $formService)
-    {
-    }
+    public function __construct(protected FormService $formService) {}
 
     public function getName(): string
     {
