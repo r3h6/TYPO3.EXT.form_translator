@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use R3H6\FormTranslator\Controller\FormController;
 
 return [

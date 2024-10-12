@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Service;
 
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;

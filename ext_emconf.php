@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Form Translator',
     'description' => 'Provides a backend module and cli for translating forms.',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Facade;
 
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;

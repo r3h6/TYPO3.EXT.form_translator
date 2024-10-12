@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Tests\Unit\Parser;
 
 use Psr\EventDispatcher\EventDispatcherInterface;

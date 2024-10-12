@@ -6,6 +6,7 @@ use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PostRector\Rector\NameImportingPostRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
@@ -22,7 +23,6 @@ return RectorConfig::configure()
         __DIR__ . '/Tests',
         __DIR__ . '/config',
         __DIR__ . '/ext_emconf.php',
-        __DIR__ . '/ext_tables.php',
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()
@@ -40,6 +40,7 @@ return RectorConfig::configure()
         AddVoidReturnTypeWhereNoReturnRector::class,
         ConvertImplicitVariablesToExplicitGlobalsRector::class,
         ClassPropertyAssignToConstructorPromotionRector::class,
+        DeclareStrictTypesRector::class,
     ])
     ->withConfiguredRule(ExtEmConfRector::class, [
         ExtEmConfRector::PHP_VERSION_CONSTRAINT => '8.1.0-8.3.99',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Property\TypeConverters;
 
 use R3H6\FormTranslator\Translation\Item;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Service;
 
 use GuzzleHttp\RequestOptions;
@@ -42,7 +44,7 @@ class LibreTranslateTranslationService implements TranslationServiceInterface
         /** @var ResponseInterface $response */
         $response = $this->requestFactory->request(rtrim($this->host, '/') . '/translate', 'POST', $additionalOptions);
         if ($response->getStatusCode() !== 200) {
-            throw new \RuntimeException($response->getBody(), $response->getStatusCode());
+            throw new \RuntimeException((string)$response->getBody(), $response->getStatusCode());
         }
 
         return json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR)['translatedText'];

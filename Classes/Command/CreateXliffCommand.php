@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Command;
 
 use R3H6\FormTranslator\Service\FormService;
