@@ -112,8 +112,8 @@
 		"coverage:create-directories": "mkdir -p .Build/coverage",
 		"fix:composer:normalize": "@composer normalize --no-check-lock",
 		"fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
-		"phpstan-v12": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep '^12'; then phpstan analyse -c phpstan-v12.neon; else echo 'Skip v12'; fi",
-		"phpstan-v13": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep '^13'; then phpstan analyse -c phpstan-v13.neon; else echo 'Skip v13'; fi",
+		"phpstan-v12": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep -E '^12|^v12'; then phpstan analyse -c phpstan-v12.neon; else echo 'Skip v12'; fi",
+		"phpstan-v13": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep -E '^13|^v13'; then phpstan analyse -c phpstan-v13.neon; else echo 'Skip v13'; fi",
 		"rector": "rector process --dry-run",
 		"rector:fix": "rector process"
 	}

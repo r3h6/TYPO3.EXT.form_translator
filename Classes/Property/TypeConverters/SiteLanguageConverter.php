@@ -13,8 +13,11 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
 class SiteLanguageConverter extends AbstractTypeConverter
 {
+    /** @var array<string> */
     protected $sourceTypes = ['int', 'string'];
+    /** @var string */
     protected $targetType = SiteLanguage::class;
+    /** @var int */
     protected $priority = 1;
 
     public function __construct(protected SiteLanguageService $siteLanguageService) {}

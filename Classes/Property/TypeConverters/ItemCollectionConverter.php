@@ -11,8 +11,11 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
 class ItemCollectionConverter extends AbstractTypeConverter
 {
+    /** @var array<string> */
     protected $sourceTypes = ['array'];
+    /** @var string */
     protected $targetType = ItemCollection::class;
+    /** @var int */
     protected $priority = 2;
 
     /**
