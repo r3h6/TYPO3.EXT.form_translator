@@ -22,11 +22,11 @@ class FormService
     protected const TRANSLATION_FILE_KEY = 99;
 
     public function __construct(
-        protected FormDefinitionLabelsParser $formDefinitionLabelsParser,
-        protected LocalizationFactory $localizationFactory,
-        protected FormPersistenceManagerInterface $formPersistenceManager,
-        protected ConfigurationManagerInterface $configurationManager,
-        protected FormConfigurationManagerInterface $extFormConfigurationManager,
+        protected readonly FormDefinitionLabelsParser $formDefinitionLabelsParser,
+        protected readonly LocalizationFactory $localizationFactory,
+        protected readonly FormPersistenceManagerInterface $formPersistenceManager,
+        protected readonly ConfigurationManagerInterface $configurationManager,
+        protected readonly FormConfigurationManagerInterface $extFormConfigurationManager,
         protected string $locallangPath,
     ) {}
 

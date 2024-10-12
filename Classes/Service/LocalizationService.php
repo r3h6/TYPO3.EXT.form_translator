@@ -20,18 +20,23 @@ class LocalizationService
             $locallangFile = $locallangDir . '/' . $siteLanguage->getTypo3Language() . '.' . basename($locallangFile);
         }
 
+        $filteredItems = array_filter($items->toArray(), fn($item) => $item->getTarget() !== '');
+        if (empty($filteredItems)) {
+            return;
+        }
+
         GeneralUtility::mkdir_deep($locallangDir);
 
         if (!file_exists($originalFile)) {
             GeneralUtility::writeFile($originalFile, $this->renderXliff([
                 'items' => [],
-                'siteLanguage' => new SiteLanguage(0, 'en_US.UTF-8', new Uri('/'), []),
+                'siteLanguage' => new SiteLanguage(0, 'en.UTF-8', new Uri('/'), []),
                 'originalFile' => $originalFile,
             ]));
         }
 
         GeneralUtility::writeFile($locallangFile, $this->renderXliff([
-            'items' => $items,
+            'items' => $filteredItems,
             'siteLanguage' => $siteLanguage,
             'originalFile' => $originalFile,
         ]));

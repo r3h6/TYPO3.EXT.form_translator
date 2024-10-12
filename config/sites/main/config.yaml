@@ -1,5 +1,4 @@
 base: 'https://typo3-form-translator.ddev.site/'
-errorHandling: {  }
 languages:
   -
     title: English
@@ -9,5 +8,17 @@ languages:
     locale: en_US.UTF-8
     navigationTitle: English
     flag: us
+  -
+    title: German
+    enabled: true
+    locale: de_DE
+    hreflang: ''
+    base: /de/
+    websiteTitle: ''
+    navigationTitle: Deutsch
+    fallbackType: strict
+    fallbacks: ''
+    flag: de
+    languageId: 1
 rootPageId: 1
-routes: {  }
+websiteTitle: ''

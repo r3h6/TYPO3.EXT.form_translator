@@ -33,7 +33,8 @@
 		"typo3/cms-fluid-styled-content": "^12.4 || ^13.0",
 		"typo3/cms-lowlevel": "^12.4 || ^13.0",
 		"typo3/coding-standards": "^0.8",
-		"typo3/testing-framework": "^8.0"
+		"typo3/testing-framework": "^8.0",
+		"mikey179/vfsstream": "^1.6"
 	},
 	"replace": {
 		"typo3-ter/form-translator": "self.version"
@@ -72,6 +73,7 @@
 		],
 		"ci:coverage": [
 			"@ci:coverage:unit",
+			"@ci:coverage:functional",
 			"@ci:coverage:merge"
 		],
 		"ci:coverage:merge": [
@@ -81,6 +83,10 @@
 		"ci:coverage:unit": [
 			"@coverage:create-directories",
 			"XDEBUG_MODE=coverage phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml --coverage-filter Classes --coverage-php=.Build/coverage/unit.cov Tests/Unit"
+		],
+		"ci:coverage:functional": [
+			"@coverage:create-directories",
+			"XDEBUG_MODE=coverage phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml --coverage-filter Classes --coverage-php=.Build/coverage/functional.cov Tests/Functional"
 		],
 		"ci:libs:pack": [
 			"curl https://github.com/clue/phar-composer/releases/download/v1.4.0/phar-composer-1.4.0.phar -o phar-composer && chmod +x phar-composer",
@@ -103,6 +109,7 @@
 			"@ci:typo3:scan"
 		],
 		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
+		"ci:test:functional": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml Tests/Functional/",
 		"ci:typo3:scan": [
 			"typo3scan scan --target 11 --only strong Classes/",
 			"typo3scan scan --target 12 --only strong Classes/"

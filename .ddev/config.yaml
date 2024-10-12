@@ -18,6 +18,7 @@ composer_version: "2"
 nodejs_version: "16"
 web_environment:
   - TYPO3_CONTEXT=Development
+  - typo3DatabaseDriver=pdo_sqlite
 # Key features of ddev's config.yaml:
 
 # name: <projectname> # Name of the project, automatically provides

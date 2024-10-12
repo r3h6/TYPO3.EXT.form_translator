@@ -25,6 +25,15 @@ final class ItemCollection implements \IteratorAggregate, \Countable
         return new \ArrayIterator($this->items);
     }
 
+    /**
+     * @return Item[]
+     */
+    public function toArray(): array
+    {
+        ksort($this->items);
+        return $this->items;
+    }
+
     public function addItem(Item $newItem): void
     {
         $item = $this->getItem($newItem->getIdentifier());

@@ -30,3 +30,6 @@ jobs:
 
       - name: Unit tests
         run: ./Build/Scripts/runTests.sh unit
+
+      - name: Functional tests
+        run: ./Build/Scripts/runTests.sh functional
