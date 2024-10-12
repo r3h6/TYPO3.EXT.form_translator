@@ -4,6 +4,9 @@ includes:
 parameters:
     level: 7
     checkMissingIterableValueType: false
+    excludePaths:
+        - Classes/Facade/FormPersistenceManagerV12.php
     paths:
         - Classes/
+        - Configuration/
         - Tests/

@@ -15,19 +15,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class CreateXliffCommand extends Command
 {
-    /**
-     * @var FormService
-     */
-    protected $formService;
-
-    /**
-     * @var LocalizationService
-     */
-    protected $localizationService;
-    public function __construct(FormService $formService, LocalizationService $localizationService)
-    {
-        $this->formService = $formService;
-        $this->localizationService = $localizationService;
+    public function __construct(
+        protected readonly FormService $formService,
+        protected readonly LocalizationService $localizationService,
+    ) {
+        parent::__construct();
     }
 
     /**

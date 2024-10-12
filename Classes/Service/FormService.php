@@ -2,6 +2,7 @@
 
 namespace R3H6\FormTranslator\Service;
 
+use R3H6\FormTranslator\Facade\FormPersistenceManagerInterface;
 use R3H6\FormTranslator\Parser\FormDefinitionLabelsParser;
 use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
@@ -13,7 +14,6 @@ use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as FormConfigurationManagerInterface;
-use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class FormService
 {
@@ -39,8 +39,7 @@ class FormService
 
     public function listForms(): array
     {
-        $settings = $this->getFormSettings();
-        return $this->formPersistenceManager->listForms($settings);
+        return $this->formPersistenceManager->listForms();
     }
 
     public function extractLabels(string $persistenceIdentifier): ItemCollection
@@ -124,8 +123,7 @@ class FormService
         $formPath = PathUtility::makeAbsolute($persistenceIdentifier);
         $storage = PathUtility::makeAbsolute($this->locallangPath, dirname($formPath));
         if ($this->isWritable($persistenceIdentifier) === false) {
-            $settings = $this->getFormSettings();
-            $storageIdentifier = (string)array_key_first($this->formPersistenceManager->getAccessibleFormStorageFolders($settings));
+            $storageIdentifier = (string)array_key_first($this->formPersistenceManager->getAccessibleFormStorageFolders());
             $storage = PathUtility::makeAbsolute($storageIdentifier);
         }
 
@@ -137,24 +135,11 @@ class FormService
         if (Environment::getContext()->isDevelopment()) {
             return true;
         }
-        $settings = $this->getFormSettings();
-        foreach ($this->formPersistenceManager->listForms($settings) as $form) {
+        foreach ($this->formPersistenceManager->listForms() as $form) {
             if ($form['persistenceIdentifier'] === $persistenceIdentifier && $form['readOnly'] === false) {
                 return true;
             }
         }
         return false;
-    }
-
-    protected function getFormSettings(): array
-    {
-        $typoScriptSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'form');
-        $formSettings = $this->extFormConfigurationManager->getYamlConfiguration($typoScriptSettings, false);
-        if (!isset($formSettings['formManager'])) {
-            // Config sub array formManager is crucial and should always exist. If it does
-            // not, this indicates an issue in config loading logic. Except in this case.
-            throw new \LogicException('Configuration could not be loaded', 1723717461);
-        }
-        return $formSettings;
     }
 }

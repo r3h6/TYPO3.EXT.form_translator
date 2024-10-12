@@ -1,9 +1,8 @@
 <?php
-
 return [
     'BE' => [
         'debug' => true,
-        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$SzlrbktKSGwxMWpXU2didA$eIYlrXM0j2XtLjOI1xDItIYEGgh/QXNTvVigf/Vjdng',
+        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$Yy9Pd0sxeHc4emFkYVlUVA$rImLFLavCyb4sDjJHicX+Q5GcLz5+a2inxalGk+WL9g',
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
             'options' => [],
@@ -16,13 +15,13 @@ return [
                 'dbname' => 'db',
                 'driver' => 'mysqli',
                 'host' => 'db',
-                'password' => 'db',
+                'password' => 'root',
                 'port' => 3306,
                 'tableoptions' => [
                     'charset' => 'utf8mb4',
                     'collate' => 'utf8mb4_unicode_ci',
                 ],
-                'user' => 'db',
+                'user' => 'root',
             ],
         ],
     ],
@@ -36,11 +35,15 @@ return [
             'loginLogo' => '',
             'loginLogoAlt' => '',
         ],
+        'extensionmanager' => [
+            'automaticInstallation' => '1',
+            'offlineMode' => '0',
+        ],
         'form_translator' => [
             'languageFilesDirectory' => './l10n',
             'libreTranslate' => [
                 'apiKey' => '',
-                'host' => 'http://host.docker.internal:5000/',
+                'host' => '',
             ],
         ],
     ],
@@ -57,6 +60,8 @@ return [
     ],
     'GFX' => [
         'processor' => 'GraphicsMagick',
+        'processor_allowTemporaryMasksAsPng' => false,
+        'processor_colorspace' => 'RGB',
         'processor_effects' => false,
         'processor_enabled' => true,
         'processor_path' => '/usr/bin/',
@@ -91,6 +96,12 @@ return [
                 'hash' => [
                     'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
                 ],
+                'imagesizes' => [
+                    'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
+                    'options' => [
+                        'compression' => true,
+                    ],
+                ],
                 'pages' => [
                     'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
                     'options' => [
@@ -107,12 +118,13 @@ return [
         ],
         'devIPmask' => '*',
         'displayErrors' => 1,
-        'encryptionKey' => '9d0fd8398fadc665ffb6d6ede41a32257a8c0d68ac299b3fb55901f34b3e76aa8fdcebbf1329138fa18880d4de56d20f',
+        'encryptionKey' => 'd1d025c2402bbc603b43becb494da931f3bb8280fcbfd5fef75dad0cf50806e55750d506b0990741c8420ae92be81b7f',
         'exceptionalErrors' => 12290,
         'features' => [
-            'frontend.cache.autoTagging' => true,
+            'security.backend.enforceContentSecurityPolicy' => true,
+            'security.usePasswordPolicyForFrontendUsers' => true,
         ],
-        'sitename' => 'New TYPO3 site',
+        'sitename' => 'TYPO3 Form',
         'systemMaintainers' => [
             1,
         ],

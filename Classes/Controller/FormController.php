@@ -12,8 +12,8 @@ use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
@@ -66,7 +66,7 @@ class FormController extends ActionController
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:close'))
                 ->setShowLabelText(true)
                 ->setHref($this->uriBuilder->reset()->uriFor('index'))
-                ->setIcon($this->iconFactory->getIcon('actions-close', IconSize::SMALL->value)),
+                ->setIcon($this->iconFactory->getIcon('actions-close', Icon::SIZE_SMALL)),
             ButtonBar::BUTTON_POSITION_LEFT,
             1
         );
@@ -76,7 +76,7 @@ class FormController extends ActionController
                 ->setShowLabelText(true)
                 ->setHref('#')
                 ->setDataAttributes(['save' => '#LocalizationForm'])
-                ->setIcon($this->iconFactory->getIcon('actions-save', IconSize::SMALL->value)),
+                ->setIcon($this->iconFactory->getIcon('actions-save', Icon::SIZE_SMALL)),
             ButtonBar::BUTTON_POSITION_LEFT,
             2
         );
@@ -108,7 +108,7 @@ class FormController extends ActionController
             $buttonBar->makeLinkButton()
                 ->setHref($requestUri)
                 ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
-                ->setIcon($this->iconFactory->getIcon('actions-refresh', IconSize::SMALL->value)),
+                ->setIcon($this->iconFactory->getIcon('actions-refresh', Icon::SIZE_SMALL)),
             ButtonBar::BUTTON_POSITION_RIGHT,
             1
         );

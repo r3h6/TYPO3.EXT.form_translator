@@ -30,7 +30,8 @@
 		"typo3/cms-install": "^12.4 || ^13.0",
 		"typo3/cms-lowlevel": "^12.4 || ^13.0",
 		"symfony/yaml": "^6.4 || ^7.1",
-		"symfony/translation": "^6.4 || ^7.1"
+		"symfony/translation": "^6.4 || ^7.1",
+		"typo3/cms-extensionmanager": "^12.4 || ^13.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -56,6 +57,9 @@
 		}
 	},
 	"scripts": {
+		"post-autoload-dump": [
+			"mkdir -p .Build/public/fileadmin"
+		],
 		"ci:static": [
 			"@ci:php:lint",
 			"@ci:php:cs",
@@ -67,7 +71,12 @@
 		"ci:php:cs": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --using-cache no --diff",
 		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"ci:php:md": "phpmd Classes/ text phpmd-ruleset.xml",
-		"ci:php:stan": "phpstan --no-progress",
+		"ci:php:stan": [
+			"@phpstan-v12",
+			"@phpstan-v13"
+		],
+		"phpstan-v12": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep '^12'; then phpstan analyse -c phpstan-v12.neon; fi",
+		"phpstan-v13": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep '^13'; then phpstan analyse -c phpstan-v13.neon; fi",
 		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
 		"ci:xliff:lint": "php Build/Scripts/xliff-lint lint:xliff Resources/Private/Language",
 		"ci:yaml:lint": "find . ! -path '*.Build/*' ! -path '*node_modules/*' \\( -name '*.yaml' -o -name '*.yml' \\) | xargs -r php .Build/bin/yaml-lint",
