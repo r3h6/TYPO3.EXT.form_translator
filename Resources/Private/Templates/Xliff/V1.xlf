@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en"{f:if(condition: '{siteLanguage.typo3Language} != default', then: ' target-language="{siteLanguage.typo3Language}"')} datatype="plaintext" original="{originalFile}" date="{f:format.date(format: 'Y-m-dTH:i:s')}" product-name="form">
+	<file source-language="en"{f:if(condition: '{language.typo3Language} != default', then: ' target-language="{language.typo3Language}"')} datatype="plaintext" original="{originalFile}" date="{f:format.date(format: 'Y-m-dTH:i:s')}" product-name="form">
 		<header/>
 		<f:if condition="{items -> f:count()} == 0">
 			<f:then>
@@ -10,7 +10,7 @@
 				<body>
 					<f:for each="{items}" as="item">
 						<trans-unit id="{item.identifier}">
-							<f:if condition="{siteLanguage.typo3Language} != default">
+							<f:if condition="{language.typo3Language} != default">
 								<f:then>
 									<source>{item.source}</source>
 									<target>{item.target}</target>

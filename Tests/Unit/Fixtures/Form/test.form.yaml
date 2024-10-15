@@ -72,6 +72,10 @@ renderables:
             identifier: email-1
             label: 'Email address'
             properties:
+              validationErrorMessages:
+                -
+                  code: 1221559976
+                  message: 'Custom error message 1221559976'
               elementDescription: 'Email address description'
               fluidAdditionalAttributes:
                 placeholder: 'Email address placeholder'

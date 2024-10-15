@@ -82,13 +82,14 @@ class FormDefinitionLabelsParser
                     $items[$id] = $optionLabel;
                 }
             }
+            $validationErrorMessages = $sub->find('renderable.properties.validationErrorMessages[*]')->getData();
+            if (!empty($validationErrorMessages)) {
+                foreach ($validationErrorMessages as $message) {
+                    $id = $formIdentifier . '.validation.error.' . $identifier . '.' . $message['code'];
+                    $items[$id] = $message['message'];
+                }
+            }
         }
-
-        // $validationErrorMessages = $json->find('..validationErrorMessages[*]')->getData();
-        // foreach ($validationErrorMessages as $validationErrorMessage) {
-        //     $id = str_replace(['<form-identifier>', '<error-code>'], [$formIdentifier, $validationErrorMessage['code']], '<form-identifier>.validation.error.<error-code>');
-        //     $items[$id] = '';
-        // }
 
         $event = new AfterParseFormEvent($items);
         $this->dispatcher->dispatch($event);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace R3H6\FormTranslator\Service;
 
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 
 interface TranslationServiceInterface
 {
@@ -12,5 +12,5 @@ interface TranslationServiceInterface
 
     public function isEnabled(): bool;
 
-    public function translate(string $text, SiteLanguage $targetLanguage): string;
+    public function translate(string $text, Typo3Language $targetLanguage): string;
 }

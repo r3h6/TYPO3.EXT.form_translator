@@ -6,13 +6,13 @@ namespace R3H6\FormTranslator\Service;
 
 use R3H6\FormTranslator\Facade\FormPersistenceManagerInterface;
 use R3H6\FormTranslator\Parser\FormDefinitionLabelsParser;
+use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
 use R3H6\FormTranslator\Utility\PathUtility;
 use Symfony\Component\Yaml\Yaml;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as FormConfigurationManagerInterface;
@@ -30,11 +30,11 @@ class FormService
         protected string $locallangPath,
     ) {}
 
-    public function getItems(string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
+    public function getItems(string $persistenceIdentifier, Typo3Language $language): ItemCollection
     {
         $items = $this->extractLabels($persistenceIdentifier);
 
-        $this->getTranslation($items, $persistenceIdentifier, $siteLanguage);
+        $this->getTranslation($items, $persistenceIdentifier, $language);
 
         return $items;
     }
@@ -56,7 +56,7 @@ class FormService
         return $items;
     }
 
-    public function getTranslation(ItemCollection $items, string $persistenceIdentifier, SiteLanguage $siteLanguage): ItemCollection
+    public function getTranslation(ItemCollection $items, string $persistenceIdentifier, Typo3Language $language): ItemCollection
     {
         $form = $this->parseForm($persistenceIdentifier);
         $dir = Environment::getPublicPath();
@@ -64,11 +64,11 @@ class FormService
         $translationFiles = $form['renderingOptions']['translation']['translationFiles'] ?? [];
         foreach ($translationFiles as $translationFile) {
             $path = PathUtility::makeAbsolute($translationFile, $dir);
-            $localLanguage = array_replace_recursive($localLanguage, $this->localizationFactory->getParsedData($path, $siteLanguage->getTypo3Language()));
+            $localLanguage = array_replace_recursive($localLanguage, $this->localizationFactory->getParsedData($path, $language->getTypo3Language()));
         }
 
-        if (array_key_exists($siteLanguage->getTypo3Language(), $localLanguage) && is_array($localLanguage[$siteLanguage->getTypo3Language()])) {
-            foreach ($localLanguage[$siteLanguage->getTypo3Language()] as $identifier => $values) {
+        if (array_key_exists($language->getTypo3Language(), $localLanguage) && is_array($localLanguage[$language->getTypo3Language()])) {
+            foreach ($localLanguage[$language->getTypo3Language()] as $identifier => $values) {
                 $item = $items->getItem($identifier) ?? new Item($identifier);
                 $item->setSource($values[0]['source']);
                 $item->setTarget($values[0]['target']);

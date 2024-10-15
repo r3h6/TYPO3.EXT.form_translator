@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 return [
     'BE' => [
         'debug' => true,
@@ -28,6 +25,15 @@ return [
             ],
         ],
     ],
+    'EXTCONF' => [
+        'lang' => [
+            'availableLanguages' => [
+                'de',
+                'de_CH',
+                'gsw_CH',
+            ],
+        ],
+    ],
     'EXTENSIONS' => [
         'backend' => [
             'backendFavicon' => '',
@@ -46,7 +52,7 @@ return [
             'languageFilesDirectory' => './l10n',
             'libreTranslate' => [
                 'apiKey' => '',
-                'host' => '',
+                'host' => 'http://host.docker.internal:5000/',
             ],
         ],
     ],

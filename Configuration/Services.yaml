@@ -10,6 +10,10 @@ services:
   R3H6\FormTranslator\Controller\TranslationController:
     public: true
 
+  R3H6\FormTranslator\Hooks\:
+    resource: '../Classes/Hooks/*'
+    public: true
+
   extensionconfiguration.form_translator.libreTranslate.host:
     class: 'string'
     factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
@@ -55,12 +59,12 @@ services:
         identifier: 'form_translator.removeEmptyItems'
         event: R3H6\FormTranslator\Event\AfterParseFormEvent
 
-  R3H6\FormTranslator\Property\TypeConverters\SiteLanguageConverter:
+  R3H6\FormTranslator\Property\TypeConverters\Typo3LanguageConverter:
     tags:
       - name: extbase.type_converter
         priority: 1
-        target: TYPO3\CMS\Core\Site\Entity\SiteLanguage
-        sources: integer, string
+        target: R3H6\FormTranslator\Translation\Dto\Typo3Language
+        sources: string
 
   R3H6\FormTranslator\Property\TypeConverters\ItemCollectionConverter:
     tags:

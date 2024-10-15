@@ -6,8 +6,8 @@ namespace R3H6\FormTranslator\Service;
 
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
+use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use TYPO3\CMS\Core\Http\RequestFactory;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 
 class LibreTranslateTranslationService implements TranslationServiceInterface
 {
@@ -23,12 +23,12 @@ class LibreTranslateTranslationService implements TranslationServiceInterface
         return empty($this->host) === false;
     }
 
-    public function translate(string $text, SiteLanguage $targetLanguage): string
+    public function translate(string $text, Typo3Language $targetLanguage): string
     {
         $params = [
             'q' => $text,
             'source' => 'auto',
-            'target' => $targetLanguage->getLocale()->getLanguageCode(),
+            'target' => $targetLanguage->getLanguageCode(),
             'format' => 'text',
         ];
 

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+
+## Description: Run unit or functional tests
+## Usage: runTests [command]
+## Example: "ddev runTests [command]"
+
+suite=$1
+args="${@:2}"
+
+# Unit tests
+if [ "$suite" == "unit" ]; then
+    echo "Running unit tests"
+    .Build/bin/phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/ $args
+    exit 0
+fi
+
+# Functional tests
+if [ "$suite" == "functional" ]; then
+    echo "Running functional tests"
+    .Build/bin/phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml Tests/Functional/ $args
+    exit 0
+fi
+
+echo "Please provide a valid test suite: unit or functional"
+exit 1

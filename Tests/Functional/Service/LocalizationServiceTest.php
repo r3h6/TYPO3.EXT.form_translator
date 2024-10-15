@@ -8,10 +8,9 @@ use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\Attributes\Test;
 use R3H6\FormTranslator\Service\LocalizationService;
+use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
-use TYPO3\CMS\Core\Http\Uri;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -49,7 +48,7 @@ class LocalizationServiceTest extends FunctionalTestCase
         error_reporting(0);
 
         $locallangFile = 'vfs://root/locallang.xlf';
-        $siteLanguage = new SiteLanguage(0, 'en.UTF-8', new Uri('/'), []);
+        $language = new Typo3Language('default', 'English', 'gb');
 
         $item = new Item('test');
         $item->setSource('test.source');
@@ -58,16 +57,15 @@ class LocalizationServiceTest extends FunctionalTestCase
         $items = new ItemCollection();
         $items->addItem($item);
 
-        $this->localizationService->saveXliff($locallangFile, $siteLanguage, $items);
+        $this->localizationService->saveXliff($locallangFile, $language, $items);
 
-        self::assertSame('default', $siteLanguage->getTypo3Language());
+        self::assertSame('default', $language->getTypo3Language());
         self::assertFileExists($locallangFile);
         self::assertFileDoesNotExist('vfs://root/default.locallang.xlf');
         self::assertXmlStringEqualsXmlString(
             $this->normalizeXml(dirname(__DIR__) . '/Assertions/default.xlf'),
             $this->normalizeXml($locallangFile)
         );
-
     }
 
     #[Test]
@@ -77,7 +75,7 @@ class LocalizationServiceTest extends FunctionalTestCase
 
         $locallangFile = 'vfs://root/locallang.xlf';
         $translationFile = 'vfs://root/en_US.locallang.xlf';
-        $siteLanguage = new SiteLanguage(0, 'en_US.UTF-8', new Uri('/'), []);
+        $language = new Typo3Language('en_US', 'English (US)', 'us');
 
         $item = new Item('test');
         $item->setSource('test.source');
@@ -86,9 +84,9 @@ class LocalizationServiceTest extends FunctionalTestCase
         $items = new ItemCollection();
         $items->addItem($item);
 
-        $this->localizationService->saveXliff($locallangFile, $siteLanguage, $items);
+        $this->localizationService->saveXliff($locallangFile, $language, $items);
 
-        self::assertSame('en_US', $siteLanguage->getTypo3Language());
+        self::assertSame('en_US', $language->getTypo3Language());
         self::assertFileExists($locallangFile);
         self::assertFileExists($translationFile);
         self::assertXmlStringEqualsXmlString(
@@ -109,13 +107,13 @@ class LocalizationServiceTest extends FunctionalTestCase
         error_reporting(0);
 
         $locallangFile = 'vfs://root/locallang.xlf';
-        $siteLanguage = new SiteLanguage(0, 'en.UTF-8', new Uri('/'), []);
+        $language = new Typo3Language('default', 'English', 'gb');
 
         $items = new ItemCollection();
 
-        $this->localizationService->saveXliff($locallangFile, $siteLanguage, $items);
+        $this->localizationService->saveXliff($locallangFile, $language, $items);
 
-        self::assertSame('default', $siteLanguage->getTypo3Language());
+        self::assertSame('default', $language->getTypo3Language());
         self::assertFileDoesNotExist($locallangFile);
     }
 

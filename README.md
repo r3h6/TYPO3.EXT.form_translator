@@ -32,11 +32,37 @@ renderingOptions:
       99: fileadmin/form_definitions/l10n/example.xlf
 ```
 
+Customized validation error messages are translated by overriding the form definition
+at runtime using the `afterBuildingFinished` hook from the form framework.
+
+## Upgrade
+
+### From v2 an TYPO3 v12
+
+Rename language files prefixed with a locale like `de_DE.locallang.xlf`
+to the corresponding TYPO3 language `de.locallang.xlf`
+or setup a [custom language](https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/Localization/ManagingTranslations.html#xliff-translating-languages).
+
+### From v2 an TYPO3 v11
+
+No changes required.
+
 ## Known issues
 
-1. Localization of error messages is not possible
+- [Issues on GitHub](https://github.com/r3h6/TYPO3.EXT.form_translator/issues)
 
-## Develpment/Contribution
+## Resources
+
+- [Tutorial by Sebastian Klein](https://www.sebkln.de/en/tutorials/translating-forms-in-the-typo3-form-framework/)
+- [Translation with variants](https://docs.typo3.org/c/typo3/cms-form/main/en-us/I/Concepts/Variants/Index.html#concepts-variants-examples-translation)
+
+## Develpment
+
+Setup libretranslate:
+
+`docker run -ti --rm -p 5000:5000 -e LT_LOAD_ONLY='en,de' libretranslate/libretranslate`
+
+## Contribution
 
 Pull request are welcome!
 

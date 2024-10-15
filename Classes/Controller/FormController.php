@@ -7,7 +7,8 @@ namespace R3H6\FormTranslator\Controller;
 use Psr\Http\Message\ResponseInterface;
 use R3H6\FormTranslator\Service\FormService;
 use R3H6\FormTranslator\Service\LocalizationService;
-use R3H6\FormTranslator\Service\SiteLanguageService;
+use R3H6\FormTranslator\Service\Typo3LanguageService;
+use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -18,14 +19,13 @@ use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class FormController extends ActionController
 {
     public function __construct(
-        protected SiteLanguageService $siteLanguageService,
+        protected Typo3LanguageService $languageService,
         protected FormService $formService,
         protected LocalizationService $localizationService,
         protected FrontendInterface $l10nCache,
@@ -39,27 +39,27 @@ class FormController extends ActionController
         $title = LocalizationUtility::translate('mod.title.index', 'FormTranslator');
 
         $moduleTemplate = $this->initializeModuleTemplate($title);
-        $moduleTemplate->assign('siteLanguages', $this->siteLanguageService->findAll());
+        $moduleTemplate->assign('languages', $this->languageService->findAll());
         $moduleTemplate->assign('forms', $this->formService->listForms());
         $moduleTemplate->assign('title', $title);
 
         return $moduleTemplate->renderResponse('Form/Index');
     }
 
-    public function localizeAction(string $persistenceIdentifier, SiteLanguage $siteLanguage): ResponseInterface
+    public function localizeAction(string $persistenceIdentifier, Typo3Language $language): ResponseInterface
     {
         $this->pageRenderer->loadJavaScriptModule('@r3h6/form-translator/Mod.js');
         $this->pageRenderer->addCssFile('EXT:form_translator/Resources/Public/StyleSheets/Mod.css');
 
         $title = LocalizationUtility::translate('mod.title.localize', 'FormTranslator', [
             $this->formService->getTitle($persistenceIdentifier),
-            $siteLanguage->getTitle(),
+            $language->getTitle(),
         ]);
 
         $moduleTemplate = $this->initializeModuleTemplate($title);
         $moduleTemplate->assign('title', $title);
-        $moduleTemplate->assign('items', $this->formService->getItems($persistenceIdentifier, $siteLanguage));
-        $moduleTemplate->assign('siteLanguage', $siteLanguage);
+        $moduleTemplate->assign('items', $this->formService->getItems($persistenceIdentifier, $language));
+        $moduleTemplate->assign('language', $language);
         $moduleTemplate->assign('persistenceIdentifier', $persistenceIdentifier);
 
         $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
@@ -86,16 +86,16 @@ class FormController extends ActionController
         return $moduleTemplate->renderResponse('Form/Localize');
     }
 
-    public function saveAction(string $persistenceIdentifier, SiteLanguage $siteLanguage, ItemCollection $items): ResponseInterface
+    public function saveAction(string $persistenceIdentifier, Typo3Language $language, ItemCollection $items): ResponseInterface
     {
         $locallangFile = $this->formService->getLocallangFileFromPersistenceIdentifier($persistenceIdentifier);
-        $this->localizationService->saveXliff($locallangFile, $siteLanguage, $items);
+        $this->localizationService->saveXliff($locallangFile, $language, $items);
         $this->addFlashMessage('Saved translation to ' . $locallangFile);
         if ($this->formService->isWritable($persistenceIdentifier)) {
             $this->formService->addTranslationFile($persistenceIdentifier, $locallangFile);
         }
         $this->l10nCache->flush();
-        return $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'siteLanguage' => $siteLanguage->getLanguageId()]);
+        return $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'language' => $language->getTypo3Language()]);
     }
 
     protected function initializeModuleTemplate(string $title): ModuleTemplate

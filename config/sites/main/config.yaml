@@ -5,9 +5,11 @@ languages:
     enabled: true
     languageId: 0
     base: /
-    locale: en_US.UTF-8
+    locale: en_US
     navigationTitle: English
     flag: us
+    hreflang: ''
+    websiteTitle: ''
   -
     title: German
     enabled: true
@@ -20,5 +22,29 @@ languages:
     fallbacks: ''
     flag: de
     languageId: 1
+  -
+    title: 'German (Swiss)'
+    enabled: true
+    locale: de_CH
+    hreflang: ''
+    base: /de-CH/
+    websiteTitle: ''
+    navigationTitle: 'Deutsch Schweiz'
+    fallbackType: strict
+    fallbacks: '1'
+    flag: ch
+    languageId: 2
+  -
+    title: 'German (Austria)'
+    enabled: true
+    locale: de_AT
+    hreflang: ''
+    base: /de-AT/
+    websiteTitle: ''
+    navigationTitle: Deutsch
+    fallbackType: strict
+    fallbacks: ''
+    flag: at
+    languageId: 3
 rootPageId: 1
 websiteTitle: ''

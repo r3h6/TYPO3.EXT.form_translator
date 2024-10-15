@@ -34,7 +34,10 @@
 		"typo3/cms-lowlevel": "^12.4 || ^13.0",
 		"typo3/coding-standards": "^0.8",
 		"typo3/testing-framework": "^8.0",
-		"mikey179/vfsstream": "^1.6"
+		"mikey179/vfsstream": "^1.6",
+		"typo3/cms-beuser": "^12.4",
+		"typo3/cms-filelist": "^12.4",
+		"typo3/cms-install": "^12.4"
 	},
 	"replace": {
 		"typo3-ter/form-translator": "self.version"
