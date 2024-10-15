@@ -12,8 +12,8 @@
 	"require": {
 		"php": ">= 8.1 < 8.4",
 		"softcreatr/jsonpath": "^0.9",
-		"typo3/cms-core": "^12.4 || ^13.0",
-		"typo3/cms-form": "^12.4 || ^13.0"
+		"typo3/cms-core": "^12.4 || ^13.4",
+		"typo3/cms-form": "^12.4 || ^13.4"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
@@ -21,23 +21,20 @@
 		"friendsofphp/php-cs-fixer": "^3.3",
 		"helmich/typo3-typoscript-lint": "^3.1",
 		"michielroos/typo3scan": "^1.7",
-		"phpcompatibility/php-compatibility": "^9.3",
+		"mikey179/vfsstream": "^1.6",
 		"phpmd/phpmd": "@stable",
-		"phpunit/phpcov": "^9.0",
+		"phpunit/phpcov": "^9.0 || ^10.0",
 		"saschaegerer/phpstan-typo3": "^1.0",
-		"sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": "^0.1.3",
-		"ssch/typo3-rector": "^2.9",
 		"symfony/translation": "^6.4 || ^7.1",
 		"symfony/yaml": "^6.4 || ^7.1",
-		"typo3/cms-extensionmanager": "^12.4 || ^13.0",
-		"typo3/cms-fluid-styled-content": "^12.4 || ^13.0",
-		"typo3/cms-lowlevel": "^12.4 || ^13.0",
+		"typo3/cms-beuser": "^12.4 || ^13.4",
+		"typo3/cms-extensionmanager": "^12.4 || ^13.4",
+		"typo3/cms-filelist": "^12.4 || ^13.4",
+		"typo3/cms-fluid-styled-content": "^12.4 || ^13.4",
+		"typo3/cms-install": "^12.4 || ^13.4",
+		"typo3/cms-lowlevel": "^12.4 || ^13.4",
 		"typo3/coding-standards": "^0.8",
-		"typo3/testing-framework": "^8.0",
-		"mikey179/vfsstream": "^1.6",
-		"typo3/cms-beuser": "^12.4",
-		"typo3/cms-filelist": "^12.4",
-		"typo3/cms-install": "^12.4"
+		"typo3/testing-framework": "^8.0 || ^9.0"
 	},
 	"replace": {
 		"typo3-ter/form-translator": "self.version"
@@ -56,7 +53,6 @@
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"ergebnis/composer-normalize": true,
-			"sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true,
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
 		},
@@ -79,6 +75,10 @@
 			"@ci:coverage:functional",
 			"@ci:coverage:merge"
 		],
+		"ci:coverage:functional": [
+			"@coverage:create-directories",
+			"XDEBUG_MODE=coverage phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml --coverage-filter Classes --coverage-php=.Build/coverage/functional.cov Tests/Functional"
+		],
 		"ci:coverage:merge": [
 			"@coverage:create-directories",
 			"XDEBUG_MODE=coverage phpcov merge --html=.Build/coverage/ .Build/coverage/"
@@ -86,10 +86,6 @@
 		"ci:coverage:unit": [
 			"@coverage:create-directories",
 			"XDEBUG_MODE=coverage phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml --coverage-filter Classes --coverage-php=.Build/coverage/unit.cov Tests/Unit"
-		],
-		"ci:coverage:functional": [
-			"@coverage:create-directories",
-			"XDEBUG_MODE=coverage phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml --coverage-filter Classes --coverage-php=.Build/coverage/functional.cov Tests/Functional"
 		],
 		"ci:libs:pack": [
 			"curl https://github.com/clue/phar-composer/releases/download/v1.4.0/phar-composer-1.4.0.phar -o phar-composer && chmod +x phar-composer",
@@ -111,8 +107,8 @@
 			"@ci:xliff:lint",
 			"@ci:typo3:scan"
 		],
-		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
 		"ci:test:functional": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml Tests/Functional/",
+		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
 		"ci:typo3:scan": [
 			"typo3scan scan --target 11 --only strong Classes/",
 			"typo3scan scan --target 12 --only strong Classes/"

@@ -2,11 +2,11 @@
 
 namespace R3H6\FormTranslator\Hooks;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Form\Domain\Model\FormElements\AbstractFormElement;
 use TYPO3\CMS\Form\Domain\Model\Renderable\RenderableInterface;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class TranslateValidationErrorMessages
 {
@@ -59,11 +59,12 @@ class TranslateValidationErrorMessages
 
     private function getLanguageService(): LanguageService
     {
-        return $this->languageServiceFactory->createFromSiteLanguage($this->getTypoScriptFrontendController()->getLanguage());
+        $siteLanguage = $this->getRequest()->getAttribute('language');
+        return $this->languageServiceFactory->createFromSiteLanguage($siteLanguage);
     }
 
-    private function getTypoScriptFrontendController(): TypoScriptFrontendController
+    private function getRequest(): ServerRequestInterface
     {
-        return $GLOBALS['TSFE'];
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
