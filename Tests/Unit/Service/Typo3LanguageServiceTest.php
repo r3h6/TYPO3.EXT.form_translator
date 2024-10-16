@@ -32,7 +32,8 @@ class Typo3LanguageServiceTest extends TestCase
         $this->typo3LanguageService = new Typo3LanguageService(
             $this->localesMock,
             $this->siteFinderMock,
-            $this->eventDispatcherMock
+            $this->eventDispatcherMock,
+            ''
         );
     }
 

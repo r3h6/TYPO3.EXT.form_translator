@@ -9,7 +9,7 @@ use R3H6\FormTranslator\Translation\ItemCollection;
 
 class MemoryTranslationService implements TranslationServiceInterface
 {
-    public function __construct(protected FormService $formService) {}
+    public function __construct(protected readonly FormService $formService) {}
 
     public function getName(): string
     {

@@ -11,7 +11,11 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 
 class LibreTranslateTranslationService implements TranslationServiceInterface
 {
-    public function __construct(protected RequestFactory $requestFactory, protected string $host, protected string $apiKey) {}
+    public function __construct(
+        protected readonly RequestFactory $requestFactory,
+        protected readonly string $host,
+        protected readonly string $apiKey,
+    ) {}
 
     public function getName(): string
     {

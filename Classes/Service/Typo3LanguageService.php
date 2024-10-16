@@ -17,6 +17,7 @@ class Typo3LanguageService
         private readonly Locales $locales,
         private readonly SiteFinder $siteFinder,
         private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly string $typo3LanguageWhitelist,
     ) {}
 
     /**
@@ -27,7 +28,6 @@ class Typo3LanguageService
         $siteLanguages = $this->getAllSiteLanguages();
         $siteLanguages = $this->getAllowdLanguages($siteLanguages);
         $languages = $this->getTypo3Languages($siteLanguages);
-        $languages = $this->priorizeLanguages($languages);
         $languages = $this->normalizeLanguages($languages);
 
         $event = new \R3H6\FormTranslator\Event\FinalizeTypo3LanguagesEvent(array_values($languages));
@@ -86,37 +86,25 @@ class Typo3LanguageService
         return $languages;
     }
 
-    /** @return array<string, Typo3Language> */
-    private function priorizeLanguages(array $languages): array
-    {
-        foreach ($languages as $typo3Language => $language) {
-            $countryCode = $language->getCountryCode();
-            $languageCode = $language->getLanguageCode();
-            if (!isset($languages[$languageCode]) && strtolower($languageCode) === strtolower($countryCode)) {
-                $languages[$languageCode] = $language;
-                unset($languages[$typo3Language]);
-            }
-        }
-
-        ksort($languages);
-        return $languages;
-    }
-
     private function normalizeLanguages(array $languages): array
     {
-        $mappedLanguages = [];
+        $normalizedLanguages = [];
         foreach ($languages as $language) {
-            $mappedLanguage = $this->normalizeLanguage($language);
-            if ($mappedLanguage && !isset($mappedLanguages[$mappedLanguage->getTypo3Language()])) {
-                $mappedLanguages[$mappedLanguage->getTypo3Language()] = $mappedLanguage;
+            $normalizedLanguage = $this->normalizeLanguage($language);
+            $isPriorityLanguage = strtolower($language->getLanguageCode()) === strtolower($language->getCountryCode());
+            if ($normalizedLanguage && (!isset($normalizedLanguages[$normalizedLanguage->getTypo3Language()]) || $isPriorityLanguage)) {
+                $normalizedLanguages[$normalizedLanguage->getTypo3Language()] = $normalizedLanguage;
             }
         }
-        return $mappedLanguages;
+        return $normalizedLanguages;
     }
 
     private function normalizeLanguage(Typo3Language $language): ?Typo3Language
     {
         if (in_array($language->getTypo3Language(), $this->locales->getActiveLanguages())) {
+            return $language;
+        }
+        if (GeneralUtility::inList($this->typo3LanguageWhitelist, $language->getTypo3Language())) {
             return $language;
         }
         $languageCode = $language->getLanguageCode();
