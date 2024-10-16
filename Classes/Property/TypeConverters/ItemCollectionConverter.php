@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Property\TypeConverters;
 
 use R3H6\FormTranslator\Translation\Item;
@@ -9,21 +11,6 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
 class ItemCollectionConverter extends AbstractTypeConverter
 {
-    /**
-     * @var array<string>
-     */
-    protected $sourceTypes = ['array'];
-
-    /**
-     * @var string
-     */
-    protected $targetType = ItemCollection::class;
-
-    /**
-     * @var int
-     */
-    protected $priority = 2;
-
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */

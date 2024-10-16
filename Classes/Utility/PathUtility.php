@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Utility;
 
 use Symfony\Component\Filesystem\Path;
@@ -42,7 +44,5 @@ final class PathUtility
         return str_starts_with($path, 'EXT:');
     }
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 }

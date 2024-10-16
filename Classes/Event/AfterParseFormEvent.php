@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Event;
 
 final class AfterParseFormEvent
 {
-    /**
-     * @var array
-     */
-    private $items;
+    public function __construct(
+        private readonly string $formIdentifier,
+        private array $items,
+    ) {}
 
-    public function __construct(array $items)
+    public function getFormIdentifier(): string
     {
-        $this->items = $items;
+        return $this->formIdentifier;
     }
 
     public function getItems(): array

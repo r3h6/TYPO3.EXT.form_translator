@@ -1,0 +1,12 @@
+includes:
+    - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
+
+parameters:
+    level: 7
+    checkMissingIterableValueType: false
+    excludePaths:
+        - Classes/Facade/FormPersistenceManagerV13.php
+    paths:
+        - Classes/
+        - Configuration/
+        - Tests/

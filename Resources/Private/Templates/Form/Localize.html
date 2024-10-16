@@ -4,17 +4,17 @@
    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
    data-namespace-typo3-fluid="true">
 
-   <f:layout name="Default" />
+   <f:layout name="Module" />
 
    <f:section name="Content">
-        <h1>{docTitle}</h1>
-        <f:form id="LocalizationForm" action="save" arguments="{persistenceIdentifier: persistenceIdentifier, siteLanguage: siteLanguage.languageId}" method="post" enctype="multipart/form-data">
+        <h1>{title}</h1>
+        <f:form id="LocalizationForm" action="save" arguments="{persistenceIdentifier: persistenceIdentifier, language: language.typo3Language}" method="post" enctype="multipart/form-data">
          <table>
             <thead>
                <tr>
                   <th><f:translate key="language.original" /></th>
                   <th></th>
-                  <th>{siteLanguage.title}</th>
+                  <th>{typo3Language.title}</th>
                </tr>
             </thead>
             <f:for each="{items}" as="item" iteration="i">
@@ -24,15 +24,19 @@
                      <small class="form-text text-muted">{item.identifier}</small>
                   </td>
                   <td>
-                     <button class="btn btn-sm" tabindex="-1" type="button" data-translate-to="{siteLanguage.languageId}" data-source="#Source{i.index}" data-target="#Target{i.index}">
+                     <button class="btn btn-sm" tabindex="-1" type="button" data-translate-to="{language.typo3Language}" data-source="#Source{i.index}" data-target="#Target{i.index}">
                         <core:icon identifier="actions-translate" size="small" />
                      </button>
-
                   </td>
                   <td>
                      <f:form.hidden name="items[{i.index}][identifier]" value="{item.identifier}" />
                      <f:form.hidden name="items[{i.index}][source]" value="{item.original}" />
-                     <f:form.textarea id="Target{i.index}" name="items[{i.index}][target]" class="form-control" value="{f:if(condition: '{siteLanguage.typo3Language} == \'default\'', then: item.source, else: item.target)}" />
+                     <f:form.textarea
+                        id="Target{i.index}"
+                        name="items[{i.index}][target]"
+                        class="form-control"
+                        value="{f:if(condition: '{language.typo3Language} == \'default\'', then: item.source, else: item.target)}"
+                    />
                      <small class="form-text text-muted">{item.identifier}</small>
                   </td>
                </tr>

@@ -15,9 +15,10 @@ nfs_mount_enabled: false
 mutagen_enabled: false
 use_dns_when_possible: true
 composer_version: "2"
-web_environment: []
 nodejs_version: "16"
-
+web_environment:
+  - TYPO3_CONTEXT=Development
+  - typo3DatabaseDriver=pdo_sqlite
 # Key features of ddev's config.yaml:
 
 # name: <projectname> # Name of the project, automatically provides
@@ -185,8 +186,6 @@ nodejs_version: "16"
 # In this case the user must provide all such settings.
 
 # You can inject environment variables into the web container with:
-web_environment:
-  - TYPO3_CONTEXT=Development
 
 # no_project_mount: false
 # (Experimental) If true, ddev will not mount the project into the web container;

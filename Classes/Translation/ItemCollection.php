@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Translation;
 
 /**
@@ -21,6 +23,15 @@ final class ItemCollection implements \IteratorAggregate, \Countable
     {
         ksort($this->items);
         return new \ArrayIterator($this->items);
+    }
+
+    /**
+     * @return Item[]
+     */
+    public function toArray(): array
+    {
+        ksort($this->items);
+        return $this->items;
     }
 
     public function addItem(Item $newItem): void

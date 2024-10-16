@@ -1,18 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Service;
 
+use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\ItemCollection;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 
 class MemoryTranslationService implements TranslationServiceInterface
 {
-    protected FormService $formService;
-
-    public function __construct(FormService $formService)
-    {
-        $this->formService = $formService;
-    }
+    public function __construct(protected readonly FormService $formService) {}
 
     public function getName(): string
     {
@@ -24,7 +21,7 @@ class MemoryTranslationService implements TranslationServiceInterface
         return true;
     }
 
-    public function translate(string $text, SiteLanguage $targetLanguage): string
+    public function translate(string $text, Typo3Language $targetLanguage): string
     {
         $forms = $this->formService->listForms();
         $items = new ItemCollection();

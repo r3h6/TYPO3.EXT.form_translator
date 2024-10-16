@@ -1,34 +1,43 @@
 {
 	"name": "r3h6/form-translator",
-	"type": "typo3-cms-extension",
 	"description": "Provides a backend module and cli for translating forms.",
+	"license": "GPL-2.0-or-later",
+	"type": "typo3-cms-extension",
 	"authors": [
 		{
 			"name": "R3 H6",
 			"role": "Developer"
 		}
 	],
-	"license": "GPL-2.0-or-later",
 	"require": {
-		"typo3/cms-core": "^11.5 || ^12.4",
-		"typo3/cms-form": "^11.5 || ^12.4",
-		"softcreatr/jsonpath": "^0.7.5 || ^0.8.2",
-		"php": ">= 7.4, < 8.4"
+		"php": ">= 8.1 < 8.4",
+		"softcreatr/jsonpath": "^0.9",
+		"typo3/cms-core": "^12.4 || ^13.4",
+		"typo3/cms-form": "^12.4 || ^13.4"
 	},
 	"require-dev": {
-		"typo3/testing-framework": "^6.16 || ^7.0@dev",
-		"saschaegerer/phpstan-typo3": "^1.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"ergebnis/composer-normalize": "^2.44",
 		"friendsofphp/php-cs-fixer": "^3.3",
 		"helmich/typo3-typoscript-lint": "^3.1",
-		"typo3/coding-standards": "^0.5.0",
-		"phpmd/phpmd": "@stable",
 		"michielroos/typo3scan": "^1.7",
-		"phpcompatibility/php-compatibility": "^9.3",
-		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-		"ssch/typo3-rector": "^1.2",
-		"sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": "^0.1.3",
-		"helhum/typo3-console": "^7.0 || ^8.0",
-		"typo3/cms-fluid-styled-content": "^11.5 || ^12.4"
+		"mikey179/vfsstream": "^1.6",
+		"phpmd/phpmd": "@stable",
+		"phpunit/phpcov": "^9.0 || ^10.0",
+		"saschaegerer/phpstan-typo3": "^1.0",
+		"symfony/translation": "^6.4 || ^7.1",
+		"symfony/yaml": "^6.4 || ^7.1",
+		"typo3/cms-beuser": "^12.4 || ^13.4",
+		"typo3/cms-extensionmanager": "^12.4 || ^13.4",
+		"typo3/cms-filelist": "^12.4 || ^13.4",
+		"typo3/cms-fluid-styled-content": "^12.4 || ^13.4",
+		"typo3/cms-install": "^12.4 || ^13.4",
+		"typo3/cms-lowlevel": "^12.4 || ^13.4",
+		"typo3/coding-standards": "^0.8",
+		"typo3/testing-framework": "^8.0 || ^9.0"
+	},
+	"replace": {
+		"typo3-ter/form-translator": "self.version"
 	},
 	"autoload": {
 		"psr-4": {
@@ -40,42 +49,78 @@
 			"R3H6\\FormTranslator\\Tests\\": "Tests"
 		}
 	},
-	"replace": {
-		"typo3-ter/form-translator": "self.version"
-	},
 	"config": {
-		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin",
 		"allow-plugins": {
-			"typo3/cms-composer-installers": true,
-			"typo3/class-alias-loader": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true,
-			"sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true
-		}
-	},
-	"scripts": {
-		"ci:php:cs": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --using-cache no --diff",
-		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
-		"ci:php:md": "phpmd Classes/ text phpmd-ruleset.xml",
-		"ci:php:stan": "phpstan --no-progress",
-		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
-		"ci:libs:pack": [
-			"curl https://github.com/clue/phar-composer/releases/download/v1.4.0/phar-composer-1.4.0.phar -o phar-composer && chmod +x phar-composer",
-			"./phar-composer build softcreatr/jsonpath Resources/Private/Php/jsonpath.phar"
-		],
-		"fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
-		"ci:php:compatibility": "phpcs -p --standard=PHPCompatibility --runtime-set testVersion 7.4-8.2 --extensions=php --ignore=*/.Build/*,*/Resources/Private/Php/* .",
-		"ci:typo3:deprecation": [
-			"typo3scan scan --target 11 Classes/",
-			"typo3scan scan --target 12 Classes/"
-		],
-		"rector": "rector process --dry-run"
+			"ergebnis/composer-normalize": true,
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
+		"bin-dir": ".Build/bin",
+		"vendor-dir": ".Build/vendor"
 	},
 	"extra": {
 		"typo3/cms": {
 			"app-dir": ".Build",
-			"web-dir": ".Build/public",
-			"extension-key": "form_translator"
+			"extension-key": "form_translator",
+			"web-dir": ".Build/public"
 		}
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"mkdir -p .Build/public/fileadmin"
+		],
+		"ci:coverage": [
+			"@ci:coverage:unit",
+			"@ci:coverage:functional",
+			"@ci:coverage:merge"
+		],
+		"ci:coverage:functional": [
+			"@coverage:create-directories",
+			"XDEBUG_MODE=coverage phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml --coverage-filter Classes --coverage-php=.Build/coverage/functional.cov Tests/Functional"
+		],
+		"ci:coverage:merge": [
+			"@coverage:create-directories",
+			"XDEBUG_MODE=coverage phpcov merge --html=.Build/coverage/ .Build/coverage/"
+		],
+		"ci:coverage:unit": [
+			"@coverage:create-directories",
+			"XDEBUG_MODE=coverage phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml --coverage-filter Classes --coverage-php=.Build/coverage/unit.cov Tests/Unit"
+		],
+		"ci:libs:pack": [
+			"curl https://github.com/clue/phar-composer/releases/download/v1.4.0/phar-composer-1.4.0.phar -o phar-composer && chmod +x phar-composer",
+			"./phar-composer build softcreatr/jsonpath Resources/Private/Php/jsonpath.phar"
+		],
+		"ci:php:compatibility": "phpcs -p --standard=PHPCompatibility --runtime-set testVersion 7.4-8.2 --extensions=php --ignore=*/.Build/*,*/Resources/Private/Php/* .",
+		"ci:php:cs": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --using-cache no --diff",
+		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"ci:php:md": "phpmd Classes/ text phpmd-ruleset.xml",
+		"ci:php:stan": [
+			"@phpstan-v12",
+			"@phpstan-v13"
+		],
+		"ci:static": [
+			"@ci:php:lint",
+			"@ci:php:cs",
+			"@ci:php:stan",
+			"@ci:yaml:lint",
+			"@ci:xliff:lint",
+			"@ci:typo3:scan"
+		],
+		"ci:test:functional": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml Tests/Functional/",
+		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
+		"ci:typo3:scan": [
+			"typo3scan scan --target 11 --only strong Classes/",
+			"typo3scan scan --target 12 --only strong Classes/"
+		],
+		"ci:xliff:lint": "php Build/Scripts/xliff-lint lint:xliff Resources/Private/Language",
+		"ci:yaml:lint": "find . ! -path '*.Build/*' ! -path '*node_modules/*' \\( -name '*.yaml' -o -name '*.yml' \\) | xargs -r php .Build/bin/yaml-lint",
+		"coverage:create-directories": "mkdir -p .Build/coverage",
+		"fix:composer:normalize": "@composer normalize --no-check-lock",
+		"fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php",
+		"phpstan-v12": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep -E '^12|^v12'; then phpstan analyse -c phpstan-v12.neon; else echo 'Skip v12'; fi",
+		"phpstan-v13": "if composer show -D | grep 'typo3/cms-core' | awk '{print $2}' | grep -E '^13|^v13'; then phpstan analyse -c phpstan-v13.neon; else echo 'Skip v13'; fi",
+		"rector": "rector process --dry-run",
+		"rector:fix": "rector process"
 	}
 }

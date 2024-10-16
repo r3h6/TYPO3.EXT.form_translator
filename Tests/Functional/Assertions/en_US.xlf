@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file datatype="plaintext" date="" original="vfs://root/locallang.xlf" product-name="form" source-language="en" target-language="en_US">
+		<header/>
+		<body>
+			<trans-unit id="test">
+				<source>test.source</source>
+				<target>test.target</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

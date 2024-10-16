@@ -5,32 +5,58 @@ languages:
     enabled: true
     languageId: 0
     base: /
-    locale: en_US.UTF-8
+    locale: en_US
     navigationTitle: English
     flag: us
-  -
-    title: French
-    enabled: true
-    locale: fr_FR
     hreflang: ''
-    base: /fr/
     websiteTitle: ''
-    navigationTitle: Français
+  -
+    title: German
+    enabled: true
+    locale: de_DE
+    hreflang: ''
+    base: /de/
+    websiteTitle: ''
+    navigationTitle: Deutsch
     fallbackType: strict
     fallbacks: ''
-    flag: fr
+    flag: de
     languageId: 1
   -
-    title: 'Chinese (Simplified)'
+    title: 'German (Swiss)'
     enabled: true
-    locale: zh_CN
+    locale: de_CH
     hreflang: ''
-    base: /cn/
+    base: /de-CH/
     websiteTitle: ''
-    navigationTitle: 汉语
+    navigationTitle: 'Deutsch Schweiz'
+    fallbackType: strict
+    fallbacks: '1'
+    flag: ch
+    languageId: 2
+  -
+    title: 'German (Austria)'
+    enabled: true
+    locale: de_AT
+    hreflang: ''
+    base: /de-AT/
+    websiteTitle: ''
+    navigationTitle: Deutsch
     fallbackType: strict
     fallbacks: ''
-    flag: cn
-    languageId: 2
+    flag: at
+    languageId: 3
+  -
+    title: 'English (UK)'
+    enabled: true
+    locale: en_GB
+    hreflang: ''
+    base: /en-gb/
+    websiteTitle: ''
+    navigationTitle: 'English (UK)'
+    fallbackType: strict
+    fallbacks: ''
+    flag: gb
+    languageId: 4
 rootPageId: 1
 websiteTitle: ''

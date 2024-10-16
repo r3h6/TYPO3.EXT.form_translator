@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+## Description: Run the TYPO3 CLI in the web container
+## Usage: typo3 [command]
+## Example: "ddev typo3 [command]"
+
+.Build/bin/typo3 "$@"

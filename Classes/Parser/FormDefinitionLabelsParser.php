@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Parser;
 
 use Flow\JSONPath\JSONPath;
@@ -9,8 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class FormDefinitionLabelsParser
 {
-    protected EventDispatcherInterface $dispatcher;
-
     /**
      * @var array<string, string>
      */
@@ -35,10 +35,8 @@ class FormDefinitionLabelsParser
         '$.renderable.properties.linkText' => '<form-identifier>.element.<element-identifier>.properties.linkText',
     ];
 
-    public function __construct(EventDispatcherInterface $dispatcher)
+    public function __construct(protected EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = $dispatcher;
-
         if (!class_exists('Flow\\JSONPath\\JSONPath')) {
             require_once 'phar://' . GeneralUtility::getFileAbsFileName('EXT:form_translator/Resources/Private/Php/jsonpath.phar') . '/vendor/autoload.php';
         }
@@ -84,15 +82,16 @@ class FormDefinitionLabelsParser
                     $items[$id] = $optionLabel;
                 }
             }
+            $validationErrorMessages = $sub->find('renderable.properties.validationErrorMessages[*]')->getData();
+            if (!empty($validationErrorMessages)) {
+                foreach ($validationErrorMessages as $message) {
+                    $id = $formIdentifier . '.validation.error.' . $identifier . '.' . $message['code'];
+                    $items[$id] = $message['message'];
+                }
+            }
         }
 
-        // $validationErrorMessages = $json->find('..validationErrorMessages[*]')->getData();
-        // foreach ($validationErrorMessages as $validationErrorMessage) {
-        //     $id = str_replace(['<form-identifier>', '<error-code>'], [$formIdentifier, $validationErrorMessage['code']], '<form-identifier>.validation.error.<error-code>');
-        //     $items[$id] = '';
-        // }
-
-        $event = new AfterParseFormEvent($items);
+        $event = new AfterParseFormEvent($formIdentifier, $items);
         $this->dispatcher->dispatch($event);
         return $event->getItems();
     }

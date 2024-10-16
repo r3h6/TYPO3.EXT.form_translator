@@ -1,8 +1,11 @@
-# cat=Basic//0; type=string; label=Language files directory: Absolute, relative or extension path where translation files get stored.
+# cat=Basic//0; type=string; label=LLL:EXT:form_translator/Resources/Private/Language/locallang_be.xlf:languageFilesDirectory
 languageFilesDirectory=./l10n
 
-# cat=Basic//1; type=string; label=LibreTranslate Host
+# cat=Basic//1; type=string; label=LLL:EXT:form_translator/Resources/Private/Language/locallang_be.xlf:libreTranslate.host
 libreTranslate.host=
 
-# cat=Basic//2; type=string; label=LibreTranslate API Key
+# cat=Basic//2; type=string; label=LLL:EXT:form_translator/Resources/Private/Language/locallang_be.xlf:libreTranslate.apiKey
 libreTranslate.apiKey=
+
+# cat=Basic//3; type=string; label=LLL:EXT:form_translator/Resources/Private/Language/locallang_be.xlf:typo3LanguageWhitelist
+typo3LanguageWhitelist=

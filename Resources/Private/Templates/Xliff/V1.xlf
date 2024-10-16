@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en"{f:if(condition: '{siteLanguage.typo3Language} != default', then: ' target-language="{siteLanguage.twoLetterIsoCode}"')} datatype="plaintext" original="{originalFile}" date="{f:format.date(format: 'Y-m-dTH:i:s')}" product-name="form">
+	<file source-language="en"{f:if(condition: '{language.typo3Language} != default', then: ' target-language="{language.typo3Language}"')} datatype="plaintext" original="{originalFile}" date="{f:format.date(format: 'Y-m-dTH:i:s')}" product-name="form">
 		<header/>
-		<body>
-			<f:for each="{items}" as="item">
-				<trans-unit id="{item.identifier}">
-					<f:if condition="{siteLanguage.typo3Language} != default">
-						<f:then>
-							<source>{item.source}</source>
-							<target>{item.target}</target>
-						</f:then>
-						<f:else>
-							<source>{item.target}</source>
-						</f:else>
-					</f:if>
-				</trans-unit>
-			</f:for>
-		</body>
+		<f:if condition="{items -> f:count()} == 0">
+			<f:then>
+				<body/>
+			</f:then>
+			<f:else>
+				<body>
+					<f:for each="{items}" as="item">
+						<trans-unit id="{item.identifier}">
+							<f:if condition="{language.typo3Language} != default">
+								<f:then>
+									<source>{item.source}</source>
+									<target>{item.target}</target>
+								</f:then>
+								<f:else>
+									<source>{item.target}</source>
+								</f:else>
+							</f:if>
+						</trans-unit>
+					</f:for>
+				</body>
+			</f:else>
+		</f:if>
 	</file>
 </xliff>

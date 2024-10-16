@@ -4,10 +4,10 @@
    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
    data-namespace-typo3-fluid="true">
 
-   <f:layout name="Default" />
+   <f:layout name="Module" />
 
    <f:section name="Content">
-        <h1><f:translate key="mod.title.index" /></h1>
+        <h1>{title}</h1>
         <div class="table-fit">
             <table class="table table-striped table-hover">
                 <thead>
@@ -26,13 +26,13 @@
                             <td><code>{form.persistenceIdentifier}</code></td>
                             <td class="col-localizationb nowrap">
                                 <div class="btn-group">
-                                    <f:for each="{siteLanguages}" as="siteLanguage">
+                                    <f:for each="{languages}" as="language">
                                         <f:link.action
-                                            title="{siteLanguage.title}"
+                                            title="{language.title}"
                                             class="btn btn-default"
                                             action="localize"
-                                            arguments="{persistenceIdentifier: form.persistenceIdentifier, siteLanguage: siteLanguage.languageId}">
-                                            <core:icon identifier="{siteLanguage.flagIdentifier}" size="small"/>
+                                            arguments="{persistenceIdentifier: form.persistenceIdentifier, language: language.typo3Language}">
+                                            <core:icon identifier="{language.flagIdentifier}" size="small"/>
                                         </f:link.action>
                                     </f:for>
                                 </div>
