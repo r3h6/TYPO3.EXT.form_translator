@@ -6,7 +6,15 @@ namespace R3H6\FormTranslator\Event;
 
 final class AfterParseFormEvent
 {
-    public function __construct(private array $items) {}
+    public function __construct(
+        private readonly string $formIdentifier,
+        private array $items,
+    ) {}
+
+    public function getFormIdentifier(): string
+    {
+        return $this->formIdentifier;
+    }
 
     public function getItems(): array
     {

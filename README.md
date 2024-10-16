@@ -67,7 +67,7 @@ You have following options:
 2. Add the English locale without charset to the extension configuration `typo3LanguageWhitelist`
 
 **Background:** Beginning with v12, TYPO3 uses the locale configured for the site to determine the language.<br>
-For English, TYPO3 used the file named `xyz.xlf`, it does not load a file named `en.xyz.xlf`, but it does for `en_US.xyz.xlf`.
+For English, TYPO3 uses the file named `xyz.xlf`, it does not load a file named `en.xyz.xlf`, but it does for `en_US.xyz.xlf`.
 
 
 ## Resources
@@ -77,6 +77,15 @@ For English, TYPO3 used the file named `xyz.xlf`, it does not load a file named 
 
 
 ## Develpment
+
+### Events
+
+| Name | Description |
+|---|---|
+| AfterParseFormEvent | Allows to change the translatable items of a form |
+| FinalizeTypo3LanguagesEvent | Allows to change the available languages |
+
+### Local setup
 
 Setup libretranslate:
 

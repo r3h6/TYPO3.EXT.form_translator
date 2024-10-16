@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace R3H6\FormTranslator\Service;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use R3H6\FormTranslator\Event\FinalizeTypo3LanguagesEvent;
 use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
@@ -30,7 +31,7 @@ class Typo3LanguageService
         $languages = $this->getTypo3Languages($siteLanguages);
         $languages = $this->normalizeLanguages($languages);
 
-        $event = new \R3H6\FormTranslator\Event\FinalizeTypo3LanguagesEvent(array_values($languages));
+        $event = new FinalizeTypo3LanguagesEvent(array_values($languages));
         $this->eventDispatcher->dispatch($event);
         return $event->getLanguages();
     }
