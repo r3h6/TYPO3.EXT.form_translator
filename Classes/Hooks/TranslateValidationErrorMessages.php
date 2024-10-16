@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\FormTranslator\Hooks;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,7 +10,7 @@ use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Form\Domain\Model\FormElements\AbstractFormElement;
 use TYPO3\CMS\Form\Domain\Model\Renderable\RenderableInterface;
 
-class TranslateValidationErrorMessages
+final class TranslateValidationErrorMessages
 {
     public function __construct(
         private readonly LanguageServiceFactory $languageServiceFactory

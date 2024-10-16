@@ -19,7 +19,7 @@ use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as FormConfig
 
 class FormService
 {
-    protected const TRANSLATION_FILE_KEY = 99;
+    public const TRANSLATION_FILE_KEY = 99;
 
     public function __construct(
         protected readonly FormDefinitionLabelsParser $formDefinitionLabelsParser,
