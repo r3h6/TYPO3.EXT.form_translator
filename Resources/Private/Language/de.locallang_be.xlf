@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-	<file source-language="en" datatype="plaintext" original="messages" date="2022-05-21T18:31:58Z">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2022-05-21T18:31:58Z">
 		<header/>
 		<body>
 			<trans-unit id="languageFilesDirectory" xml:space="preserve">
 				<source>Language files directory: Absolute, relative or extension path where translation files get stored.</source>
+				<target>Sprachdateienverzeichnis: Absoluter, relativer oder Extensionpfad, in dem Übersetzungsdateien gespeichert werden.</target>
 			</trans-unit>
 			<trans-unit id="libreTranslate.host" xml:space="preserve">
 				<source>LibreTranslate Host</source>
+				<target>LibreTranslate Host</target>
 			</trans-unit>
 			<trans-unit id="libreTranslate.apiKey" xml:space="preserve">
 				<source>LibreTranslate API Key</source>
+				<target>LibreTranslate API-Schlüssel</target>
 			</trans-unit>
 			<trans-unit id="typo3LanguageWhitelist" xml:space="preserve">
 				<source>Language whitelist: Comma separated list of IETF language tags that are not normalized to a TYPO3 language.</source>
+				<target>Sprach-Whitelist: Kommagetrennte Liste von IETF-Sprachtags, die nicht in eine TYPO3-Sprache normalisiert werden.</target>
 			</trans-unit>
 		</body>
-	</file>
+    </file>
 </xliff>
