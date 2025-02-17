@@ -92,8 +92,8 @@ class Typo3LanguageService
         $normalizedLanguages = [];
         foreach ($languages as $language) {
             $normalizedLanguage = $this->normalizeLanguage($language);
-            $isPriorityLanguage = strtolower($language->getLanguageCode()) === strtolower($language->getCountryCode());
-            if ($normalizedLanguage && (!isset($normalizedLanguages[$normalizedLanguage->getTypo3Language()]) || $isPriorityLanguage)) {
+            $isStandardLanguage = $language->getCountryCode() === null || strtolower($language->getLanguageCode()) === strtolower($language->getCountryCode());
+            if ($normalizedLanguage && (!isset($normalizedLanguages[$normalizedLanguage->getTypo3Language()]) || $isStandardLanguage)) {
                 $normalizedLanguages[$normalizedLanguage->getTypo3Language()] = $normalizedLanguage;
             }
         }
