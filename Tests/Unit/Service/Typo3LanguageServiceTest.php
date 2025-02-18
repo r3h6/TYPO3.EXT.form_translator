@@ -115,6 +115,23 @@ class Typo3LanguageServiceTest extends TestCase
         self::assertEquals('de_DE', $languages[0]->getFlagIdentifier());
     }
 
+    #[Test]
+    public function findAllCanHandleLocalesWithoutCountryPart(): void
+    {
+        $GLOBALS['BE_USER']->groupData = ['allowed_languages' => '0,1'];
+        $this->localesMock->method('getActiveLanguages')->willReturn(['de', 'en']);
+        $this->initializeMocks([
+            0 => $this->createSiteLanguageStub(0, 'de_CH', 'de'),
+            1 => $this->createSiteLanguageStub(1, 'en_US', 'en'),
+        ]);
+
+        $languages = $this->typo3LanguageService->findAll();
+
+        self::assertCount(2, $languages);
+        self::assertEquals('de', $languages[0]->getTypo3Language());
+        self::assertEquals('en', $languages[1]->getTypo3Language());
+    }
+
     private function initializeMocks(array $languages): void
     {
         $siteMock = $this->createMock(Site::class);
@@ -122,8 +139,12 @@ class Typo3LanguageServiceTest extends TestCase
         $this->siteFinderMock->method('getAllSites')->willReturn([$siteMock]);
     }
 
-    private function createSiteLanguageStub(int $id, string $locale): SiteLanguage
+    private function createSiteLanguageStub(int $id, string $locale, string $typo3Language = ''): SiteLanguage
     {
-        return new SiteLanguage($id, "$locale.UTF-8", new Uri("https://example.com/$locale"), ['title' => $locale, 'flag' => $locale]);
+        return new SiteLanguage($id, "$locale.UTF-8", new Uri("https://example.com/$locale"), [
+            'title' => $locale,
+            'flag' => $locale,
+            'typo3Language' => $typo3Language,
+        ]);
     }
 }

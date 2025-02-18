@@ -22,6 +22,7 @@ languages:
     fallbacks: ''
     flag: de
     languageId: 1
+    typo3Language: de
   -
     title: 'German (Swiss)'
     enabled: true
