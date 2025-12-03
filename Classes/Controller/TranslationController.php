@@ -21,7 +21,7 @@ class TranslationController implements LoggerAwareInterface
 
     public function translateAction(ServerRequestInterface $request): ResponseInterface
     {
-        $params = $request->getQueryParams();
+        $params = $request->getParsedBody();
 
         if (!isset($params['text'])) {
             return new JsonResponse(['error' => 'Missing text parameter'], 400);
