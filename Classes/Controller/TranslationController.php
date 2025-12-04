@@ -11,8 +11,10 @@ use Psr\Log\LoggerAwareTrait;
 use R3H6\FormTranslator\Service\MemoryTranslationService;
 use R3H6\FormTranslator\Service\TranslationServiceInterface;
 use R3H6\FormTranslator\Service\Typo3LanguageService;
+use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Core\Http\JsonResponse;
 
+#[AsController]
 class TranslationController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
