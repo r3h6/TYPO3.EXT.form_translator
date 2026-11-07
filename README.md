@@ -51,6 +51,23 @@ or setup a [custom language](https://docs.typo3.org/m/typo3/reference-coreapi/ma
 
 No changes required.
 
+## Development
+
+```bash
+ddev start
+ddev composer install
+ddev dev-setup
+```
+
+`ddev dev-setup` installs TYPO3 into an empty database, imports the development
+site through `typo3 extension:setup`, and repairs the form persistence identifier
+that impexp rewrites during the import. It is safe to run again; an existing
+installation is kept and an already imported site is not imported twice.
+
+The backend admin is `admin` with password `Password$1` (development only).
+The site configuration is generated from
+`Build/dev-site/Initialisation/Site/main/config.yaml` into
+`config/sites/main/config.yaml` on every run.
 
 ## Known issues
 
