@@ -18,11 +18,13 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LanguageStore;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class SharedTranslationFilesUpdateWizardTest extends FunctionalTestCase
 {
+    protected string $relativeTestDirectory;
     protected string $testDirectory;
     protected LocalizationService $localizationService;
     protected TranslationFileService $translationFileService;
@@ -40,13 +42,14 @@ class SharedTranslationFilesUpdateWizardTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->flushL10nCache();
-        $this->testDirectory = Environment::getPublicPath()
-            . '/fileadmin/form_translations_test_' . bin2hex(random_bytes(4));
+        $this->relativeTestDirectory = 'form_translations_test_' . bin2hex(random_bytes(4));
+        $this->testDirectory = Environment::getPublicPath() . '/fileadmin/' . $this->relativeTestDirectory;
         $this->localizationService = GeneralUtility::makeInstance(LocalizationService::class);
         $this->translationFileService = new TranslationFileService(
             GeneralUtility::makeInstance(LocalizationFactory::class),
             $this->localizationService,
-            $this->testDirectory . '/shared'
+            GeneralUtility::makeInstance(StorageRepository::class),
+            '1:' . $this->relativeTestDirectory . '/shared'
         );
         $this->wizard = new SharedTranslationFilesUpdateWizard(
             $this->createMock(FormService::class),
@@ -135,7 +138,8 @@ class SharedTranslationFilesUpdateWizardTest extends FunctionalTestCase
                 GeneralUtility::makeInstance(CacheManager::class)
             ),
             $this->localizationService,
-            $this->testDirectory . '/shared'
+            GeneralUtility::makeInstance(StorageRepository::class),
+            '1:' . $this->relativeTestDirectory . '/shared'
         );
         return $translationFileService->read(new Typo3Language($language, $language, ''));
     }

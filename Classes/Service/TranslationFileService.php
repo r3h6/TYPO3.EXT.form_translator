@@ -7,19 +7,23 @@ namespace R3H6\FormTranslator\Service;
 use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
-use R3H6\FormTranslator\Utility\PathUtility;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 
 class TranslationFileService
 {
     public const TRANSLATION_FILE_NAME = 'locallang.xlf';
     public const TRANSLATION_FILE_KEY = 99;
 
+    private ?string $resolvedDirectory = null;
+
     public function __construct(
         protected readonly LocalizationFactory $localizationFactory,
         protected readonly LocalizationService $localizationService,
+        protected readonly StorageRepository $storageRepository,
         protected readonly string $translationFilesDirectory,
     ) {}
 
@@ -35,11 +39,64 @@ class TranslationFileService
 
     public function getFile(): string
     {
-        $directory = rtrim($this->translationFilesDirectory, '/');
-        return PathUtility::makeAbsolute(
-            $directory . '/' . self::TRANSLATION_FILE_NAME,
-            Environment::getPublicPath()
-        );
+        return $this->getDirectory() . '/' . self::TRANSLATION_FILE_NAME;
+    }
+
+    private function getDirectory(): string
+    {
+        if ($this->resolvedDirectory !== null) {
+            return $this->resolvedDirectory;
+        }
+
+        [$storageUid, $path] = array_pad(explode(':', $this->translationFilesDirectory, 2), 2, null);
+        $path = $path === null ? '' : trim($path, '/');
+
+        if (!MathUtility::canBeInterpretedAsInteger($storageUid) || (int)$storageUid < 1 || $path === '') {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'translationFilesDirectory must be a FAL combined identifier "<storageUid>:<path>", "%s" given.',
+                    $this->translationFilesDirectory
+                ),
+                1794009600
+            );
+        }
+
+        if (!GeneralUtility::validPathStr($path)) {
+            throw new \InvalidArgumentException(
+                sprintf('translationFilesDirectory contains an invalid path "%s".', $path),
+                1794009601
+            );
+        }
+
+        $storage = $this->storageRepository->findByUid((int)$storageUid);
+        if ($storage === null) {
+            throw new \InvalidArgumentException(
+                sprintf('Storage "%d" configured in translationFilesDirectory does not exist.', (int)$storageUid),
+                1794009602
+            );
+        }
+
+        if ($storage->getDriverType() !== 'Local') {
+            throw new \InvalidArgumentException(
+                sprintf('Storage "%d" configured in translationFilesDirectory is not a local storage.', (int)$storageUid),
+                1794009603
+            );
+        }
+
+        $configuration = $storage->getConfiguration();
+        $basePath = (string)($configuration['basePath'] ?? '');
+        if ($basePath === '') {
+            throw new \InvalidArgumentException(
+                sprintf('Storage "%d" configured in translationFilesDirectory has no base path.', (int)$storageUid),
+                1794009604
+            );
+        }
+
+        if ((string)($configuration['pathType'] ?? 'absolute') === 'relative') {
+            $basePath = Environment::getPublicPath() . '/' . ltrim($basePath, '/');
+        }
+
+        return $this->resolvedDirectory = rtrim($basePath, '/') . '/' . $path;
     }
 
     public function exists(): bool

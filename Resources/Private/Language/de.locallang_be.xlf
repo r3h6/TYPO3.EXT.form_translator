@@ -4,8 +4,8 @@
 		<header/>
 		<body>
 			<trans-unit id="translationFilesDirectory" xml:space="preserve">
-				<source>Translation files directory: Public-relative or absolute path where the shared translation files get stored.</source>
-				<target>Übersetzungsdateienverzeichnis: Öffentlicher oder absoluter Pfad, in dem die gemeinsamen Übersetzungsdateien gespeichert werden.</target>
+				<source>Translation files directory: FAL combined identifier &lt;storageUid&gt;:&lt;path&gt; of a local storage where the shared translation files are stored, for example 1:form_translations/.</source>
+				<target>Übersetzungsdateienverzeichnis: FAL-Combined-Identifier &lt;storageUid&gt;:&lt;path&gt; eines lokalen Speichers, in dem die gemeinsamen Übersetzungsdateien gespeichert werden, zum Beispiel 1:form_translations/.</target>
 			</trans-unit>
 			<trans-unit id="libreTranslate.host" xml:space="preserve">
 				<source>LibreTranslate Host</source>

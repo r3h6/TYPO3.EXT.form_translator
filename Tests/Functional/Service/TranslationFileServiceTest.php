@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace R3H6\FormTranslator\Tests\Functional\Service;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use R3H6\FormTranslator\Service\LocalizationService;
 use R3H6\FormTranslator\Service\TranslationFileService;
@@ -15,15 +16,18 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Localization\LanguageStore;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class TranslationFileServiceTest extends FunctionalTestCase
 {
     protected TranslationFileService $translationFileService;
+    protected LocalizationFactory $localizationFactory;
     protected LocalizationService $localizationService;
     protected Typo3Language $defaultLanguage;
     protected Typo3Language $germanLanguage;
+    protected string $relativeTranslationDirectory;
     protected string $translationDirectory;
 
     protected array $testExtensionsToLoad = [
@@ -38,13 +42,15 @@ class TranslationFileServiceTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->flushL10nCache();
-        $this->translationDirectory = Environment::getPublicPath()
-            . '/fileadmin/form_translations_test_' . bin2hex(random_bytes(4));
+        $this->relativeTranslationDirectory = 'form_translations_test_' . bin2hex(random_bytes(4));
+        $this->translationDirectory = Environment::getPublicPath() . '/fileadmin/' . $this->relativeTranslationDirectory;
+        $this->localizationFactory = GeneralUtility::makeInstance(LocalizationFactory::class);
         $this->localizationService = GeneralUtility::makeInstance(LocalizationService::class);
         $this->translationFileService = new TranslationFileService(
-            GeneralUtility::makeInstance(LocalizationFactory::class),
+            $this->localizationFactory,
             $this->localizationService,
-            $this->translationDirectory
+            GeneralUtility::makeInstance(StorageRepository::class),
+            '1:' . $this->relativeTranslationDirectory
         );
         $this->defaultLanguage = new Typo3Language('default', 'English', 'gb');
         $this->germanLanguage = new Typo3Language('de', 'German', 'de');
@@ -55,6 +61,42 @@ class TranslationFileServiceTest extends FunctionalTestCase
         GeneralUtility::rmdir($this->translationDirectory, true);
         $this->flushL10nCache();
         parent::tearDown();
+    }
+
+    #[Test]
+    public function referenceIsPublicRelativePathForDefaultStorage(): void
+    {
+        self::assertSame(
+            'fileadmin/' . $this->relativeTranslationDirectory . '/locallang.xlf',
+            $this->translationFileService->getReference()
+        );
+    }
+
+    #[Test]
+    #[DataProvider('invalidTranslationFilesDirectories')]
+    public function invalidTranslationFilesDirectoryThrows(string $translationFilesDirectory): void
+    {
+        $translationFileService = new TranslationFileService(
+            $this->localizationFactory,
+            $this->localizationService,
+            GeneralUtility::makeInstance(StorageRepository::class),
+            $translationFilesDirectory
+        );
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $translationFileService->getFile();
+    }
+
+    public static function invalidTranslationFilesDirectories(): \Generator
+    {
+        yield 'plain path' => ['fileadmin/form_translations/'];
+        yield 'empty value' => [''];
+        yield 'non-numeric storage' => ['foo:form_translations/'];
+        yield 'empty path' => ['1:'];
+        yield 'fallback storage' => ['0:form_translations/'];
+        yield 'unknown storage' => ['999999:form_translations/'];
+        yield 'path traversal' => ['1:../form_translations/'];
     }
 
     #[Test]
@@ -157,7 +199,8 @@ class TranslationFileServiceTest extends FunctionalTestCase
                 GeneralUtility::makeInstance(CacheManager::class)
             ),
             $this->localizationService,
-            $this->translationDirectory
+            GeneralUtility::makeInstance(StorageRepository::class),
+            '1:' . $this->relativeTranslationDirectory
         );
         return $translationFileService->read($language);
     }
