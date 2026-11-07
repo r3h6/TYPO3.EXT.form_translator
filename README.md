@@ -27,7 +27,7 @@ See available [mirrors](https://github.com/LibreTranslate/LibreTranslate#mirrors
 ## How it works
 
 All forms share one translation file per language. By default they are stored in
-`fileadmin/form_translations/`:
+`form_translations/` on FAL storage `1` (the `fileadmin/` storage):
 
 ```text
 fileadmin/form_translations/locallang.xlf      # default language
@@ -40,7 +40,9 @@ holds the strings of every form. The extension registers the shared file for all
 forms at runtime; the `*.form.yaml` files are not modified.
 
 The directory can be changed with the `translationFilesDirectory` extension
-setting. When a form is deleted, its entries are removed from the shared files.
+setting, which expects a FAL combined identifier `<storageUid>:<path>` of a local
+storage, for example `1:form_translations/`. When a form is deleted, its entries
+are removed from the shared files.
 
 Customized validation error messages are translated by overriding the form definition
 at runtime using the `afterBuildingFinished` hook from the form framework.

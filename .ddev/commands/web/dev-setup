@@ -69,6 +69,7 @@ fi
 .Build/bin/typo3 extension:setup
 .Build/bin/typo3 configuration:set EXTCONF/lang/availableLanguages '["de"]' --json
 .Build/bin/typo3 configuration:set EXTENSIONS/form_translator/typo3LanguageWhitelist 'de_CH'
+.Build/bin/typo3 configuration:set EXTENSIONS/form_translator/translationFilesDirectory '1:form_translations/'
 .Build/bin/typo3 language:update
 
 # The template is the source of truth for the generated site configuration.
