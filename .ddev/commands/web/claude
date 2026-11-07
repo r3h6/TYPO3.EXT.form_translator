@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+## Description: Runs Claude Code in yolo mode inside the web container
+## Usage: claude
+## Example: "ddev claude"
+
+# Install first https://github.com/e0ipso/ddev-assistant-claude
+
+claude --dangerously-skip-permissions
