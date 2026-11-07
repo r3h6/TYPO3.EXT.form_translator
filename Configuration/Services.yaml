@@ -21,10 +21,10 @@ services:
     factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
     arguments: ['form_translator', 'libreTranslate/apiKey']
 
-  extensionconfiguration.form_translator.languageFilesDirectory:
+  extensionconfiguration.form_translator.translationFilesDirectory:
     class: 'string'
     factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
-    arguments: ['form_translator', 'languageFilesDirectory']
+    arguments: ['form_translator', 'translationFilesDirectory']
 
   extensionconfiguration.form_translator.typo3LanguageWhitelist:
     class: 'string'
@@ -36,9 +36,9 @@ services:
       $host: '@extensionconfiguration.form_translator.libreTranslate.host'
       $apiKey: '@extensionconfiguration.form_translator.libreTranslate.apiKey'
 
-  R3H6\FormTranslator\Service\FormService:
+  R3H6\FormTranslator\Service\TranslationFileService:
     arguments:
-      $locallangPath: '@extensionconfiguration.form_translator.languageFilesDirectory'
+      $translationFilesDirectory: '@extensionconfiguration.form_translator.translationFilesDirectory'
 
   R3H6\FormTranslator\Service\Typo3LanguageService:
     arguments:

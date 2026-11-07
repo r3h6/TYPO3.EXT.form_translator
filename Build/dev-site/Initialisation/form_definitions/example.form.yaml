@@ -1,8 +1,5 @@
 renderingOptions:
   submitButtonLabel: Submit
-  translation:
-    translationFiles:
-      99: fileadmin/form_definitions/l10n/example.xlf
 identifier: example
 label: Example
 type: Form

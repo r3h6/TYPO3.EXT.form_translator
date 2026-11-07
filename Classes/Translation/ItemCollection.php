@@ -51,4 +51,9 @@ final class ItemCollection implements \IteratorAggregate, \Countable
     {
         return $this->items[$identifier] ?? null;
     }
+
+    public function removeItem(string $identifier): void
+    {
+        unset($this->items[$identifier]);
+    }
 }

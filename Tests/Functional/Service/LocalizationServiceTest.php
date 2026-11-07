@@ -102,7 +102,7 @@ class LocalizationServiceTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function emptyTranslationDoesNotWriteFile(): void
+    public function emptyTranslationWritesEmptyFile(): void
     {
         error_reporting(0);
 
@@ -114,7 +114,11 @@ class LocalizationServiceTest extends FunctionalTestCase
         $this->localizationService->saveXliff($locallangFile, $language, $items);
 
         self::assertSame('default', $language->getTypo3Language());
-        self::assertFileDoesNotExist($locallangFile);
+        self::assertFileExists($locallangFile);
+        self::assertXmlStringEqualsXmlString(
+            $this->normalizeXml(dirname(__DIR__) . '/Assertions/empty.xlf'),
+            $this->normalizeXml($locallangFile)
+        );
     }
 
     private function normalizeXml(string $file): string

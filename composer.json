@@ -13,12 +13,14 @@
 		"php": ">= 8.1 < 8.4",
 		"softcreatr/jsonpath": "^0.9",
 		"typo3/cms-core": "^12.4 || ^13.4",
-		"typo3/cms-form": "^12.4 || ^13.4"
+		"typo3/cms-form": "^12.4 || ^13.4",
+		"typo3/cms-install": "^12.4 || ^13.4"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
 		"ergebnis/composer-normalize": "^2.44",
 		"friendsofphp/php-cs-fixer": "^3.3",
+		"helhum/typo3-console": "^9.0",
 		"helmich/typo3-typoscript-lint": "^3.1",
 		"michielroos/typo3scan": "^1.7",
 		"mikey179/vfsstream": "^1.6",
@@ -33,11 +35,9 @@
 		"typo3/cms-filelist": "*",
 		"typo3/cms-fluid-styled-content": "*",
 		"typo3/cms-impexp": "*",
-		"typo3/cms-install": "*",
 		"typo3/cms-lowlevel": "*",
 		"typo3/coding-standards": "^0.8",
-		"typo3/testing-framework": "^8.0 || ^9.0",
-		"helhum/typo3-console": "^9.0"
+		"typo3/testing-framework": "^8.0 || ^9.0"
 	},
 	"replace": {
 		"typo3-ter/form-translator": "self.version"

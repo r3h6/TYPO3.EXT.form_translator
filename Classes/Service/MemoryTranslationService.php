@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace R3H6\FormTranslator\Service;
 
 use R3H6\FormTranslator\Translation\Dto\Typo3Language;
-use R3H6\FormTranslator\Translation\ItemCollection;
 
 class MemoryTranslationService implements TranslationServiceInterface
 {
@@ -23,13 +22,7 @@ class MemoryTranslationService implements TranslationServiceInterface
 
     public function translate(string $text, Typo3Language $targetLanguage): string
     {
-        $forms = $this->formService->listForms();
-        $items = new ItemCollection();
-        foreach ($forms as $form) {
-            $this->formService->getTranslation($items, $form['persistenceIdentifier'], $targetLanguage);
-        }
-
-        foreach ($items as $item) {
+        foreach ($this->formService->getTranslations($targetLanguage) as $item) {
             if ($item->getSource() === $text) {
                 return $item->getTarget();
             }

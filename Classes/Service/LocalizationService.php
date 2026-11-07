@@ -20,9 +20,6 @@ class LocalizationService
         }
 
         $filteredItems = array_filter($items->toArray(), fn($item) => $item->getTarget() !== '');
-        if (empty($filteredItems)) {
-            return;
-        }
 
         GeneralUtility::mkdir_deep($locallangDir);
 
