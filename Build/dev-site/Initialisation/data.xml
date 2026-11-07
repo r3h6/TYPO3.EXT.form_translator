@@ -1,0 +1,1572 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3RecordDocument>
+	<header type="array">
+		<XMLversion>1.0</XMLversion>
+		<meta type="array">
+			<title>dev-site</title>
+			<description>Development distribution for r3h6/form-translator</description>
+			<notes></notes>
+			<packager_username>_cli_</packager_username>
+			<packager_name></packager_name>
+			<packager_email></packager_email>
+			<TYPO3_version>13.4.37</TYPO3_version>
+			<created>Wed 4. November 2026</created>
+		</meta>
+		<static_tables index="relStaticTables" type="array"></static_tables>
+		<excludeMap type="array">
+			<item index="be_users:1">1</item>
+			<item index="sys_log:1">1</item>
+		</excludeMap>
+		<softrefCfg type="array"></softrefCfg>
+		<extensionDependencies type="array"></extensionDependencies>
+		<charset>utf-8</charset>
+		<records type="array">
+			<table index="sys_file" type="array">
+				<rec index="1" type="array">
+					<uid>1</uid>
+					<pid>0</pid>
+					<title>example.form.yaml</title>
+					<relations index="rels" type="array">
+						<element index="sys_file_storage:1" type="array">
+							<id>1</id>
+							<table>sys_file_storage</table>
+						</element>
+						<element index="sys_file_metadata:1" type="array">
+							<id>1</id>
+							<table>sys_file_metadata</table>
+						</element>
+					</relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+			</table>
+			<table index="sys_file_metadata" type="array">
+				<rec index="1" type="array">
+					<uid>1</uid>
+					<pid>0</pid>
+					<title>example.form.yaml</title>
+					<relations index="rels" type="array">
+						<element index="sys_file:1" type="array">
+							<id>1</id>
+							<table>sys_file</table>
+						</element>
+					</relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+			</table>
+			<table index="sys_file_storage" type="array">
+				<rec index="1" type="array">
+					<uid>1</uid>
+					<pid>0</pid>
+					<title>fileadmin</title>
+					<relations index="rels" type="array"></relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+			</table>
+			<table index="pages" type="array">
+				<rec index="1" type="array">
+					<uid>1</uid>
+					<pid>0</pid>
+					<title>Home</title>
+					<relations index="rels" type="array"></relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+				<rec index="2" type="array">
+					<uid>2</uid>
+					<pid>0</pid>
+					<title>[Translate to German:] Home</title>
+					<relations index="rels" type="array">
+						<element index="pages:1" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+				<rec index="3" type="array">
+					<uid>3</uid>
+					<pid>0</pid>
+					<title>[Translate to German (Swiss):] Home</title>
+					<relations index="rels" type="array">
+						<element index="pages:1" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+				<rec index="4" type="array">
+					<uid>4</uid>
+					<pid>0</pid>
+					<title>[Translate to German (Austria):] Home</title>
+					<relations index="rels" type="array">
+						<element index="pages:1" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+				<rec index="5" type="array">
+					<uid>5</uid>
+					<pid>0</pid>
+					<title>[Translate to English (UK):] Home</title>
+					<relations index="rels" type="array">
+						<element index="pages:1" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+					<softrefs type="array"></softrefs>
+				</rec>
+			</table>
+			<table index="sys_template" type="array">
+				<rec index="1" type="array">
+					<uid>1</uid>
+					<pid>1</pid>
+					<title>Main TypoScript Rendering</title>
+					<relations index="rels" type="array"></relations>
+					<softrefs type="array">
+						<softref_element index="include_static_file:ext_fileref:2" type="array">
+							<field>include_static_file</field>
+							<spKey>ext_fileref</spKey>
+							<matchString>EXT:fluid_styled_content/Configuration/TypoScript/</matchString>
+						</softref_element>
+						<softref_element index="include_static_file:ext_fileref:5" type="array">
+							<field>include_static_file</field>
+							<spKey>ext_fileref</spKey>
+							<matchString>EXT:fluid_styled_content/Configuration/TypoScript/Styling/</matchString>
+						</softref_element>
+						<softref_element index="include_static_file:ext_fileref:8" type="array">
+							<field>include_static_file</field>
+							<spKey>ext_fileref</spKey>
+							<matchString>EXT:form/Configuration/TypoScript/</matchString>
+						</softref_element>
+					</softrefs>
+				</rec>
+			</table>
+			<table index="tt_content" type="array">
+				<rec index="1" type="array">
+					<uid>1</uid>
+					<pid>1</pid>
+					<title>Example form</title>
+					<relations index="rels" type="array"></relations>
+					<softrefs type="array">
+						<softref_element index="pi_flexform:sDEF/lDEF/settings.persistenceIdentifier/vDEF/:formPersistenceIdentifier:01ebfbcb14905bf60ae9e51634c24fdb" type="array">
+							<field>pi_flexform</field>
+							<spKey>formPersistenceIdentifier</spKey>
+							<structurePath>sDEF/lDEF/settings.persistenceIdentifier/vDEF/</structurePath>
+							<matchString>1:/form_definitions/example.form.yaml</matchString>
+							<subst type="array">
+								<type>db</type>
+								<recordRef>sys_file:1</recordRef>
+								<tokenID>01ebfbcb14905bf60ae9e51634c24fdb</tokenID>
+								<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+							</subst>
+						</softref_element>
+					</softrefs>
+				</rec>
+				<rec index="5" type="array">
+					<uid>5</uid>
+					<pid>1</pid>
+					<title>[Translate to English (UK):] Example for...</title>
+					<relations index="rels" type="array">
+						<element index="tt_content:1" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+					<softrefs type="array">
+						<softref_element index="pi_flexform:sDEF/lDEF/settings.persistenceIdentifier/vDEF/:formPersistenceIdentifier:517ead86d148f21d02c5330215da1662" type="array">
+							<field>pi_flexform</field>
+							<spKey>formPersistenceIdentifier</spKey>
+							<structurePath>sDEF/lDEF/settings.persistenceIdentifier/vDEF/</structurePath>
+							<matchString>1:/form_definitions/example.form.yaml</matchString>
+							<subst type="array">
+								<type>db</type>
+								<recordRef>sys_file:1</recordRef>
+								<tokenID>517ead86d148f21d02c5330215da1662</tokenID>
+								<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+							</subst>
+						</softref_element>
+					</softrefs>
+				</rec>
+				<rec index="4" type="array">
+					<uid>4</uid>
+					<pid>1</pid>
+					<title>[Translate to German (Austria):] Example...</title>
+					<relations index="rels" type="array">
+						<element index="tt_content:1" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+					<softrefs type="array">
+						<softref_element index="pi_flexform:sDEF/lDEF/settings.persistenceIdentifier/vDEF/:formPersistenceIdentifier:81aee63ecf3a7381c34aa2abc1f061dd" type="array">
+							<field>pi_flexform</field>
+							<spKey>formPersistenceIdentifier</spKey>
+							<structurePath>sDEF/lDEF/settings.persistenceIdentifier/vDEF/</structurePath>
+							<matchString>1:/form_definitions/example.form.yaml</matchString>
+							<subst type="array">
+								<type>db</type>
+								<recordRef>sys_file:1</recordRef>
+								<tokenID>81aee63ecf3a7381c34aa2abc1f061dd</tokenID>
+								<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+							</subst>
+						</softref_element>
+					</softrefs>
+				</rec>
+				<rec index="3" type="array">
+					<uid>3</uid>
+					<pid>1</pid>
+					<title>[Translate to German (Swiss):] Example f...</title>
+					<relations index="rels" type="array">
+						<element index="tt_content:1" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+					<softrefs type="array">
+						<softref_element index="pi_flexform:sDEF/lDEF/settings.persistenceIdentifier/vDEF/:formPersistenceIdentifier:c45e3ba0f46909c2cf158241e9a7d30d" type="array">
+							<field>pi_flexform</field>
+							<spKey>formPersistenceIdentifier</spKey>
+							<structurePath>sDEF/lDEF/settings.persistenceIdentifier/vDEF/</structurePath>
+							<matchString>1:/form_definitions/example.form.yaml</matchString>
+							<subst type="array">
+								<type>db</type>
+								<recordRef>sys_file:1</recordRef>
+								<tokenID>c45e3ba0f46909c2cf158241e9a7d30d</tokenID>
+								<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+							</subst>
+						</softref_element>
+					</softrefs>
+				</rec>
+				<rec index="2" type="array">
+					<uid>2</uid>
+					<pid>1</pid>
+					<title>[Translate to German:] Example form</title>
+					<relations index="rels" type="array">
+						<element index="tt_content:1" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+					<softrefs type="array">
+						<softref_element index="pi_flexform:sDEF/lDEF/settings.persistenceIdentifier/vDEF/:formPersistenceIdentifier:ec42d4f30bc8d89da3b9bea681fe77df" type="array">
+							<field>pi_flexform</field>
+							<spKey>formPersistenceIdentifier</spKey>
+							<structurePath>sDEF/lDEF/settings.persistenceIdentifier/vDEF/</structurePath>
+							<matchString>1:/form_definitions/example.form.yaml</matchString>
+							<subst type="array">
+								<type>db</type>
+								<recordRef>sys_file:1</recordRef>
+								<tokenID>ec42d4f30bc8d89da3b9bea681fe77df</tokenID>
+								<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+							</subst>
+						</softref_element>
+					</softrefs>
+				</rec>
+			</table>
+		</records>
+		<pid_lookup type="array">
+			<page_contents index="0" type="array">
+				<table index="sys_file" type="array">
+					<item index="1">1</item>
+				</table>
+				<table index="sys_file_metadata" type="array">
+					<item index="1">1</item>
+				</table>
+				<table index="sys_file_storage" type="array">
+					<item index="1">1</item>
+				</table>
+				<table index="pages" type="array">
+					<item index="1">1</item>
+					<item index="2">1</item>
+					<item index="3">1</item>
+					<item index="4">1</item>
+					<item index="5">1</item>
+				</table>
+			</page_contents>
+			<page_contents index="1" type="array">
+				<table index="sys_template" type="array">
+					<item index="1">1</item>
+				</table>
+				<table index="tt_content" type="array">
+					<item index="1">1</item>
+					<item index="5">1</item>
+					<item index="4">1</item>
+					<item index="3">1</item>
+					<item index="2">1</item>
+				</table>
+			</page_contents>
+		</pid_lookup>
+		<pagetree type="array">
+			<node index="0" type="array">
+				<uid>0</uid>
+				<node index="subrow" type="array">
+					<node index="1" type="array">
+						<uid>1</uid>
+					</node>
+				</node>
+			</node>
+			<node index="2" type="array">
+				<uid>2</uid>
+			</node>
+			<node index="3" type="array">
+				<uid>3</uid>
+			</node>
+			<node index="4" type="array">
+				<uid>4</uid>
+			</node>
+			<node index="5" type="array">
+				<uid>5</uid>
+			</node>
+		</pagetree>
+		<files_fal type="array">
+			<file index="a93271d9b4db4f5fdac1d2dfd553a065" type="array">
+				<filename>example.form.yaml</filename>
+				<filemtime>1793821181</filemtime>
+			</file>
+		</files_fal>
+	</header>
+	<records type="array">
+		<tablerow index="sys_file:1" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">1</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793821181</field>
+				<field index="last_indexed" type="integer">1793821181</field>
+				<field index="identifier">/form_definitions/example.form.yaml</field>
+				<field index="identifier_hash">19de2c51100a2b6d167757cef8d9f459ef26ad55</field>
+				<field index="folder_hash">c62e3e70a526a59f0f0b7687864947eab72d7d3f</field>
+				<field index="extension">yaml</field>
+				<field index="name">example.form.yaml</field>
+				<field index="sha1">c4a74ed1b553d8ea71c2d7460d466d2c538f24fc</field>
+				<field index="creation_date" type="integer">1793821181</field>
+				<field index="modification_date" type="integer">1793821181</field>
+				<field index="size" type="integer">2476</field>
+				<field index="storage" type="integer">1</field>
+				<field index="type" type="integer">5</field>
+				<field index="mime_type">application/yaml</field>
+				<field index="missing" type="integer">0</field>
+				<field index="metadata" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="storage" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>sys_file_storage</table>
+						</element>
+					</relations>
+				</field>
+				<field index="metadata" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>sys_file_metadata</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="sys_file_metadata:1" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">1</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793821070</field>
+				<field index="crdate" type="integer">1793821070</field>
+				<field index="sys_language_uid" type="integer">0</field>
+				<field index="l10n_parent" type="integer">0</field>
+				<field index="l10n_state" type="NULL"></field>
+				<field index="l10n_diffsource"></field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="title" type="NULL"></field>
+				<field index="alternative" type="NULL"></field>
+				<field index="categories" type="integer">0</field>
+				<field index="file" type="integer">1</field>
+				<field index="description" type="NULL"></field>
+				<field index="width" type="integer">0</field>
+				<field index="height" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="file" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>sys_file</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="sys_file_storage:1" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">1</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793820869</field>
+				<field index="crdate" type="integer">1793820869</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="description">This is the local fileadmin/ directory. This storage mount has been created automatically by TYPO3.</field>
+				<field index="is_public" type="integer">1</field>
+				<field index="processingfolder" type="NULL"></field>
+				<field index="name">fileadmin</field>
+				<field index="is_browsable" type="integer">1</field>
+				<field index="is_default" type="integer">1</field>
+				<field index="is_writable" type="integer">1</field>
+				<field index="is_online" type="integer">1</field>
+				<field index="auto_extract_metadata" type="integer">1</field>
+				<field index="driver">Local</field>
+				<field index="configuration">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot; ?&gt;
+&lt;T3FlexForms&gt;
+    &lt;data&gt;
+        &lt;sheet index=&quot;sDEF&quot;&gt;
+            &lt;language index=&quot;lDEF&quot;&gt;
+                &lt;field index=&quot;basePath&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;fileadmin/&lt;/value&gt;
+                &lt;/field&gt;
+                &lt;field index=&quot;pathType&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;relative&lt;/value&gt;
+                &lt;/field&gt;
+                &lt;field index=&quot;caseSensitive&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;1&lt;/value&gt;
+                &lt;/field&gt;
+            &lt;/language&gt;
+        &lt;/sheet&gt;
+    &lt;/data&gt;
+&lt;/T3FlexForms&gt;</field>
+			</fieldlist>
+			<related index="rels" type="array"></related>
+		</tablerow>
+		<tablerow index="pages:1" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">1</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793820835</field>
+				<field index="crdate" type="integer">1793820835</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group">0</field>
+				<field index="sorting" type="integer">512</field>
+				<field index="rowDescription" type="NULL"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">0</field>
+				<field index="l10n_parent" type="integer">0</field>
+				<field index="l10n_source" type="integer">0</field>
+				<field index="l10n_state" type="NULL"></field>
+				<field index="l10n_diffsource" type="NULL"></field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="perms_userid" type="integer">1</field>
+				<field index="perms_groupid" type="integer">1</field>
+				<field index="perms_user" type="integer">31</field>
+				<field index="perms_group" type="integer">31</field>
+				<field index="perms_everybody" type="integer">1</field>
+				<field index="SYS_LASTCHANGED" type="integer">1793821238</field>
+				<field index="shortcut" type="integer">0</field>
+				<field index="content_from_pid" type="integer">0</field>
+				<field index="mount_pid" type="integer">0</field>
+				<field index="doktype" type="integer">1</field>
+				<field index="title">Home</field>
+				<field index="slug">/</field>
+				<field index="TSconfig" type="NULL"></field>
+				<field index="php_tree_stop" type="integer">0</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="extendToSubpages" type="integer">0</field>
+				<field index="nav_title"></field>
+				<field index="nav_hide" type="integer">0</field>
+				<field index="subtitle"></field>
+				<field index="target"></field>
+				<field index="url"></field>
+				<field index="lastUpdated" type="integer">0</field>
+				<field index="newUntil" type="integer">0</field>
+				<field index="cache_timeout" type="integer">0</field>
+				<field index="cache_tags"></field>
+				<field index="no_search" type="integer">0</field>
+				<field index="shortcut_mode" type="integer">0</field>
+				<field index="keywords" type="NULL"></field>
+				<field index="description" type="NULL"></field>
+				<field index="abstract" type="NULL"></field>
+				<field index="author"></field>
+				<field index="author_email"></field>
+				<field index="media" type="integer">0</field>
+				<field index="is_siteroot" type="integer">1</field>
+				<field index="mount_pid_ol" type="integer">0</field>
+				<field index="module"></field>
+				<field index="l18n_cfg" type="integer">0</field>
+				<field index="backend_layout"></field>
+				<field index="backend_layout_next_level"></field>
+				<field index="tsconfig_includes"></field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array"></related>
+		</tablerow>
+		<tablerow index="pages:2" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">2</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793821284</field>
+				<field index="crdate" type="integer">1793821005</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">512</field>
+				<field index="rowDescription" type="NULL"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">1</field>
+				<field index="l10n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state">{&quot;nav_hide&quot;:&quot;parent&quot;,&quot;url&quot;:&quot;parent&quot;,&quot;lastUpdated&quot;:&quot;parent&quot;,&quot;newUntil&quot;:&quot;parent&quot;,&quot;no_search&quot;:&quot;parent&quot;,&quot;shortcut&quot;:&quot;parent&quot;,&quot;shortcut_mode&quot;:&quot;parent&quot;,&quot;content_from_pid&quot;:&quot;parent&quot;,&quot;author&quot;:&quot;parent&quot;,&quot;author_email&quot;:&quot;parent&quot;,&quot;media&quot;:&quot;parent&quot;,&quot;starttime&quot;:&quot;parent&quot;,&quot;endtime&quot;:&quot;parent&quot;}</field>
+				<field index="l10n_diffsource">{&quot;TSconfig&quot;:&quot;&quot;,&quot;abstract&quot;:&quot;&quot;,&quot;author&quot;:&quot;&quot;,&quot;author_email&quot;:&quot;&quot;,&quot;backend_layout&quot;:&quot;&quot;,&quot;backend_layout_next_level&quot;:&quot;&quot;,&quot;cache_tags&quot;:&quot;&quot;,&quot;cache_timeout&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;content_from_pid&quot;:&quot;0&quot;,&quot;description&quot;:&quot;&quot;,&quot;doktype&quot;:&quot;1&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;extendToSubpages&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;0&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;is_siteroot&quot;:&quot;1&quot;,&quot;keywords&quot;:&quot;&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;l18n_cfg&quot;:&quot;0&quot;,&quot;lastUpdated&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;media&quot;:&quot;0&quot;,&quot;module&quot;:&quot;&quot;,&quot;mount_pid&quot;:&quot;0&quot;,&quot;mount_pid_ol&quot;:&quot;0&quot;,&quot;nav_hide&quot;:&quot;0&quot;,&quot;nav_title&quot;:&quot;&quot;,&quot;newUntil&quot;:&quot;0&quot;,&quot;no_search&quot;:&quot;0&quot;,&quot;php_tree_stop&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;shortcut&quot;:&quot;0&quot;,&quot;shortcut_mode&quot;:&quot;0&quot;,&quot;slug&quot;:&quot;\/&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subtitle&quot;:&quot;&quot;,&quot;target&quot;:&quot;&quot;,&quot;title&quot;:&quot;Home&quot;,&quot;tsconfig_includes&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="perms_userid" type="integer">1</field>
+				<field index="perms_groupid" type="integer">1</field>
+				<field index="perms_user" type="integer">31</field>
+				<field index="perms_group" type="integer">31</field>
+				<field index="perms_everybody" type="integer">1</field>
+				<field index="SYS_LASTCHANGED" type="integer">1793821289</field>
+				<field index="shortcut" type="integer">0</field>
+				<field index="content_from_pid" type="integer">0</field>
+				<field index="mount_pid" type="integer">0</field>
+				<field index="doktype" type="integer">1</field>
+				<field index="title">[Translate to German:] Home</field>
+				<field index="slug">/</field>
+				<field index="TSconfig" type="NULL"></field>
+				<field index="php_tree_stop" type="integer">0</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="extendToSubpages" type="integer">0</field>
+				<field index="nav_title"></field>
+				<field index="nav_hide" type="integer">0</field>
+				<field index="subtitle"></field>
+				<field index="target"></field>
+				<field index="url"></field>
+				<field index="lastUpdated" type="integer">0</field>
+				<field index="newUntil" type="integer">0</field>
+				<field index="cache_timeout" type="integer">0</field>
+				<field index="cache_tags"></field>
+				<field index="no_search" type="integer">0</field>
+				<field index="shortcut_mode" type="integer">0</field>
+				<field index="keywords" type="NULL"></field>
+				<field index="description" type="NULL"></field>
+				<field index="abstract" type="NULL"></field>
+				<field index="author"></field>
+				<field index="author_email"></field>
+				<field index="media" type="integer">0</field>
+				<field index="is_siteroot" type="integer">1</field>
+				<field index="mount_pid_ol" type="integer">0</field>
+				<field index="module"></field>
+				<field index="l18n_cfg" type="integer">0</field>
+				<field index="backend_layout"></field>
+				<field index="backend_layout_next_level"></field>
+				<field index="tsconfig_includes"></field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="l10n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="pages:3" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">3</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793821285</field>
+				<field index="crdate" type="integer">1793821014</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">512</field>
+				<field index="rowDescription" type="NULL"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">2</field>
+				<field index="l10n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state">{&quot;nav_hide&quot;:&quot;parent&quot;,&quot;url&quot;:&quot;parent&quot;,&quot;lastUpdated&quot;:&quot;parent&quot;,&quot;newUntil&quot;:&quot;parent&quot;,&quot;no_search&quot;:&quot;parent&quot;,&quot;shortcut&quot;:&quot;parent&quot;,&quot;shortcut_mode&quot;:&quot;parent&quot;,&quot;content_from_pid&quot;:&quot;parent&quot;,&quot;author&quot;:&quot;parent&quot;,&quot;author_email&quot;:&quot;parent&quot;,&quot;media&quot;:&quot;parent&quot;,&quot;starttime&quot;:&quot;parent&quot;,&quot;endtime&quot;:&quot;parent&quot;}</field>
+				<field index="l10n_diffsource">{&quot;TSconfig&quot;:&quot;&quot;,&quot;abstract&quot;:&quot;&quot;,&quot;author&quot;:&quot;&quot;,&quot;author_email&quot;:&quot;&quot;,&quot;backend_layout&quot;:&quot;&quot;,&quot;backend_layout_next_level&quot;:&quot;&quot;,&quot;cache_tags&quot;:&quot;&quot;,&quot;cache_timeout&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;content_from_pid&quot;:&quot;0&quot;,&quot;description&quot;:&quot;&quot;,&quot;doktype&quot;:&quot;1&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;extendToSubpages&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;0&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;is_siteroot&quot;:&quot;1&quot;,&quot;keywords&quot;:&quot;&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;l18n_cfg&quot;:&quot;0&quot;,&quot;lastUpdated&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;media&quot;:&quot;0&quot;,&quot;module&quot;:&quot;&quot;,&quot;mount_pid&quot;:&quot;0&quot;,&quot;mount_pid_ol&quot;:&quot;0&quot;,&quot;nav_hide&quot;:&quot;0&quot;,&quot;nav_title&quot;:&quot;&quot;,&quot;newUntil&quot;:&quot;0&quot;,&quot;no_search&quot;:&quot;0&quot;,&quot;php_tree_stop&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;shortcut&quot;:&quot;0&quot;,&quot;shortcut_mode&quot;:&quot;0&quot;,&quot;slug&quot;:&quot;\/&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subtitle&quot;:&quot;&quot;,&quot;target&quot;:&quot;&quot;,&quot;title&quot;:&quot;Home&quot;,&quot;tsconfig_includes&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="perms_userid" type="integer">1</field>
+				<field index="perms_groupid" type="integer">1</field>
+				<field index="perms_user" type="integer">31</field>
+				<field index="perms_group" type="integer">31</field>
+				<field index="perms_everybody" type="integer">1</field>
+				<field index="SYS_LASTCHANGED" type="integer">1793821290</field>
+				<field index="shortcut" type="integer">0</field>
+				<field index="content_from_pid" type="integer">0</field>
+				<field index="mount_pid" type="integer">0</field>
+				<field index="doktype" type="integer">1</field>
+				<field index="title">[Translate to German (Swiss):] Home</field>
+				<field index="slug">/</field>
+				<field index="TSconfig" type="NULL"></field>
+				<field index="php_tree_stop" type="integer">0</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="extendToSubpages" type="integer">0</field>
+				<field index="nav_title"></field>
+				<field index="nav_hide" type="integer">0</field>
+				<field index="subtitle"></field>
+				<field index="target"></field>
+				<field index="url"></field>
+				<field index="lastUpdated" type="integer">0</field>
+				<field index="newUntil" type="integer">0</field>
+				<field index="cache_timeout" type="integer">0</field>
+				<field index="cache_tags"></field>
+				<field index="no_search" type="integer">0</field>
+				<field index="shortcut_mode" type="integer">0</field>
+				<field index="keywords" type="NULL"></field>
+				<field index="description" type="NULL"></field>
+				<field index="abstract" type="NULL"></field>
+				<field index="author"></field>
+				<field index="author_email"></field>
+				<field index="media" type="integer">0</field>
+				<field index="is_siteroot" type="integer">1</field>
+				<field index="mount_pid_ol" type="integer">0</field>
+				<field index="module"></field>
+				<field index="l18n_cfg" type="integer">0</field>
+				<field index="backend_layout"></field>
+				<field index="backend_layout_next_level"></field>
+				<field index="tsconfig_includes"></field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="l10n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="pages:4" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">4</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793821285</field>
+				<field index="crdate" type="integer">1793821017</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">512</field>
+				<field index="rowDescription" type="NULL"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">3</field>
+				<field index="l10n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state">{&quot;nav_hide&quot;:&quot;parent&quot;,&quot;url&quot;:&quot;parent&quot;,&quot;lastUpdated&quot;:&quot;parent&quot;,&quot;newUntil&quot;:&quot;parent&quot;,&quot;no_search&quot;:&quot;parent&quot;,&quot;shortcut&quot;:&quot;parent&quot;,&quot;shortcut_mode&quot;:&quot;parent&quot;,&quot;content_from_pid&quot;:&quot;parent&quot;,&quot;author&quot;:&quot;parent&quot;,&quot;author_email&quot;:&quot;parent&quot;,&quot;media&quot;:&quot;parent&quot;,&quot;starttime&quot;:&quot;parent&quot;,&quot;endtime&quot;:&quot;parent&quot;}</field>
+				<field index="l10n_diffsource">{&quot;TSconfig&quot;:&quot;&quot;,&quot;abstract&quot;:&quot;&quot;,&quot;author&quot;:&quot;&quot;,&quot;author_email&quot;:&quot;&quot;,&quot;backend_layout&quot;:&quot;&quot;,&quot;backend_layout_next_level&quot;:&quot;&quot;,&quot;cache_tags&quot;:&quot;&quot;,&quot;cache_timeout&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;content_from_pid&quot;:&quot;0&quot;,&quot;description&quot;:&quot;&quot;,&quot;doktype&quot;:&quot;1&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;extendToSubpages&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;0&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;is_siteroot&quot;:&quot;1&quot;,&quot;keywords&quot;:&quot;&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;l18n_cfg&quot;:&quot;0&quot;,&quot;lastUpdated&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;media&quot;:&quot;0&quot;,&quot;module&quot;:&quot;&quot;,&quot;mount_pid&quot;:&quot;0&quot;,&quot;mount_pid_ol&quot;:&quot;0&quot;,&quot;nav_hide&quot;:&quot;0&quot;,&quot;nav_title&quot;:&quot;&quot;,&quot;newUntil&quot;:&quot;0&quot;,&quot;no_search&quot;:&quot;0&quot;,&quot;php_tree_stop&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;shortcut&quot;:&quot;0&quot;,&quot;shortcut_mode&quot;:&quot;0&quot;,&quot;slug&quot;:&quot;\/&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subtitle&quot;:&quot;&quot;,&quot;target&quot;:&quot;&quot;,&quot;title&quot;:&quot;Home&quot;,&quot;tsconfig_includes&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="perms_userid" type="integer">1</field>
+				<field index="perms_groupid" type="integer">1</field>
+				<field index="perms_user" type="integer">31</field>
+				<field index="perms_group" type="integer">31</field>
+				<field index="perms_everybody" type="integer">1</field>
+				<field index="SYS_LASTCHANGED" type="integer">1793821291</field>
+				<field index="shortcut" type="integer">0</field>
+				<field index="content_from_pid" type="integer">0</field>
+				<field index="mount_pid" type="integer">0</field>
+				<field index="doktype" type="integer">1</field>
+				<field index="title">[Translate to German (Austria):] Home</field>
+				<field index="slug">/</field>
+				<field index="TSconfig" type="NULL"></field>
+				<field index="php_tree_stop" type="integer">0</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="extendToSubpages" type="integer">0</field>
+				<field index="nav_title"></field>
+				<field index="nav_hide" type="integer">0</field>
+				<field index="subtitle"></field>
+				<field index="target"></field>
+				<field index="url"></field>
+				<field index="lastUpdated" type="integer">0</field>
+				<field index="newUntil" type="integer">0</field>
+				<field index="cache_timeout" type="integer">0</field>
+				<field index="cache_tags"></field>
+				<field index="no_search" type="integer">0</field>
+				<field index="shortcut_mode" type="integer">0</field>
+				<field index="keywords" type="NULL"></field>
+				<field index="description" type="NULL"></field>
+				<field index="abstract" type="NULL"></field>
+				<field index="author"></field>
+				<field index="author_email"></field>
+				<field index="media" type="integer">0</field>
+				<field index="is_siteroot" type="integer">1</field>
+				<field index="mount_pid_ol" type="integer">0</field>
+				<field index="module"></field>
+				<field index="l18n_cfg" type="integer">0</field>
+				<field index="backend_layout"></field>
+				<field index="backend_layout_next_level"></field>
+				<field index="tsconfig_includes"></field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="l10n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="pages:5" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">5</field>
+				<field index="pid" type="integer">0</field>
+				<field index="tstamp" type="integer">1793821286</field>
+				<field index="crdate" type="integer">1793821020</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">512</field>
+				<field index="rowDescription" type="NULL"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">4</field>
+				<field index="l10n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state">{&quot;nav_hide&quot;:&quot;parent&quot;,&quot;url&quot;:&quot;parent&quot;,&quot;lastUpdated&quot;:&quot;parent&quot;,&quot;newUntil&quot;:&quot;parent&quot;,&quot;no_search&quot;:&quot;parent&quot;,&quot;shortcut&quot;:&quot;parent&quot;,&quot;shortcut_mode&quot;:&quot;parent&quot;,&quot;content_from_pid&quot;:&quot;parent&quot;,&quot;author&quot;:&quot;parent&quot;,&quot;author_email&quot;:&quot;parent&quot;,&quot;media&quot;:&quot;parent&quot;,&quot;starttime&quot;:&quot;parent&quot;,&quot;endtime&quot;:&quot;parent&quot;}</field>
+				<field index="l10n_diffsource">{&quot;TSconfig&quot;:&quot;&quot;,&quot;abstract&quot;:&quot;&quot;,&quot;author&quot;:&quot;&quot;,&quot;author_email&quot;:&quot;&quot;,&quot;backend_layout&quot;:&quot;&quot;,&quot;backend_layout_next_level&quot;:&quot;&quot;,&quot;cache_tags&quot;:&quot;&quot;,&quot;cache_timeout&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;content_from_pid&quot;:&quot;0&quot;,&quot;description&quot;:&quot;&quot;,&quot;doktype&quot;:&quot;1&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;extendToSubpages&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;0&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;is_siteroot&quot;:&quot;1&quot;,&quot;keywords&quot;:&quot;&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;l18n_cfg&quot;:&quot;0&quot;,&quot;lastUpdated&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;media&quot;:&quot;0&quot;,&quot;module&quot;:&quot;&quot;,&quot;mount_pid&quot;:&quot;0&quot;,&quot;mount_pid_ol&quot;:&quot;0&quot;,&quot;nav_hide&quot;:&quot;0&quot;,&quot;nav_title&quot;:&quot;&quot;,&quot;newUntil&quot;:&quot;0&quot;,&quot;no_search&quot;:&quot;0&quot;,&quot;php_tree_stop&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;shortcut&quot;:&quot;0&quot;,&quot;shortcut_mode&quot;:&quot;0&quot;,&quot;slug&quot;:&quot;\/&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subtitle&quot;:&quot;&quot;,&quot;target&quot;:&quot;&quot;,&quot;title&quot;:&quot;Home&quot;,&quot;tsconfig_includes&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="perms_userid" type="integer">1</field>
+				<field index="perms_groupid" type="integer">1</field>
+				<field index="perms_user" type="integer">31</field>
+				<field index="perms_group" type="integer">31</field>
+				<field index="perms_everybody" type="integer">1</field>
+				<field index="SYS_LASTCHANGED" type="integer">1793821291</field>
+				<field index="shortcut" type="integer">0</field>
+				<field index="content_from_pid" type="integer">0</field>
+				<field index="mount_pid" type="integer">0</field>
+				<field index="doktype" type="integer">1</field>
+				<field index="title">[Translate to English (UK):] Home</field>
+				<field index="slug">/</field>
+				<field index="TSconfig" type="NULL"></field>
+				<field index="php_tree_stop" type="integer">0</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="extendToSubpages" type="integer">0</field>
+				<field index="nav_title"></field>
+				<field index="nav_hide" type="integer">0</field>
+				<field index="subtitle"></field>
+				<field index="target"></field>
+				<field index="url"></field>
+				<field index="lastUpdated" type="integer">0</field>
+				<field index="newUntil" type="integer">0</field>
+				<field index="cache_timeout" type="integer">0</field>
+				<field index="cache_tags"></field>
+				<field index="no_search" type="integer">0</field>
+				<field index="shortcut_mode" type="integer">0</field>
+				<field index="keywords" type="NULL"></field>
+				<field index="description" type="NULL"></field>
+				<field index="abstract" type="NULL"></field>
+				<field index="author"></field>
+				<field index="author_email"></field>
+				<field index="media" type="integer">0</field>
+				<field index="is_siteroot" type="integer">1</field>
+				<field index="mount_pid_ol" type="integer">0</field>
+				<field index="module"></field>
+				<field index="l18n_cfg" type="integer">0</field>
+				<field index="backend_layout"></field>
+				<field index="backend_layout_next_level"></field>
+				<field index="tsconfig_includes"></field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="l10n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>pages</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="sys_template:1" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">1</field>
+				<field index="pid" type="integer">1</field>
+				<field index="tstamp" type="integer">1793821726</field>
+				<field index="crdate" type="integer">1793820835</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="sorting" type="integer">0</field>
+				<field index="description">This is an Empty Site Package TypoScript record.
+
+For each website you need a TypoScript record on the main page of your website (on the top level). For better maintenance all TypoScript should be extracted into external files via @import &#039;EXT:site_myproject/Configuration/TypoScript/setup.typoscript&#039;</field>
+				<field index="title">Main TypoScript Rendering</field>
+				<field index="root" type="integer">1</field>
+				<field index="clear" type="integer">3</field>
+				<field index="constants"></field>
+				<field index="include_static_file">EXT:fluid_styled_content/Configuration/TypoScript/,EXT:fluid_styled_content/Configuration/TypoScript/Styling/,EXT:form/Configuration/TypoScript/</field>
+				<field index="basedOn" type="NULL"></field>
+				<field index="includeStaticAfterBasedOn" type="integer">0</field>
+				<field index="config">page = PAGE
+
+page.10 = FLUIDTEMPLATE
+page.10 {
+  dataProcessing.10 = language-menu
+  dataProcessing.10 {
+    languages = auto
+    as = languageNavigation
+  }
+  template = TEXT
+  template.value (
+    &lt;f:for each=&quot;{languageNavigation}&quot; as=&quot;item&quot;&gt;
+      &lt;a href=&quot;{item.link}&quot; hreflang=&quot;{item.hreflang}&quot;&gt;{item.navigationTitle}&lt;/a&gt;
+    &lt;/f:for&gt;
+  )
+}
+
+page.20 = CONTENT
+page.20 {
+  table = tt_content
+  select {
+    orderBy = sorting
+    where = {#colPos}=0
+  }
+}
+</field>
+				<field index="static_file_mode" type="integer">0</field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="include_static_file" type="array">
+					<softrefs type="array">
+						<keys type="array">
+							<softref_key index="ext_fileref" type="array">
+								<softref_element index="2" type="array">
+									<matchString>EXT:fluid_styled_content/Configuration/TypoScript/</matchString>
+								</softref_element>
+								<softref_element index="5" type="array">
+									<matchString>EXT:fluid_styled_content/Configuration/TypoScript/Styling/</matchString>
+								</softref_element>
+								<softref_element index="8" type="array">
+									<matchString>EXT:form/Configuration/TypoScript/</matchString>
+								</softref_element>
+							</softref_key>
+						</keys>
+					</softrefs>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="tt_content:1" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">1</field>
+				<field index="pid" type="integer">1</field>
+				<field index="tstamp" type="integer">1793821238</field>
+				<field index="crdate" type="integer">1793821223</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">256</field>
+				<field index="rowDescription"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">0</field>
+				<field index="l18n_parent" type="integer">0</field>
+				<field index="l10n_source" type="integer">0</field>
+				<field index="l10n_state" type="NULL"></field>
+				<field index="l18n_diffsource">{&quot;CType&quot;:&quot;&quot;,&quot;categories&quot;:&quot;&quot;,&quot;colPos&quot;:&quot;&quot;,&quot;date&quot;:&quot;&quot;,&quot;editlock&quot;:&quot;&quot;,&quot;endtime&quot;:&quot;&quot;,&quot;fe_group&quot;:&quot;&quot;,&quot;frame_class&quot;:&quot;&quot;,&quot;header&quot;:&quot;&quot;,&quot;header_layout&quot;:&quot;&quot;,&quot;header_link&quot;:&quot;&quot;,&quot;header_position&quot;:&quot;&quot;,&quot;hidden&quot;:&quot;&quot;,&quot;layout&quot;:&quot;&quot;,&quot;linkToTop&quot;:&quot;&quot;,&quot;pi_flexform&quot;:&quot;&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;sectionIndex&quot;:&quot;&quot;,&quot;space_after_class&quot;:&quot;&quot;,&quot;space_before_class&quot;:&quot;&quot;,&quot;starttime&quot;:&quot;&quot;,&quot;subheader&quot;:&quot;&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="frame_class">default</field>
+				<field index="colPos" type="integer">0</field>
+				<field index="table_caption" type="NULL"></field>
+				<field index="CType">form_formframework</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="space_before_class"></field>
+				<field index="space_after_class"></field>
+				<field index="date" type="integer">0</field>
+				<field index="header">Example form</field>
+				<field index="header_layout" type="integer">100</field>
+				<field index="header_position"></field>
+				<field index="header_link"></field>
+				<field index="subheader"></field>
+				<field index="bodytext" type="NULL"></field>
+				<field index="image" type="integer">0</field>
+				<field index="assets" type="integer">0</field>
+				<field index="imagewidth" type="integer">0</field>
+				<field index="imageheight" type="integer">0</field>
+				<field index="imageorient" type="integer">0</field>
+				<field index="imageborder" type="integer">0</field>
+				<field index="image_zoom" type="integer">0</field>
+				<field index="imagecols" type="integer">2</field>
+				<field index="pages" type="NULL"></field>
+				<field index="recursive" type="integer">0</field>
+				<field index="list_type"></field>
+				<field index="media" type="integer">0</field>
+				<field index="records" type="NULL"></field>
+				<field index="sectionIndex" type="integer">1</field>
+				<field index="linkToTop" type="integer">0</field>
+				<field index="pi_flexform">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot; ?&gt;
+&lt;T3FlexForms&gt;
+    &lt;data&gt;
+        &lt;sheet index=&quot;sDEF&quot;&gt;
+            &lt;language index=&quot;lDEF&quot;&gt;
+                &lt;field index=&quot;settings.persistenceIdentifier&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;1:/form_definitions/example.form.yaml&lt;/value&gt;
+                &lt;/field&gt;
+                &lt;field index=&quot;settings.overrideFinishers&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;0&lt;/value&gt;
+                &lt;/field&gt;
+            &lt;/language&gt;
+        &lt;/sheet&gt;
+    &lt;/data&gt;
+&lt;/T3FlexForms&gt;</field>
+				<field index="selected_categories" type="NULL"></field>
+				<field index="category_field"></field>
+				<field index="bullets_type" type="integer">0</field>
+				<field index="cols" type="integer">0</field>
+				<field index="table_class"></field>
+				<field index="table_delimiter" type="integer">124</field>
+				<field index="table_enclosure" type="integer">0</field>
+				<field index="table_header_position" type="integer">0</field>
+				<field index="table_tfoot" type="integer">0</field>
+				<field index="file_collections" type="NULL"></field>
+				<field index="filelink_size" type="integer">0</field>
+				<field index="filelink_sorting"></field>
+				<field index="filelink_sorting_direction"></field>
+				<field index="target"></field>
+				<field index="uploads_description" type="integer">0</field>
+				<field index="uploads_type" type="integer">0</field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="pi_flexform" type="array">
+					<type>flex</type>
+					<flexform index="flexFormRels" type="array">
+						<softref_relations index="softrefs" type="array">
+							<structurePath index="sDEF/lDEF/settings.persistenceIdentifier/vDEF/" type="array">
+								<keys type="array">
+									<softref_key index="formPersistenceIdentifier" type="array">
+										<softref_element index="01ebfbcb14905bf60ae9e51634c24fdb" type="array">
+											<matchString>1:/form_definitions/example.form.yaml</matchString>
+											<subst type="array">
+												<type>db</type>
+												<recordRef>sys_file:1</recordRef>
+												<tokenID>01ebfbcb14905bf60ae9e51634c24fdb</tokenID>
+												<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+											</subst>
+										</softref_element>
+									</softref_key>
+								</keys>
+								<tokenizedContent>{softref:01ebfbcb14905bf60ae9e51634c24fdb}</tokenizedContent>
+							</structurePath>
+						</softref_relations>
+					</flexform>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="tt_content:5" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">5</field>
+				<field index="pid" type="integer">1</field>
+				<field index="tstamp" type="integer">1793821291</field>
+				<field index="crdate" type="integer">1793821253</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">288</field>
+				<field index="rowDescription"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">4</field>
+				<field index="l18n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state" type="NULL"></field>
+				<field index="l18n_diffsource">{&quot;CType&quot;:&quot;form_formframework&quot;,&quot;assets&quot;:&quot;0&quot;,&quot;bodytext&quot;:&quot;&quot;,&quot;bullets_type&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;category_field&quot;:&quot;&quot;,&quot;colPos&quot;:&quot;0&quot;,&quot;cols&quot;:&quot;0&quot;,&quot;date&quot;:&quot;0&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;&quot;,&quot;file_collections&quot;:&quot;&quot;,&quot;filelink_size&quot;:&quot;0&quot;,&quot;filelink_sorting&quot;:&quot;&quot;,&quot;filelink_sorting_direction&quot;:&quot;&quot;,&quot;frame_class&quot;:&quot;default&quot;,&quot;header&quot;:&quot;Example form&quot;,&quot;header_layout&quot;:&quot;100&quot;,&quot;header_link&quot;:&quot;&quot;,&quot;header_position&quot;:&quot;&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;image&quot;:&quot;0&quot;,&quot;image_zoom&quot;:&quot;0&quot;,&quot;imageborder&quot;:&quot;0&quot;,&quot;imagecols&quot;:&quot;2&quot;,&quot;imageheight&quot;:&quot;0&quot;,&quot;imageorient&quot;:&quot;0&quot;,&quot;imagewidth&quot;:&quot;0&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;linkToTop&quot;:&quot;0&quot;,&quot;list_type&quot;:&quot;&quot;,&quot;media&quot;:&quot;0&quot;,&quot;pages&quot;:&quot;&quot;,&quot;pi_flexform&quot;:&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot; standalone=\&quot;yes\&quot; ?&gt;\n&lt;T3FlexForms&gt;\n    &lt;data&gt;\n        &lt;sheet index=\&quot;sDEF\&quot;&gt;\n            &lt;language index=\&quot;lDEF\&quot;&gt;\n                &lt;field index=\&quot;settings.persistenceIdentifier\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;1:\/form_definitions\/example.form.yaml&lt;\/value&gt;\n                &lt;\/field&gt;\n                &lt;field index=\&quot;settings.overrideFinishers\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;0&lt;\/value&gt;\n                &lt;\/field&gt;\n            &lt;\/language&gt;\n        &lt;\/sheet&gt;\n    &lt;\/data&gt;\n&lt;\/T3FlexForms&gt;&quot;,&quot;records&quot;:&quot;&quot;,&quot;recursive&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;sectionIndex&quot;:&quot;1&quot;,&quot;selected_categories&quot;:&quot;&quot;,&quot;space_after_class&quot;:&quot;&quot;,&quot;space_before_class&quot;:&quot;&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subheader&quot;:&quot;&quot;,&quot;table_caption&quot;:&quot;&quot;,&quot;table_class&quot;:&quot;&quot;,&quot;table_delimiter&quot;:&quot;124&quot;,&quot;table_enclosure&quot;:&quot;0&quot;,&quot;table_header_position&quot;:&quot;0&quot;,&quot;table_tfoot&quot;:&quot;0&quot;,&quot;target&quot;:&quot;&quot;,&quot;uploads_description&quot;:&quot;0&quot;,&quot;uploads_type&quot;:&quot;0&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="frame_class">default</field>
+				<field index="colPos" type="integer">0</field>
+				<field index="table_caption" type="NULL"></field>
+				<field index="CType">form_formframework</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="space_before_class"></field>
+				<field index="space_after_class"></field>
+				<field index="date" type="integer">0</field>
+				<field index="header">[Translate to English (UK):] Example form</field>
+				<field index="header_layout" type="integer">100</field>
+				<field index="header_position"></field>
+				<field index="header_link"></field>
+				<field index="subheader"></field>
+				<field index="bodytext" type="NULL"></field>
+				<field index="image" type="integer">0</field>
+				<field index="assets" type="integer">0</field>
+				<field index="imagewidth" type="integer">0</field>
+				<field index="imageheight" type="integer">0</field>
+				<field index="imageorient" type="integer">0</field>
+				<field index="imageborder" type="integer">0</field>
+				<field index="image_zoom" type="integer">0</field>
+				<field index="imagecols" type="integer">2</field>
+				<field index="pages"></field>
+				<field index="recursive" type="integer">0</field>
+				<field index="list_type"></field>
+				<field index="media" type="integer">0</field>
+				<field index="records"></field>
+				<field index="sectionIndex" type="integer">1</field>
+				<field index="linkToTop" type="integer">0</field>
+				<field index="pi_flexform">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot; ?&gt;
+&lt;T3FlexForms&gt;
+    &lt;data&gt;
+        &lt;sheet index=&quot;sDEF&quot;&gt;
+            &lt;language index=&quot;lDEF&quot;&gt;
+                &lt;field index=&quot;settings.persistenceIdentifier&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;1:/form_definitions/example.form.yaml&lt;/value&gt;
+                &lt;/field&gt;
+                &lt;field index=&quot;settings.overrideFinishers&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;0&lt;/value&gt;
+                &lt;/field&gt;
+            &lt;/language&gt;
+        &lt;/sheet&gt;
+    &lt;/data&gt;
+&lt;/T3FlexForms&gt;</field>
+				<field index="selected_categories">0</field>
+				<field index="category_field"></field>
+				<field index="bullets_type" type="integer">0</field>
+				<field index="cols" type="integer">0</field>
+				<field index="table_class"></field>
+				<field index="table_delimiter" type="integer">124</field>
+				<field index="table_enclosure" type="integer">0</field>
+				<field index="table_header_position" type="integer">0</field>
+				<field index="table_tfoot" type="integer">0</field>
+				<field index="file_collections"></field>
+				<field index="filelink_size" type="integer">0</field>
+				<field index="filelink_sorting"></field>
+				<field index="filelink_sorting_direction"></field>
+				<field index="target"></field>
+				<field index="uploads_description" type="integer">0</field>
+				<field index="uploads_type" type="integer">0</field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="pi_flexform" type="array">
+					<type>flex</type>
+					<flexform index="flexFormRels" type="array">
+						<softref_relations index="softrefs" type="array">
+							<structurePath index="sDEF/lDEF/settings.persistenceIdentifier/vDEF/" type="array">
+								<keys type="array">
+									<softref_key index="formPersistenceIdentifier" type="array">
+										<softref_element index="517ead86d148f21d02c5330215da1662" type="array">
+											<matchString>1:/form_definitions/example.form.yaml</matchString>
+											<subst type="array">
+												<type>db</type>
+												<recordRef>sys_file:1</recordRef>
+												<tokenID>517ead86d148f21d02c5330215da1662</tokenID>
+												<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+											</subst>
+										</softref_element>
+									</softref_key>
+								</keys>
+								<tokenizedContent>{softref:517ead86d148f21d02c5330215da1662}</tokenizedContent>
+							</structurePath>
+						</softref_relations>
+					</flexform>
+				</field>
+				<field index="l18n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="tt_content:4" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">4</field>
+				<field index="pid" type="integer">1</field>
+				<field index="tstamp" type="integer">1793821291</field>
+				<field index="crdate" type="integer">1793821250</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">320</field>
+				<field index="rowDescription"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">3</field>
+				<field index="l18n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state" type="NULL"></field>
+				<field index="l18n_diffsource">{&quot;CType&quot;:&quot;form_formframework&quot;,&quot;assets&quot;:&quot;0&quot;,&quot;bodytext&quot;:&quot;&quot;,&quot;bullets_type&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;category_field&quot;:&quot;&quot;,&quot;colPos&quot;:&quot;0&quot;,&quot;cols&quot;:&quot;0&quot;,&quot;date&quot;:&quot;0&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;&quot;,&quot;file_collections&quot;:&quot;&quot;,&quot;filelink_size&quot;:&quot;0&quot;,&quot;filelink_sorting&quot;:&quot;&quot;,&quot;filelink_sorting_direction&quot;:&quot;&quot;,&quot;frame_class&quot;:&quot;default&quot;,&quot;header&quot;:&quot;Example form&quot;,&quot;header_layout&quot;:&quot;100&quot;,&quot;header_link&quot;:&quot;&quot;,&quot;header_position&quot;:&quot;&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;image&quot;:&quot;0&quot;,&quot;image_zoom&quot;:&quot;0&quot;,&quot;imageborder&quot;:&quot;0&quot;,&quot;imagecols&quot;:&quot;2&quot;,&quot;imageheight&quot;:&quot;0&quot;,&quot;imageorient&quot;:&quot;0&quot;,&quot;imagewidth&quot;:&quot;0&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;linkToTop&quot;:&quot;0&quot;,&quot;list_type&quot;:&quot;&quot;,&quot;media&quot;:&quot;0&quot;,&quot;pages&quot;:&quot;&quot;,&quot;pi_flexform&quot;:&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot; standalone=\&quot;yes\&quot; ?&gt;\n&lt;T3FlexForms&gt;\n    &lt;data&gt;\n        &lt;sheet index=\&quot;sDEF\&quot;&gt;\n            &lt;language index=\&quot;lDEF\&quot;&gt;\n                &lt;field index=\&quot;settings.persistenceIdentifier\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;1:\/form_definitions\/example.form.yaml&lt;\/value&gt;\n                &lt;\/field&gt;\n                &lt;field index=\&quot;settings.overrideFinishers\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;0&lt;\/value&gt;\n                &lt;\/field&gt;\n            &lt;\/language&gt;\n        &lt;\/sheet&gt;\n    &lt;\/data&gt;\n&lt;\/T3FlexForms&gt;&quot;,&quot;records&quot;:&quot;&quot;,&quot;recursive&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;sectionIndex&quot;:&quot;1&quot;,&quot;selected_categories&quot;:&quot;&quot;,&quot;space_after_class&quot;:&quot;&quot;,&quot;space_before_class&quot;:&quot;&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subheader&quot;:&quot;&quot;,&quot;table_caption&quot;:&quot;&quot;,&quot;table_class&quot;:&quot;&quot;,&quot;table_delimiter&quot;:&quot;124&quot;,&quot;table_enclosure&quot;:&quot;0&quot;,&quot;table_header_position&quot;:&quot;0&quot;,&quot;table_tfoot&quot;:&quot;0&quot;,&quot;target&quot;:&quot;&quot;,&quot;uploads_description&quot;:&quot;0&quot;,&quot;uploads_type&quot;:&quot;0&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="frame_class">default</field>
+				<field index="colPos" type="integer">0</field>
+				<field index="table_caption" type="NULL"></field>
+				<field index="CType">form_formframework</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="space_before_class"></field>
+				<field index="space_after_class"></field>
+				<field index="date" type="integer">0</field>
+				<field index="header">[Translate to German (Austria):] Example form</field>
+				<field index="header_layout" type="integer">100</field>
+				<field index="header_position"></field>
+				<field index="header_link"></field>
+				<field index="subheader"></field>
+				<field index="bodytext" type="NULL"></field>
+				<field index="image" type="integer">0</field>
+				<field index="assets" type="integer">0</field>
+				<field index="imagewidth" type="integer">0</field>
+				<field index="imageheight" type="integer">0</field>
+				<field index="imageorient" type="integer">0</field>
+				<field index="imageborder" type="integer">0</field>
+				<field index="image_zoom" type="integer">0</field>
+				<field index="imagecols" type="integer">2</field>
+				<field index="pages"></field>
+				<field index="recursive" type="integer">0</field>
+				<field index="list_type"></field>
+				<field index="media" type="integer">0</field>
+				<field index="records"></field>
+				<field index="sectionIndex" type="integer">1</field>
+				<field index="linkToTop" type="integer">0</field>
+				<field index="pi_flexform">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot; ?&gt;
+&lt;T3FlexForms&gt;
+    &lt;data&gt;
+        &lt;sheet index=&quot;sDEF&quot;&gt;
+            &lt;language index=&quot;lDEF&quot;&gt;
+                &lt;field index=&quot;settings.persistenceIdentifier&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;1:/form_definitions/example.form.yaml&lt;/value&gt;
+                &lt;/field&gt;
+                &lt;field index=&quot;settings.overrideFinishers&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;0&lt;/value&gt;
+                &lt;/field&gt;
+            &lt;/language&gt;
+        &lt;/sheet&gt;
+    &lt;/data&gt;
+&lt;/T3FlexForms&gt;</field>
+				<field index="selected_categories">0</field>
+				<field index="category_field"></field>
+				<field index="bullets_type" type="integer">0</field>
+				<field index="cols" type="integer">0</field>
+				<field index="table_class"></field>
+				<field index="table_delimiter" type="integer">124</field>
+				<field index="table_enclosure" type="integer">0</field>
+				<field index="table_header_position" type="integer">0</field>
+				<field index="table_tfoot" type="integer">0</field>
+				<field index="file_collections"></field>
+				<field index="filelink_size" type="integer">0</field>
+				<field index="filelink_sorting"></field>
+				<field index="filelink_sorting_direction"></field>
+				<field index="target"></field>
+				<field index="uploads_description" type="integer">0</field>
+				<field index="uploads_type" type="integer">0</field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="pi_flexform" type="array">
+					<type>flex</type>
+					<flexform index="flexFormRels" type="array">
+						<softref_relations index="softrefs" type="array">
+							<structurePath index="sDEF/lDEF/settings.persistenceIdentifier/vDEF/" type="array">
+								<keys type="array">
+									<softref_key index="formPersistenceIdentifier" type="array">
+										<softref_element index="81aee63ecf3a7381c34aa2abc1f061dd" type="array">
+											<matchString>1:/form_definitions/example.form.yaml</matchString>
+											<subst type="array">
+												<type>db</type>
+												<recordRef>sys_file:1</recordRef>
+												<tokenID>81aee63ecf3a7381c34aa2abc1f061dd</tokenID>
+												<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+											</subst>
+										</softref_element>
+									</softref_key>
+								</keys>
+								<tokenizedContent>{softref:81aee63ecf3a7381c34aa2abc1f061dd}</tokenizedContent>
+							</structurePath>
+						</softref_relations>
+					</flexform>
+				</field>
+				<field index="l18n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="tt_content:3" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">3</field>
+				<field index="pid" type="integer">1</field>
+				<field index="tstamp" type="integer">1793821290</field>
+				<field index="crdate" type="integer">1793821247</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">384</field>
+				<field index="rowDescription"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">2</field>
+				<field index="l18n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state" type="NULL"></field>
+				<field index="l18n_diffsource">{&quot;CType&quot;:&quot;form_formframework&quot;,&quot;assets&quot;:&quot;0&quot;,&quot;bodytext&quot;:&quot;&quot;,&quot;bullets_type&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;category_field&quot;:&quot;&quot;,&quot;colPos&quot;:&quot;0&quot;,&quot;cols&quot;:&quot;0&quot;,&quot;date&quot;:&quot;0&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;&quot;,&quot;file_collections&quot;:&quot;&quot;,&quot;filelink_size&quot;:&quot;0&quot;,&quot;filelink_sorting&quot;:&quot;&quot;,&quot;filelink_sorting_direction&quot;:&quot;&quot;,&quot;frame_class&quot;:&quot;default&quot;,&quot;header&quot;:&quot;Example form&quot;,&quot;header_layout&quot;:&quot;100&quot;,&quot;header_link&quot;:&quot;&quot;,&quot;header_position&quot;:&quot;&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;image&quot;:&quot;0&quot;,&quot;image_zoom&quot;:&quot;0&quot;,&quot;imageborder&quot;:&quot;0&quot;,&quot;imagecols&quot;:&quot;2&quot;,&quot;imageheight&quot;:&quot;0&quot;,&quot;imageorient&quot;:&quot;0&quot;,&quot;imagewidth&quot;:&quot;0&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;linkToTop&quot;:&quot;0&quot;,&quot;list_type&quot;:&quot;&quot;,&quot;media&quot;:&quot;0&quot;,&quot;pages&quot;:&quot;&quot;,&quot;pi_flexform&quot;:&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot; standalone=\&quot;yes\&quot; ?&gt;\n&lt;T3FlexForms&gt;\n    &lt;data&gt;\n        &lt;sheet index=\&quot;sDEF\&quot;&gt;\n            &lt;language index=\&quot;lDEF\&quot;&gt;\n                &lt;field index=\&quot;settings.persistenceIdentifier\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;1:\/form_definitions\/example.form.yaml&lt;\/value&gt;\n                &lt;\/field&gt;\n                &lt;field index=\&quot;settings.overrideFinishers\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;0&lt;\/value&gt;\n                &lt;\/field&gt;\n            &lt;\/language&gt;\n        &lt;\/sheet&gt;\n    &lt;\/data&gt;\n&lt;\/T3FlexForms&gt;&quot;,&quot;records&quot;:&quot;&quot;,&quot;recursive&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;sectionIndex&quot;:&quot;1&quot;,&quot;selected_categories&quot;:&quot;&quot;,&quot;space_after_class&quot;:&quot;&quot;,&quot;space_before_class&quot;:&quot;&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subheader&quot;:&quot;&quot;,&quot;table_caption&quot;:&quot;&quot;,&quot;table_class&quot;:&quot;&quot;,&quot;table_delimiter&quot;:&quot;124&quot;,&quot;table_enclosure&quot;:&quot;0&quot;,&quot;table_header_position&quot;:&quot;0&quot;,&quot;table_tfoot&quot;:&quot;0&quot;,&quot;target&quot;:&quot;&quot;,&quot;uploads_description&quot;:&quot;0&quot;,&quot;uploads_type&quot;:&quot;0&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="frame_class">default</field>
+				<field index="colPos" type="integer">0</field>
+				<field index="table_caption" type="NULL"></field>
+				<field index="CType">form_formframework</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="space_before_class"></field>
+				<field index="space_after_class"></field>
+				<field index="date" type="integer">0</field>
+				<field index="header">[Translate to German (Swiss):] Example form</field>
+				<field index="header_layout" type="integer">100</field>
+				<field index="header_position"></field>
+				<field index="header_link"></field>
+				<field index="subheader"></field>
+				<field index="bodytext" type="NULL"></field>
+				<field index="image" type="integer">0</field>
+				<field index="assets" type="integer">0</field>
+				<field index="imagewidth" type="integer">0</field>
+				<field index="imageheight" type="integer">0</field>
+				<field index="imageorient" type="integer">0</field>
+				<field index="imageborder" type="integer">0</field>
+				<field index="image_zoom" type="integer">0</field>
+				<field index="imagecols" type="integer">2</field>
+				<field index="pages"></field>
+				<field index="recursive" type="integer">0</field>
+				<field index="list_type"></field>
+				<field index="media" type="integer">0</field>
+				<field index="records"></field>
+				<field index="sectionIndex" type="integer">1</field>
+				<field index="linkToTop" type="integer">0</field>
+				<field index="pi_flexform">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot; ?&gt;
+&lt;T3FlexForms&gt;
+    &lt;data&gt;
+        &lt;sheet index=&quot;sDEF&quot;&gt;
+            &lt;language index=&quot;lDEF&quot;&gt;
+                &lt;field index=&quot;settings.persistenceIdentifier&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;1:/form_definitions/example.form.yaml&lt;/value&gt;
+                &lt;/field&gt;
+                &lt;field index=&quot;settings.overrideFinishers&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;0&lt;/value&gt;
+                &lt;/field&gt;
+            &lt;/language&gt;
+        &lt;/sheet&gt;
+    &lt;/data&gt;
+&lt;/T3FlexForms&gt;</field>
+				<field index="selected_categories">0</field>
+				<field index="category_field"></field>
+				<field index="bullets_type" type="integer">0</field>
+				<field index="cols" type="integer">0</field>
+				<field index="table_class"></field>
+				<field index="table_delimiter" type="integer">124</field>
+				<field index="table_enclosure" type="integer">0</field>
+				<field index="table_header_position" type="integer">0</field>
+				<field index="table_tfoot" type="integer">0</field>
+				<field index="file_collections"></field>
+				<field index="filelink_size" type="integer">0</field>
+				<field index="filelink_sorting"></field>
+				<field index="filelink_sorting_direction"></field>
+				<field index="target"></field>
+				<field index="uploads_description" type="integer">0</field>
+				<field index="uploads_type" type="integer">0</field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="pi_flexform" type="array">
+					<type>flex</type>
+					<flexform index="flexFormRels" type="array">
+						<softref_relations index="softrefs" type="array">
+							<structurePath index="sDEF/lDEF/settings.persistenceIdentifier/vDEF/" type="array">
+								<keys type="array">
+									<softref_key index="formPersistenceIdentifier" type="array">
+										<softref_element index="c45e3ba0f46909c2cf158241e9a7d30d" type="array">
+											<matchString>1:/form_definitions/example.form.yaml</matchString>
+											<subst type="array">
+												<type>db</type>
+												<recordRef>sys_file:1</recordRef>
+												<tokenID>c45e3ba0f46909c2cf158241e9a7d30d</tokenID>
+												<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+											</subst>
+										</softref_element>
+									</softref_key>
+								</keys>
+								<tokenizedContent>{softref:c45e3ba0f46909c2cf158241e9a7d30d}</tokenizedContent>
+							</structurePath>
+						</softref_relations>
+					</flexform>
+				</field>
+				<field index="l18n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+		<tablerow index="tt_content:2" type="array">
+			<fieldlist index="data" type="array">
+				<field index="uid" type="integer">2</field>
+				<field index="pid" type="integer">1</field>
+				<field index="tstamp" type="integer">1793821289</field>
+				<field index="crdate" type="integer">1793821242</field>
+				<field index="deleted" type="integer">0</field>
+				<field index="hidden" type="integer">0</field>
+				<field index="starttime" type="integer">0</field>
+				<field index="endtime" type="integer">0</field>
+				<field index="fe_group"></field>
+				<field index="sorting" type="integer">512</field>
+				<field index="rowDescription"></field>
+				<field index="editlock" type="integer">0</field>
+				<field index="sys_language_uid" type="integer">1</field>
+				<field index="l18n_parent" type="integer">1</field>
+				<field index="l10n_source" type="integer">1</field>
+				<field index="l10n_state" type="NULL"></field>
+				<field index="l18n_diffsource">{&quot;CType&quot;:&quot;form_formframework&quot;,&quot;assets&quot;:&quot;0&quot;,&quot;bodytext&quot;:&quot;&quot;,&quot;bullets_type&quot;:&quot;0&quot;,&quot;categories&quot;:&quot;0&quot;,&quot;category_field&quot;:&quot;&quot;,&quot;colPos&quot;:&quot;0&quot;,&quot;cols&quot;:&quot;0&quot;,&quot;date&quot;:&quot;0&quot;,&quot;editlock&quot;:&quot;0&quot;,&quot;endtime&quot;:&quot;0&quot;,&quot;fe_group&quot;:&quot;&quot;,&quot;file_collections&quot;:&quot;&quot;,&quot;filelink_size&quot;:&quot;0&quot;,&quot;filelink_sorting&quot;:&quot;&quot;,&quot;filelink_sorting_direction&quot;:&quot;&quot;,&quot;frame_class&quot;:&quot;default&quot;,&quot;header&quot;:&quot;Example form&quot;,&quot;header_layout&quot;:&quot;100&quot;,&quot;header_link&quot;:&quot;&quot;,&quot;header_position&quot;:&quot;&quot;,&quot;hidden&quot;:&quot;0&quot;,&quot;image&quot;:&quot;0&quot;,&quot;image_zoom&quot;:&quot;0&quot;,&quot;imageborder&quot;:&quot;0&quot;,&quot;imagecols&quot;:&quot;2&quot;,&quot;imageheight&quot;:&quot;0&quot;,&quot;imageorient&quot;:&quot;0&quot;,&quot;imagewidth&quot;:&quot;0&quot;,&quot;l10n_source&quot;:&quot;0&quot;,&quot;layout&quot;:&quot;0&quot;,&quot;linkToTop&quot;:&quot;0&quot;,&quot;list_type&quot;:&quot;&quot;,&quot;media&quot;:&quot;0&quot;,&quot;pages&quot;:&quot;&quot;,&quot;pi_flexform&quot;:&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot; standalone=\&quot;yes\&quot; ?&gt;\n&lt;T3FlexForms&gt;\n    &lt;data&gt;\n        &lt;sheet index=\&quot;sDEF\&quot;&gt;\n            &lt;language index=\&quot;lDEF\&quot;&gt;\n                &lt;field index=\&quot;settings.persistenceIdentifier\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;1:\/form_definitions\/example.form.yaml&lt;\/value&gt;\n                &lt;\/field&gt;\n                &lt;field index=\&quot;settings.overrideFinishers\&quot;&gt;\n                    &lt;value index=\&quot;vDEF\&quot;&gt;0&lt;\/value&gt;\n                &lt;\/field&gt;\n            &lt;\/language&gt;\n        &lt;\/sheet&gt;\n    &lt;\/data&gt;\n&lt;\/T3FlexForms&gt;&quot;,&quot;records&quot;:&quot;&quot;,&quot;recursive&quot;:&quot;0&quot;,&quot;rowDescription&quot;:&quot;&quot;,&quot;sectionIndex&quot;:&quot;1&quot;,&quot;selected_categories&quot;:&quot;&quot;,&quot;space_after_class&quot;:&quot;&quot;,&quot;space_before_class&quot;:&quot;&quot;,&quot;starttime&quot;:&quot;0&quot;,&quot;subheader&quot;:&quot;&quot;,&quot;table_caption&quot;:&quot;&quot;,&quot;table_class&quot;:&quot;&quot;,&quot;table_delimiter&quot;:&quot;124&quot;,&quot;table_enclosure&quot;:&quot;0&quot;,&quot;table_header_position&quot;:&quot;0&quot;,&quot;table_tfoot&quot;:&quot;0&quot;,&quot;target&quot;:&quot;&quot;,&quot;uploads_description&quot;:&quot;0&quot;,&quot;uploads_type&quot;:&quot;0&quot;}</field>
+				<field index="t3ver_oid" type="integer">0</field>
+				<field index="t3ver_wsid" type="integer">0</field>
+				<field index="t3ver_state" type="integer">0</field>
+				<field index="t3ver_stage" type="integer">0</field>
+				<field index="frame_class">default</field>
+				<field index="colPos" type="integer">0</field>
+				<field index="table_caption" type="NULL"></field>
+				<field index="CType">form_formframework</field>
+				<field index="categories" type="integer">0</field>
+				<field index="layout" type="integer">0</field>
+				<field index="space_before_class"></field>
+				<field index="space_after_class"></field>
+				<field index="date" type="integer">0</field>
+				<field index="header">[Translate to German:] Example form</field>
+				<field index="header_layout" type="integer">100</field>
+				<field index="header_position"></field>
+				<field index="header_link"></field>
+				<field index="subheader"></field>
+				<field index="bodytext" type="NULL"></field>
+				<field index="image" type="integer">0</field>
+				<field index="assets" type="integer">0</field>
+				<field index="imagewidth" type="integer">0</field>
+				<field index="imageheight" type="integer">0</field>
+				<field index="imageorient" type="integer">0</field>
+				<field index="imageborder" type="integer">0</field>
+				<field index="image_zoom" type="integer">0</field>
+				<field index="imagecols" type="integer">2</field>
+				<field index="pages"></field>
+				<field index="recursive" type="integer">0</field>
+				<field index="list_type"></field>
+				<field index="media" type="integer">0</field>
+				<field index="records"></field>
+				<field index="sectionIndex" type="integer">1</field>
+				<field index="linkToTop" type="integer">0</field>
+				<field index="pi_flexform">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot; ?&gt;
+&lt;T3FlexForms&gt;
+    &lt;data&gt;
+        &lt;sheet index=&quot;sDEF&quot;&gt;
+            &lt;language index=&quot;lDEF&quot;&gt;
+                &lt;field index=&quot;settings.persistenceIdentifier&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;1:/form_definitions/example.form.yaml&lt;/value&gt;
+                &lt;/field&gt;
+                &lt;field index=&quot;settings.overrideFinishers&quot;&gt;
+                    &lt;value index=&quot;vDEF&quot;&gt;0&lt;/value&gt;
+                &lt;/field&gt;
+            &lt;/language&gt;
+        &lt;/sheet&gt;
+    &lt;/data&gt;
+&lt;/T3FlexForms&gt;</field>
+				<field index="selected_categories">0</field>
+				<field index="category_field"></field>
+				<field index="bullets_type" type="integer">0</field>
+				<field index="cols" type="integer">0</field>
+				<field index="table_class"></field>
+				<field index="table_delimiter" type="integer">124</field>
+				<field index="table_enclosure" type="integer">0</field>
+				<field index="table_header_position" type="integer">0</field>
+				<field index="table_tfoot" type="integer">0</field>
+				<field index="file_collections"></field>
+				<field index="filelink_size" type="integer">0</field>
+				<field index="filelink_sorting"></field>
+				<field index="filelink_sorting_direction"></field>
+				<field index="target"></field>
+				<field index="uploads_description" type="integer">0</field>
+				<field index="uploads_type" type="integer">0</field>
+				<field index="tx_impexp_origuid" type="integer">0</field>
+			</fieldlist>
+			<related index="rels" type="array">
+				<field index="pi_flexform" type="array">
+					<type>flex</type>
+					<flexform index="flexFormRels" type="array">
+						<softref_relations index="softrefs" type="array">
+							<structurePath index="sDEF/lDEF/settings.persistenceIdentifier/vDEF/" type="array">
+								<keys type="array">
+									<softref_key index="formPersistenceIdentifier" type="array">
+										<softref_element index="ec42d4f30bc8d89da3b9bea681fe77df" type="array">
+											<matchString>1:/form_definitions/example.form.yaml</matchString>
+											<subst type="array">
+												<type>db</type>
+												<recordRef>sys_file:1</recordRef>
+												<tokenID>ec42d4f30bc8d89da3b9bea681fe77df</tokenID>
+												<tokenValue>1:/form_definitions/example.form.yaml</tokenValue>
+											</subst>
+										</softref_element>
+									</softref_key>
+								</keys>
+								<tokenizedContent>{softref:ec42d4f30bc8d89da3b9bea681fe77df}</tokenizedContent>
+							</structurePath>
+						</softref_relations>
+					</flexform>
+				</field>
+				<field index="l18n_parent" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+				<field index="l10n_source" type="array">
+					<type>db</type>
+					<relations index="itemArray" type="array">
+						<element index="0" type="array">
+							<id>1</id>
+							<table>tt_content</table>
+						</element>
+					</relations>
+				</field>
+			</related>
+		</tablerow>
+	</records>
+	<files_fal type="array">
+		<file index="a93271d9b4db4f5fdac1d2dfd553a065" type="array">
+			<filename>example.form.yaml</filename>
+			<filemtime>1793821181</filemtime>
+			<content_sha1>c4a74ed1b553d8ea71c2d7460d466d2c538f24fc</content_sha1>
+		</file>
+	</files_fal>
+</T3RecordDocument>

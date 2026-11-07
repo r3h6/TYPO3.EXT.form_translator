@@ -24,21 +24,33 @@
 		"mikey179/vfsstream": "^1.6",
 		"phpmd/phpmd": "@stable",
 		"phpunit/phpcov": "^9.0 || ^10.0",
+		"r3h6/dev-site": "@dev",
 		"saschaegerer/phpstan-typo3": "^1.0",
 		"symfony/translation": "^6.4 || ^7.1",
 		"symfony/yaml": "^6.4 || ^7.1",
-		"typo3/cms-beuser": "^12.4 || ^13.4",
-		"typo3/cms-extensionmanager": "^12.4 || ^13.4",
-		"typo3/cms-filelist": "^12.4 || ^13.4",
-		"typo3/cms-fluid-styled-content": "^12.4 || ^13.4",
-		"typo3/cms-install": "^12.4 || ^13.4",
-		"typo3/cms-lowlevel": "^12.4 || ^13.4",
+		"typo3/cms-beuser": "*",
+		"typo3/cms-extensionmanager": "*",
+		"typo3/cms-filelist": "*",
+		"typo3/cms-fluid-styled-content": "*",
+		"typo3/cms-impexp": "*",
+		"typo3/cms-install": "*",
+		"typo3/cms-lowlevel": "*",
 		"typo3/coding-standards": "^0.8",
-		"typo3/testing-framework": "^8.0 || ^9.0"
+		"typo3/testing-framework": "^8.0 || ^9.0",
+		"helhum/typo3-console": "^9.0"
 	},
 	"replace": {
 		"typo3-ter/form-translator": "self.version"
 	},
+	"repositories": [
+		{
+			"type": "path",
+			"url": "Build/dev-site",
+			"options": {
+				"symlink": true
+			}
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"R3H6\\FormTranslator\\": "Classes"
@@ -56,8 +68,8 @@
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
 		},
-		"lock": false,
 		"bin-dir": ".Build/bin",
+		"lock": false,
 		"vendor-dir": ".Build/vendor"
 	},
 	"extra": {

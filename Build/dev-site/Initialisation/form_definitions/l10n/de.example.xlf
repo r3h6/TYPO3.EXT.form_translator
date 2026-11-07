@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="de" datatype="plaintext" original="/var/www/html/.Build/public/fileadmin/form_definitions/l10n/example.xlf" date="" product-name="form">
+    <header/>
+    <body>
+      <trans-unit id="element.example.renderingOptions.submitButtonLabel">
+        <source>Submit</source>
+        <target>Senden</target>
+      </trans-unit>
+      <trans-unit id="example.element.email.properties.label">
+        <source>Email</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="example.element.singleselect-1.properties.label">
+        <source>Title</source>
+        <target>Anrede</target>
+      </trans-unit>
+      <trans-unit id="example.element.singleselect-1.properties.options.Mr.">
+        <source>Mr.</source>
+        <target>Herr</target>
+      </trans-unit>
+      <trans-unit id="example.element.singleselect-1.properties.options.Mrs.">
+        <source>Mrs.</source>
+        <target>Frau</target>
+      </trans-unit>
+      <trans-unit id="example.element.singleselect-1.properties.options.Ms.">
+        <source>Ms.</source>
+        <target>Frau</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,104 @@
+
+renderingOptions:
+  submitButtonLabel: Submit
+identifier: example
+label: Example
+type: Form
+prototypeName: standard
+finishers:
+  -
+    options:
+      subject: 'Your message: {subject}'
+      recipients:
+        your.company@example.com: 'Your Company name'
+      senderAddress: '{email}'
+      senderName: '{name}'
+      format: html
+      attachUploads: true
+      translation:
+        language: default
+      title: 'Confirmation of your message'
+    identifier: EmailToReceiver
+renderables:
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Next step'
+    identifier: page-1
+    label: 'Contact Form'
+    type: Page
+    renderables:
+      -
+        properties:
+          options:
+            Mr.: Mr.
+            Ms.: Ms.
+            Mrs.: Mrs.
+          fluidAdditionalAttributes:
+            required: required
+        type: SingleSelect
+        identifier: singleselect-1
+        label: Title
+        defaultValue: ''
+        validators:
+          -
+            identifier: NotEmpty
+      -
+        defaultValue: ''
+        identifier: name
+        label: Name
+        type: Text
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: Name
+            autocomplete: name
+            required: required
+        validators:
+          -
+            identifier: NotEmpty
+      -
+        defaultValue: ''
+        identifier: subject
+        label: Subject
+        type: Text
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: Subject
+            required: required
+        validators:
+          -
+            identifier: NotEmpty
+      -
+        defaultValue: ''
+        identifier: email
+        label: Email
+        type: Email
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: 'Email address'
+            autocomplete: email
+            required: required
+        validators:
+          -
+            identifier: NotEmpty
+          -
+            identifier: EmailAddress
+      -
+        defaultValue: ''
+        identifier: message
+        label: Message
+        type: Textarea
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: ''
+            required: required
+        validators:
+          -
+            identifier: NotEmpty
+  -
+    renderingOptions:
+      previousButtonLabel: 'Previous step'
+      nextButtonLabel: 'Next step'
+    identifier: summarypage
+    label: 'Summary page'
+    type: SummaryPage

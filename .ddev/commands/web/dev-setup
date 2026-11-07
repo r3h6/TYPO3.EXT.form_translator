@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+## Description: Install TYPO3 and set up the development site
+## Usage: dev-setup
+## Example: "ddev dev-setup"
+
+set -euo pipefail
+
+composer install --no-interaction --no-scripts --no-progress
+
+DB_HOST=db
+DB_PORT=3306
+DB_NAME=db
+DB_USER=db
+DB_PASSWORD=db
+
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD='Password$1'
+ADMIN_EMAIL=admin@example.com
+
+[ -x .Build/bin/typo3 ] || {
+    echo "Missing .Build/bin/typo3 - run 'ddev composer install' first." >&2
+    exit 1
+}
+
+mysql_q() {
+    mysql \
+        --host="$DB_HOST" \
+        --port="$DB_PORT" \
+        --user="$DB_USER" \
+        --password="$DB_PASSWORD" \
+        --database="$DB_NAME" \
+        --skip-column-names \
+        --batch \
+        --execute="$1"
+}
+
+table_count="$(mysql_q "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE()")"
+
+if [ "$table_count" -eq 0 ]; then
+    # `typo3 setup` only installs into an empty database, and `--force` rewrites
+    # config/system/settings.php, so this must run before checking for that file.
+    .Build/bin/typo3 setup \
+        --force \
+        --no-interaction \
+        --driver=mysqli \
+        --host="$DB_HOST" \
+        --port="$DB_PORT" \
+        --dbname="$DB_NAME" \
+        --username="$DB_USER" \
+        --password="$DB_PASSWORD" \
+        --admin-username="$ADMIN_USERNAME" \
+        --admin-user-password="$ADMIN_PASSWORD" \
+        --admin-email="$ADMIN_EMAIL" \
+        --project-name='EXT:form_translator' \
+        --server-type=apache \
+        --create-site=no
+
+    echo "Created backend admin '${ADMIN_USERNAME}' with password '${ADMIN_PASSWORD}'."
+else
+    be_users_table_count="$(mysql_q "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'be_users'")"
+    if [ "$be_users_table_count" -eq 0 ] || [ ! -f config/system/settings.php ]; then
+        echo "Database '${DB_NAME}' is not empty but TYPO3 is not installed." >&2
+        echo "Reset the database and run 'ddev dev-setup' again." >&2
+        exit 1
+    fi
+fi
+
+.Build/bin/typo3 extension:setup
+.Build/bin/typo3 configuration:set EXTCONF/lang/availableLanguages '["de"]' --json
+.Build/bin/typo3 configuration:set EXTENSIONS/form_translator/typo3LanguageWhitelist 'de_CH'
+.Build/bin/typo3 language:update
+
+# The template is the source of truth for the generated site configuration.
+ROOT_PAGE_UID="$(mysql_q "SELECT uid FROM pages WHERE pid = 0 AND sys_language_uid = 0 AND deleted = 0 AND is_siteroot = 1 ORDER BY uid LIMIT 1")"
+if [ -z "$ROOT_PAGE_UID" ]; then
+    echo "Dev-site root page not found in the page tree." >&2
+    exit 1
+fi
+
+mkdir -p config/sites/main
+cp Build/dev-site/Initialisation/Site/main/config.yaml config/sites/main/config.yaml
+sed -i "s/^rootPageId:.*/rootPageId: ${ROOT_PAGE_UID}/" config/sites/main/config.yaml
+
+# Forge #92974: impexp rewrites the form persistence identifier from
+# "<storage>:/form_definitions/example.form.yaml" to "<storage>:<file uid>".
+FORM_STORAGE_UID="$(mysql_q "SELECT storage FROM sys_file WHERE identifier = '/form_definitions/example.form.yaml' ORDER BY uid LIMIT 1")"
+if [ -z "$FORM_STORAGE_UID" ]; then
+    echo "Form definition '/form_definitions/example.form.yaml' not found in sys_file." >&2
+    exit 1
+fi
+
+mysql_q "UPDATE tt_content
+SET pi_flexform = REGEXP_REPLACE(
+    pi_flexform,
+    '<value index=\"vDEF\">[0-9]+:[0-9]+</value>',
+    '<value index=\"vDEF\">${FORM_STORAGE_UID}:/form_definitions/example.form.yaml</value>'
+)
+WHERE CType = 'form_formframework'
+  AND pi_flexform REGEXP '<value index=\"vDEF\">[0-9]+:[0-9]+</value>'"
