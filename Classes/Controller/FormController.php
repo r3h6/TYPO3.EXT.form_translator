@@ -6,7 +6,6 @@ namespace R3H6\FormTranslator\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use R3H6\FormTranslator\Service\FormService;
-use R3H6\FormTranslator\Service\LocalizationService;
 use R3H6\FormTranslator\Service\Typo3LanguageService;
 use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\ItemCollection;
@@ -27,7 +26,6 @@ class FormController extends ActionController
     public function __construct(
         protected Typo3LanguageService $languageService,
         protected FormService $formService,
-        protected LocalizationService $localizationService,
         protected FrontendInterface $l10nCache,
         protected ModuleTemplateFactory $moduleTemplateFactory,
         protected IconFactory $iconFactory,
@@ -88,12 +86,8 @@ class FormController extends ActionController
 
     public function saveAction(string $persistenceIdentifier, Typo3Language $language, ItemCollection $items): ResponseInterface
     {
-        $locallangFile = $this->formService->getLocallangFileFromPersistenceIdentifier($persistenceIdentifier);
-        $this->localizationService->saveXliff($locallangFile, $language, $items);
-        $this->addFlashMessage('Saved translation to ' . $locallangFile);
-        if ($this->formService->isWritable($persistenceIdentifier)) {
-            $this->formService->addTranslationFile($persistenceIdentifier, $locallangFile);
-        }
+        $this->formService->saveTranslation($persistenceIdentifier, $language, $items);
+        $this->addFlashMessage('Saved translation to ' . $this->formService->getTranslationFileReference());
         $this->l10nCache->flush();
         return $this->redirect('localize', null, null, ['persistenceIdentifier' => $persistenceIdentifier, 'language' => $language->getTypo3Language()]);
     }

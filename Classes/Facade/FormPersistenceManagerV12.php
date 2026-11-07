@@ -16,9 +16,4 @@ class FormPersistenceManagerV12 implements FormPersistenceManagerInterface
     {
         return $this->formPersistenceManager->listForms();
     }
-
-    public function getAccessibleFormStorageFolders(): array
-    {
-        return $this->formPersistenceManager->getAccessibleFormStorageFolders();
-    }
 }

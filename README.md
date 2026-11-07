@@ -26,20 +26,34 @@ See available [mirrors](https://github.com/LibreTranslate/LibreTranslate#mirrors
 
 ## How it works
 
-The extensions adds a translation file path to the *.form.yaml file when localize through the backend module.
-```yaml
-# example.form.yaml
-renderingOptions:
-  translation:
-    translationFiles:
-      99: fileadmin/form_definitions/l10n/example.xlf
+All forms share one translation file per language. By default they are stored in
+`fileadmin/form_translations/`:
+
+```text
+fileadmin/form_translations/locallang.xlf      # default language
+fileadmin/form_translations/de.locallang.xlf   # German
+fileadmin/form_translations/de_CH.locallang.xlf
 ```
+
+Translation identifiers are prefixed with the form identifier, so a single file
+holds the strings of every form. The extension registers the shared file for all
+forms at runtime; the `*.form.yaml` files are not modified.
+
+The directory can be changed with the `translationFilesDirectory` extension
+setting. When a form is deleted, its entries are removed from the shared files.
 
 Customized validation error messages are translated by overriding the form definition
 at runtime using the `afterBuildingFinished` hook from the form framework.
 
 
 ## Upgrade
+
+### From v3
+
+Run the install tool upgrade wizard "Migrate form translations to shared files"
+(identifier `formTranslatorSharedTranslationFiles`). It moves the per-form XLIFF
+files into the shared translation files and removes their registration from the
+form definitions.
 
 ### From v2 an TYPO3 v12
 
@@ -72,19 +86,6 @@ The site configuration is generated from
 ## Known issues
 
 - [Issues on GitHub](https://github.com/r3h6/TYPO3.EXT.form_translator/issues)
-
-### Transalte to English overrides the original form labels
-
-**Scenario:** German is used as default language and your form definition labels are in German too.
-
-When you translate a form to English, English will override your original labels even on the German version of your site.<br>
-You have following options:
-
-1. Create a (duplicated) German translation of the form
-2. Add the English locale without charset to the extension configuration `typo3LanguageWhitelist`
-
-**Background:** Beginning with v12, TYPO3 uses the locale configured for the site to determine the language.<br>
-For English, TYPO3 uses the file named `xyz.xlf`, it does not load a file named `en.xyz.xlf`, but it does for `en_US.xyz.xlf`.
 
 
 ## Resources
