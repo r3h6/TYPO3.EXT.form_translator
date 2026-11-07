@@ -1,3 +1,6 @@
+/.ddev/**/*gitleaks*
+/.ddev/**/*phpmyadmin*
+/.ddev/**/*assistant-claude*
 /.Build
 /composer.lock
 /.php-cs-fixer.cache
