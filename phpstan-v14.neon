@@ -1,0 +1,17 @@
+includes:
+    - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
+
+parameters:
+    level: 7
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        # PHPMD suppression syntax is not understood by the PHPStan 2 PHPDoc parser.
+        - identifier: phpDoc.parseError
+          message: '#@SuppressWarnings#'
+    excludePaths:
+        - Classes/Facade/FormPersistenceManagerV13.php
+        - Classes/Updates/SharedTranslationFilesUpdateWizardV13.php
+    paths:
+        - Classes/
+        - Configuration/
+        - Tests/

@@ -12,7 +12,7 @@ final class ItemCollection implements \IteratorAggregate, \Countable
     /**
      * @var Item[]
      */
-    protected $items = [];
+    private $items = [];
 
     public function count(): int
     {

@@ -111,9 +111,14 @@ class Typo3LanguageService
         $languageCode = $language->getLanguageCode();
         $languageCode = $languageCode === 'en' ? 'default' : $languageCode;
         if (in_array($languageCode, $this->locales->getActiveLanguages())) {
+            $languageTitles = $this->locales->getLanguages();
+            $title = $languageTitles[$languageCode] ?? $languageTitles[$language->getLanguageCode()] ?? null;
+            if ($title === null) {
+                return null;
+            }
             return new Typo3Language(
                 $languageCode,
-                $this->locales->getLanguages()[$languageCode],
+                $title,
                 $language->getFlagIdentifier(),
             );
         }

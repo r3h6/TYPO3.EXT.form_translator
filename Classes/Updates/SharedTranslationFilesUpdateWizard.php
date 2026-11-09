@@ -8,15 +8,11 @@ use R3H6\FormTranslator\Service\FormService;
 use R3H6\FormTranslator\Service\TranslationFileService;
 use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Utility\PathUtility;
-use Symfony\Component\Yaml\Yaml;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
-#[UpgradeWizard('formTranslatorSharedTranslationFiles')]
-final class SharedTranslationFilesUpdateWizard implements UpgradeWizardInterface
+class SharedTranslationFilesUpdateWizard
 {
     public function __construct(
         private readonly FormService $formService,
@@ -62,10 +58,7 @@ final class SharedTranslationFilesUpdateWizard implements UpgradeWizardInterface
                 continue;
             }
             $formDefinition = $this->migrateFormDefinition($formDefinition);
-            $formPath = PathUtility::makeAbsolute($persistenceIdentifier);
-            if (!GeneralUtility::writeFile($formPath, Yaml::dump($formDefinition, 99, 2))) {
-                throw new \RuntimeException('Could not write form definition "' . $formPath . '"', 1730983053);
-            }
+            $this->formService->saveForm($persistenceIdentifier, $formDefinition);
         }
         $this->l10nCache->flush();
         return true;
@@ -115,6 +108,7 @@ final class SharedTranslationFilesUpdateWizard implements UpgradeWizardInterface
         return array_values(array_filter(
             $this->formService->listForms(),
             static fn(array $form): bool => ($form['invalid'] ?? false) === false
+                && ($form['readOnly'] ?? false) === false
         ));
     }
 

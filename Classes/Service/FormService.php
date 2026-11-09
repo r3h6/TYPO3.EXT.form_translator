@@ -9,8 +9,6 @@ use R3H6\FormTranslator\Parser\FormDefinitionLabelsParser;
 use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
-use R3H6\FormTranslator\Utility\PathUtility;
-use Symfony\Component\Yaml\Yaml;
 
 class FormService
 {
@@ -84,11 +82,14 @@ class FormService
 
     public function parseForm(string $persistenceIdentifier): array
     {
-        $path = PathUtility::makeAbsolute($persistenceIdentifier);
-        $content = file_get_contents($path);
-        if ($content === false) {
-            throw new \RuntimeException('Could not read file', 1641680505885);
-        }
-        return Yaml::parse($content);
+        return $this->formPersistenceManager->loadForm($persistenceIdentifier);
+    }
+
+    /**
+     * @param array<string, mixed> $formDefinition
+     */
+    public function saveForm(string $persistenceIdentifier, array $formDefinition): void
+    {
+        $this->formPersistenceManager->saveForm($persistenceIdentifier, $formDefinition);
     }
 }

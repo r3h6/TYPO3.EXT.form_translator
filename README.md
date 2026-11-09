@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/r3h6/form-translator/v/stable)](https://extensions.typo3.org/extension/form_translator/)
-[![TYPO3 12](https://img.shields.io/badge/TYPO3-12-orange.svg?style=flat-square)](https://get.typo3.org/version/12)
-[![TYPO3 11](https://img.shields.io/badge/TYPO3-11-orange.svg?style=flat-square)](https://get.typo3.org/version/11)
+[![TYPO3 14](https://img.shields.io/badge/TYPO3-14-orange.svg?style=flat-square)](https://get.typo3.org/version/14)
+[![TYPO3 13](https://img.shields.io/badge/TYPO3-13-orange.svg?style=flat-square)](https://get.typo3.org/version/13)
 [![Total Downloads](https://poser.pugx.org/r3h6/form-translator/d/total)](https://packagist.org/packages/r3h6/form-translator)
 [![Monthly Downloads](https://poser.pugx.org/r3h6/form-translator/d/monthly)](https://packagist.org/packages/form-translater)
 
@@ -15,6 +15,8 @@ and a cli for creating a source xliff file for a given form.
 ## Installation
 
 Either from TYPO3 TER or through composer `$ composer req r3h6/form-translator`.
+
+Requires TYPO3 13.4 or 14.2+ and PHP 8.2+.
 
 
 ## Integration
@@ -45,7 +47,23 @@ storage, for example `1:form_translations/`. When a form is deleted, its entries
 are removed from the shared files.
 
 Customized validation error messages are translated by overriding the form definition
-at runtime using the `afterBuildingFinished` hook from the form framework.
+at runtime. On TYPO3 v14 this uses the `AfterFormIsBuiltEvent` PSR-14 event; on TYPO3
+v13 the `afterBuildingFinished` hook is used.
+
+### Database-stored forms
+
+On TYPO3 v14.2+ the extension supports all form storage adapters, including forms
+stored in the `form_definition` database table. Their persistence identifier is the
+numeric record UID; use it wherever a form identifier is expected, for example:
+
+```bash
+bin/typo3 form:create:xliff 42
+```
+
+Backend users of the Form Translator module need `tables_select` (and, for the form
+manager, `tables_modify`) permission on `form_definition`. Unlike file mounts, database
+storage currently provides no per-backend-group isolation, so every user with table
+access can see all database-stored forms.
 
 
 ## Upgrade
@@ -79,6 +97,9 @@ ddev dev-setup
 site through `typo3 extension:setup`, and repairs the form persistence identifier
 that impexp rewrites during the import. It is safe to run again; an existing
 installation is kept and an already imported site is not imported twice.
+
+Composer writes a `composer.lock` for local development (it is gitignored); TYPO3 v14's
+Composer installer requires a lock file.
 
 The backend admin is `admin` with password `Password$1` (development only).
 The site configuration is generated from

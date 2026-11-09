@@ -12,7 +12,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 class CreateXliffCommand extends Command
 {
@@ -30,13 +32,18 @@ class CreateXliffCommand extends Command
     {
         $this
             ->setDescription('Prints an xliff file with all found sources for a given form.')
-            ->addArgument('formIdentifier', InputArgument::REQUIRED, 'Path to *.form.yaml file.')
+            ->addArgument('formIdentifier', InputArgument::REQUIRED, 'Form persistence identifier (file path, EXT: path, or database UID).')
             ->addOption('output', 'O', InputOption::VALUE_OPTIONAL, 'Save output to a file')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '14.0.0', '>=')) {
+            // Database-stored forms are permission-checked and need a backend user in CLI.
+            Bootstrap::initializeBackendAuthentication();
+        }
+
         $formIdentifier = $input->getArgument('formIdentifier');
         $language = new Typo3Language('default', 'English', 'gb');
         $items = $this->formService->getItems($formIdentifier, $language);
