@@ -4,8 +4,8 @@ THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 cd "$THIS_SCRIPT_DIR" || exit 1
 cd ../Docker || exit 1
 
-export PHP=${PHP:-8.1}
-export DOCKER_PHP_IMAGE=`echo "typo3/core-testing-php${PHP}" | sed -e 's/\.//'`
+export PHP=${PHP:-8.2}
+export DOCKER_PHP_IMAGE=`echo "ghcr.io/typo3/core-testing-php${PHP}" | sed -e 's/\.//'`
 export ROOT_DIR=`readlink -f ${PWD}/../../`
 export HOST_UID=`id -u`
 
