@@ -13,9 +13,6 @@ use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Localization\LanguageStore;
-use TYPO3\CMS\Core\Localization\LocalizationFactory;
-use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -23,7 +20,6 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 class TranslationFileServiceTest extends FunctionalTestCase
 {
     protected TranslationFileService $translationFileService;
-    protected LocalizationFactory $localizationFactory;
     protected LocalizationService $localizationService;
     protected Typo3Language $defaultLanguage;
     protected Typo3Language $germanLanguage;
@@ -44,10 +40,8 @@ class TranslationFileServiceTest extends FunctionalTestCase
         $this->flushL10nCache();
         $this->relativeTranslationDirectory = 'form_translations_test_' . bin2hex(random_bytes(4));
         $this->translationDirectory = Environment::getPublicPath() . '/fileadmin/' . $this->relativeTranslationDirectory;
-        $this->localizationFactory = GeneralUtility::makeInstance(LocalizationFactory::class);
         $this->localizationService = GeneralUtility::makeInstance(LocalizationService::class);
         $this->translationFileService = new TranslationFileService(
-            $this->localizationFactory,
             $this->localizationService,
             GeneralUtility::makeInstance(StorageRepository::class),
             '1:' . $this->relativeTranslationDirectory
@@ -77,7 +71,6 @@ class TranslationFileServiceTest extends FunctionalTestCase
     public function invalidTranslationFilesDirectoryThrows(string $translationFilesDirectory): void
     {
         $translationFileService = new TranslationFileService(
-            $this->localizationFactory,
             $this->localizationService,
             GeneralUtility::makeInstance(StorageRepository::class),
             $translationFilesDirectory
@@ -194,10 +187,6 @@ class TranslationFileServiceTest extends FunctionalTestCase
     {
         $this->flushL10nCache();
         $translationFileService = new TranslationFileService(
-            new LocalizationFactory(
-                new LanguageStore(GeneralUtility::makeInstance(PackageManager::class)),
-                GeneralUtility::makeInstance(CacheManager::class)
-            ),
             $this->localizationService,
             GeneralUtility::makeInstance(StorageRepository::class),
             '1:' . $this->relativeTranslationDirectory
