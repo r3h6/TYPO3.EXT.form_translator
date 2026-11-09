@@ -8,7 +8,6 @@ use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\Item;
 use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
@@ -21,7 +20,6 @@ class TranslationFileService
     private ?string $resolvedDirectory = null;
 
     public function __construct(
-        protected readonly LocalizationFactory $localizationFactory,
         protected readonly LocalizationService $localizationService,
         protected readonly StorageRepository $storageRepository,
         protected readonly string $translationFilesDirectory,
@@ -106,7 +104,15 @@ class TranslationFileService
 
     public function read(Typo3Language $language): ItemCollection
     {
-        return $this->readFromFile($this->getFile(), $language);
+        $file = $this->getFile();
+        $typo3Language = $language->getTypo3Language();
+        if ($typo3Language !== 'default') {
+            $localizedFile = dirname($file) . '/' . $typo3Language . '.' . basename($file);
+            if (is_file($localizedFile)) {
+                $file = $localizedFile;
+            }
+        }
+        return $this->readFromFile($file, $language);
     }
 
     public function readFromFile(string $file, Typo3Language $language): ItemCollection
@@ -115,15 +121,35 @@ class TranslationFileService
         if (!is_file($file)) {
             return $items;
         }
-        $typo3Language = $language->getTypo3Language();
-        $localLanguage = $this->localizationFactory->getParsedData($file, $typo3Language);
-        foreach ($localLanguage[$typo3Language] ?? [] as $identifier => $values) {
-            $item = new Item($identifier);
-            $item->setSource($values[0]['source'] ?? '');
-            $item->setTarget($values[0]['target'] ?? '');
+
+        $document = new \DOMDocument();
+        $previousErrorHandling = libxml_use_internal_errors(true);
+        try {
+            if (!$document->load($file)) {
+                return $items;
+            }
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previousErrorHandling);
+        }
+
+        foreach ($document->getElementsByTagName('trans-unit') as $transUnit) {
+            $source = $this->getElementContent($transUnit, 'source') ?? '';
+            $target = $this->getElementContent($transUnit, 'target');
+            $item = new Item($transUnit->getAttribute('id'));
+            $item->setSource($source);
+            // Default-language files only contain <source>; use it as the target.
+            $item->setTarget($target ?? $source);
             $items->addItem($item);
         }
+
         return $items;
+    }
+
+    private function getElementContent(\DOMElement $parent, string $tagName): ?string
+    {
+        $element = $parent->getElementsByTagName($tagName)->item(0);
+        return $element instanceof \DOMElement ? $element->textContent : null;
     }
 
     /**

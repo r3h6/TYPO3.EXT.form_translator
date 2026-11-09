@@ -15,9 +15,6 @@ use R3H6\FormTranslator\Updates\SharedTranslationFilesUpdateWizard;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Localization\LanguageStore;
-use TYPO3\CMS\Core\Localization\LocalizationFactory;
-use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -46,7 +43,6 @@ class SharedTranslationFilesUpdateWizardTest extends FunctionalTestCase
         $this->testDirectory = Environment::getPublicPath() . '/fileadmin/' . $this->relativeTestDirectory;
         $this->localizationService = GeneralUtility::makeInstance(LocalizationService::class);
         $this->translationFileService = new TranslationFileService(
-            GeneralUtility::makeInstance(LocalizationFactory::class),
             $this->localizationService,
             GeneralUtility::makeInstance(StorageRepository::class),
             '1:' . $this->relativeTestDirectory . '/shared'
@@ -133,10 +129,6 @@ class SharedTranslationFilesUpdateWizardTest extends FunctionalTestCase
     {
         $this->flushL10nCache();
         $translationFileService = new TranslationFileService(
-            new LocalizationFactory(
-                new LanguageStore(GeneralUtility::makeInstance(PackageManager::class)),
-                GeneralUtility::makeInstance(CacheManager::class)
-            ),
             $this->localizationService,
             GeneralUtility::makeInstance(StorageRepository::class),
             '1:' . $this->relativeTestDirectory . '/shared'

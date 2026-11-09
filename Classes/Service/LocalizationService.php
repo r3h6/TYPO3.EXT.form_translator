@@ -7,7 +7,6 @@ namespace R3H6\FormTranslator\Service;
 use R3H6\FormTranslator\Translation\Dto\Typo3Language;
 use R3H6\FormTranslator\Translation\ItemCollection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class LocalizationService
 {
@@ -40,15 +39,56 @@ class LocalizationService
 
     public function renderXliff(array $variables): string
     {
-        /** @var StandaloneView $xliff */
-        $xliff = GeneralUtility::makeInstance(StandaloneView::class);
-        $xliff->setTemplatePathAndFilename('EXT:form_translator/Resources/Private/Templates/Xliff/V1.xlf');
-        $xliff->assignMultiple($variables);
+        /** @var ItemCollection $items */
+        $items = $variables['items'];
+        /** @var Typo3Language $language */
+        $language = $variables['language'];
+        $isDefaultLanguage = $language->getTypo3Language() === 'default';
 
-        $doc = new \DOMDocument();
+        $doc = new \DOMDocument('1.0', 'utf-8');
+        $doc->xmlStandalone = true;
         $doc->preserveWhiteSpace = false;
         $doc->formatOutput = true;
-        $doc->loadXML($xliff->render());
+
+        $xliff = $doc->createElement('xliff');
+        $xliff->setAttribute('version', '1.0');
+        $doc->appendChild($xliff);
+
+        $file = $doc->createElement('file');
+        $file->setAttribute('source-language', 'en');
+        if (!$isDefaultLanguage) {
+            $file->setAttribute('target-language', $language->getTypo3Language());
+        }
+        $file->setAttribute('datatype', 'plaintext');
+        $file->setAttribute('original', (string)$variables['originalFile']);
+        $file->setAttribute('date', '');
+        $file->setAttribute('product-name', 'form');
+        $xliff->appendChild($file);
+
+        $file->appendChild($doc->createElement('header'));
+
+        $body = $doc->createElement('body');
+        $file->appendChild($body);
+
+        foreach ($items as $item) {
+            $transUnit = $doc->createElement('trans-unit');
+            $transUnit->setAttribute('id', $item->getIdentifier());
+
+            $source = $doc->createElement('source');
+            $source->appendChild($doc->createTextNode(
+                $isDefaultLanguage ? $item->getTarget() : $item->getSource()
+            ));
+            $transUnit->appendChild($source);
+
+            if (!$isDefaultLanguage) {
+                $target = $doc->createElement('target');
+                $target->appendChild($doc->createTextNode($item->getTarget()));
+                $transUnit->appendChild($target);
+            }
+
+            $body->appendChild($transUnit);
+        }
+
         $output = $doc->saveXML();
         if ($output === false) {
             throw new \RuntimeException('Could not save xml', 1641680429711);
