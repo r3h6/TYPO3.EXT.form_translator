@@ -19,8 +19,17 @@ class FormPersistenceManagerV13 implements FormPersistenceManagerInterface
 
     public function listForms(): array
     {
-        $settings = $this->getFormSettings();
-        return $this->formPersistenceManager->listForms($settings);
+        return array_values($this->formPersistenceManager->listForms($this->getFormSettings()));
+    }
+
+    public function loadForm(string $persistenceIdentifier): array
+    {
+        return $this->formPersistenceManager->load($persistenceIdentifier, $this->getFormSettings(), []);
+    }
+
+    public function saveForm(string $persistenceIdentifier, array $formDefinition): void
+    {
+        $this->formPersistenceManager->save($persistenceIdentifier, $formDefinition, $this->getFormSettings());
     }
 
     private function getFormSettings(): array

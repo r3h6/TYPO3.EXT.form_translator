@@ -3,9 +3,24 @@ includes:
 
 parameters:
     level: 7
-    checkMissingIterableValueType: false
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        # PHPMD suppression syntax is not understood by the PHPStan 2 PHPDoc parser.
+        - identifier: phpDoc.parseError
+          message: '#@SuppressWarnings#'
+        # Only available on TYPO3 v14; guarded by a version check in the controller.
+        - identifier: method.notFound
+          message: '#setShortcutContext#'
     excludePaths:
-        - Classes/Facade/FormPersistenceManagerV12.php
+        - Classes/Facade/FormPersistenceManagerV14.php
+        - Classes/Updates/SharedTranslationFilesUpdateWizardV14.php
+        - Classes/EventListener/RegisterTranslationFileOnFormBuilt.php
+        - Classes/EventListener/TranslateValidationErrorMessagesOnFormBuilt.php
+        - Classes/EventListener/RemoveFormTranslationsOnFormDeleted.php
+        - Tests/Unit/EventListener/FormBuiltListenerTest.php
+        - Tests/Unit/EventListener/FormDeletedListenerTest.php
+        - Tests/Functional/Service/FormServiceDatabaseTest.php
+        - Tests/Functional/EventListener/RegisterTranslationFileOnFormBuiltTest.php
     paths:
         - Classes/
         - Configuration/

@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace R3H6\FormTranslator\Hooks;
 
 use R3H6\FormTranslator\Service\TranslationFileService;
+use TYPO3\CMS\Form\Domain\Model\FormDefinition;
 use TYPO3\CMS\Form\Domain\Model\Renderable\AbstractRenderable;
 use TYPO3\CMS\Form\Domain\Model\Renderable\RenderableInterface;
 
-final class RegisterTranslationFile
+class RegisterTranslationFile
 {
     public function __construct(private readonly TranslationFileService $translationFileService) {}
 
@@ -17,7 +18,11 @@ final class RegisterTranslationFile
         if (!$renderable instanceof AbstractRenderable) {
             return;
         }
-        $form = $renderable->getRootForm();
+        $this->register($renderable->getRootForm());
+    }
+
+    public function register(FormDefinition $form): void
+    {
         $translationFiles = $form->getRenderingOptions()['translation']['translationFiles'] ?? [];
         if (($translationFiles[TranslationFileService::TRANSLATION_FILE_KEY] ?? null) === $this->translationFileService->getReference()) {
             return;

@@ -10,7 +10,7 @@ use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Form\Domain\Model\FormElements\AbstractFormElement;
 use TYPO3\CMS\Form\Domain\Model\Renderable\RenderableInterface;
 
-final class TranslateValidationErrorMessages
+class TranslateValidationErrorMessages
 {
     public function __construct(
         private readonly LanguageServiceFactory $languageServiceFactory
@@ -18,10 +18,13 @@ final class TranslateValidationErrorMessages
 
     public function afterBuildingFinished(RenderableInterface $renderable): void
     {
-        if (!$renderable instanceof AbstractFormElement) {
-            return;
+        if ($renderable instanceof AbstractFormElement) {
+            $this->translateRenderable($renderable);
         }
+    }
 
+    public function translateRenderable(AbstractFormElement $renderable): void
+    {
         $validationErrorMessages = $renderable->getProperties()['validationErrorMessages'] ?? [];
         if (empty($validationErrorMessages)) {
             return;
@@ -39,17 +42,16 @@ final class TranslateValidationErrorMessages
             '<element-identifier>',
             '<error-code>',
         ], [
-            $form->getRenderingOptions()['_originalIdentifier'],
+            $form->getRenderingOptions()['_originalIdentifier'] ?? $form->getIdentifier(),
             $renderable->getIdentifier(),
             $message['code'],
         ], '<form-identifier>.validation.error.<element-identifier>.<error-code>');
 
         $translationFiles = $form->getRenderingOptions()['translation']['translationFiles'] ?? [];
-        $translationServie = $this->getLanguageService();
+        $languageService = $this->getLanguageService();
         foreach ($translationFiles as $translationFile) {
-            $translationServie->includeLLFile($translationFile);
             $input = 'LLL:' . $translationFile . ':' . $id;
-            $label = $translationServie->sL($input);
+            $label = $languageService->sL($input);
             if ($label && $label !== $input) {
                 $message['message'] = $label;
                 break;

@@ -6,6 +6,9 @@ services:
 
   R3H6\FormTranslator\:
     resource: '../Classes/*'
+    exclude:
+      - '../Classes/Updates/SharedTranslationFilesUpdateWizardV13.php'
+      - '../Classes/Updates/SharedTranslationFilesUpdateWizardV14.php'
 
   R3H6\FormTranslator\Hooks\:
     resource: '../Classes/Hooks/*'
