@@ -12,6 +12,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class FormDefinitionLabelsParser
 {
     /**
+     * JSONPath 2.x requires PHP 8.3, the 0.9 bundle supports PHP 8.1 and 8.2.
+     */
+    private const JSONPATH_2_MIN_PHP_VERSION_ID = 80300;
+
+    /**
      * @var array<string, string>
      */
     protected $labels = [
@@ -38,7 +43,10 @@ class FormDefinitionLabelsParser
     public function __construct(protected EventDispatcherInterface $dispatcher)
     {
         if (!class_exists('Flow\\JSONPath\\JSONPath')) {
-            require_once 'phar://' . GeneralUtility::getFileAbsFileName('EXT:form_translator/Resources/Private/Php/jsonpath.phar') . '/vendor/autoload.php';
+            $bundle = PHP_VERSION_ID >= self::JSONPATH_2_MIN_PHP_VERSION_ID
+                ? 'jsonpath-2.1.0.phar'
+                : 'jsonpath-0.9.1.phar';
+            require_once 'phar://' . GeneralUtility::getFileAbsFileName('EXT:form_translator/Resources/Private/Php/' . $bundle) . '/vendor/autoload.php';
         }
     }
 
