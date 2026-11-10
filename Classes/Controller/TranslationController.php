@@ -23,6 +23,10 @@ class TranslationController implements LoggerAwareInterface
     {
         $params = $request->getParsedBody();
 
+        if (!is_array($params)) {
+            return new JsonResponse(['error' => 'Invalid request body'], 400);
+        }
+
         if (!isset($params['text'])) {
             return new JsonResponse(['error' => 'Missing text parameter'], 400);
         }
