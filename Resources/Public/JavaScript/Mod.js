@@ -10,7 +10,7 @@ $(document).on('click', '[data-save]', function () {
 
 $(document).on('click', '[data-translate-to]', function () {
   var $self = $(this);
-  var text = $($self.data('source')).val();
+  var text = $($self.data('source')).html();
   var target = $self.data('translate-to');
 
   Icons.getIcon('spinner-circle-dark', Icons.sizes.small).then(function (markup) {
@@ -18,8 +18,7 @@ $(document).on('click', '[data-translate-to]', function () {
   });
 
   new AjaxRequest(TYPO3.settings.ajaxUrls.formtranslator_translate)
-    .withQueryArguments({ text: text, target: target })
-    .get()
+    .post({ text: text, target: target })
     .then(async function (response) {
       const resolved = await response.resolve();
       $($self.data('target')).val(resolved.translation);
