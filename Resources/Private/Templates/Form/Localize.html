@@ -24,9 +24,16 @@
                      <small class="form-text text-muted">{item.identifier}</small>
                   </td>
                   <td>
-                     <button class="btn btn-sm" tabindex="-1" type="button" data-translate-to="{language.typo3Language}" data-source="#Source{i.index}" data-target="#Target{i.index}">
-                        <core:icon identifier="actions-translate" size="small" />
-                     </button>
+                      <f:if condition="{translationServiceEnabled}">
+                          <f:then>
+                              <button class="btn btn-sm" tabindex="-1" type="button" data-translate-to="{language.typo3Language}" data-source="#Source{i.index}" data-target="#Target{i.index}">
+                                  <core:icon identifier="actions-translate" size="small" />
+                              </button>
+                          </f:then>
+                          <f:else>
+                              <core:icon identifier="actions-arrow-right" size="small" />
+                          </f:else>
+                      </f:if>
                   </td>
                   <td>
                      <f:form.hidden name="items[{i.index}][identifier]" value="{item.identifier}" />
