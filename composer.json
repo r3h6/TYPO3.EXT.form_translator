@@ -11,7 +11,7 @@
 	],
 	"require": {
 		"php": ">= 8.1 < 8.6",
-		"softcreatr/jsonpath": "^0.9",
+		"softcreatr/jsonpath": "^0.9 || ^2.1",
 		"typo3/cms-core": "^12.4 || ^13.4",
 		"typo3/cms-form": "^12.4 || ^13.4"
 	},
@@ -96,7 +96,7 @@
 		],
 		"ci:libs:pack": [
 			"curl https://github.com/clue/phar-composer/releases/download/v1.4.0/phar-composer-1.4.0.phar -o phar-composer && chmod +x phar-composer",
-			"./phar-composer build softcreatr/jsonpath Resources/Private/Php/jsonpath.phar"
+			"./phar-composer build softcreatr/jsonpath:^0.9 Resources/Private/Php/jsonpath.phar"
 		],
 		"ci:php:compatibility": "phpcs -p --standard=PHPCompatibility --runtime-set testVersion 8.1-8.5 --extensions=php --ignore=*/.Build/*,*/Resources/Private/Php/* .",
 		"ci:php:cs": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --using-cache no --diff",
