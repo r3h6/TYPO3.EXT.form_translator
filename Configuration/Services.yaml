@@ -31,6 +31,9 @@ services:
     factory: ['@TYPO3\CMS\Core\Configuration\ExtensionConfiguration', 'get']
     arguments: ['form_translator', 'typo3LanguageWhitelist']
 
+  R3H6\FormTranslator\Controller\TranslationController:
+    public: true
+
   R3H6\FormTranslator\Service\LibreTranslateTranslationService:
     arguments:
       $host: '@extensionconfiguration.form_translator.libreTranslate.host'
