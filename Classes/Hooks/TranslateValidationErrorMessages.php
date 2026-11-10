@@ -39,7 +39,7 @@ final class TranslateValidationErrorMessages
             '<element-identifier>',
             '<error-code>',
         ], [
-            $form->getRenderingOptions()['_originalIdentifier'],
+            $form->getRenderingOptions()['_originalIdentifier'] ?? $form->getIdentifier(),
             $renderable->getIdentifier(),
             $message['code'],
         ], '<form-identifier>.validation.error.<element-identifier>.<error-code>');
@@ -62,6 +62,9 @@ final class TranslateValidationErrorMessages
     private function getLanguageService(): LanguageService
     {
         $siteLanguage = $this->getRequest()->getAttribute('language');
+        if (!$siteLanguage) {
+            return $this->languageServiceFactory->create('en');
+        }
         return $this->languageServiceFactory->createFromSiteLanguage($siteLanguage);
     }
 
