@@ -8,12 +8,18 @@ final class AfterParseFormEvent
 {
     public function __construct(
         private readonly string $formIdentifier,
+        private readonly array $form,
         private array $items,
     ) {}
 
     public function getFormIdentifier(): string
     {
         return $this->formIdentifier;
+    }
+
+    public function getForm(): array
+    {
+        return $this->form;
     }
 
     public function getItems(): array

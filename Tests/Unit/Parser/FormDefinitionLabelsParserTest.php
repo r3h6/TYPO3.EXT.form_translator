@@ -6,6 +6,7 @@ namespace R3H6\FormTranslator\Tests\Unit\Parser;
 
 use PHPUnit\Framework\Attributes\Test;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use R3H6\FormTranslator\Event\AfterParseFormEvent;
 use R3H6\FormTranslator\Parser\FormDefinitionLabelsParser;
 use Symfony\Component\Yaml\Yaml;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -122,5 +123,23 @@ class FormDefinitionLabelsParserTest extends UnitTestCase
         $result = $this->subject->parse($this->form);
         self::assertArrayHasKey('test.validation.error.email-1.1221559976', $result);
         self::assertSame('Custom error message 1221559976', $result['test.validation.error.email-1.1221559976']);
+    }
+
+    #[Test]
+    public function eventContainsParsedForm(): void
+    {
+        $dispatchedEvent = null;
+        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+        $dispatcher->method('dispatch')->willReturnCallback(function (object $event) use (&$dispatchedEvent) {
+            $dispatchedEvent = $event;
+            return $event;
+        });
+        $subject = new FormDefinitionLabelsParser($dispatcher);
+
+        $subject->parse($this->form);
+
+        self::assertInstanceOf(AfterParseFormEvent::class, $dispatchedEvent);
+        self::assertSame('test', $dispatchedEvent->getFormIdentifier());
+        self::assertSame($this->form, $dispatchedEvent->getForm());
     }
 }

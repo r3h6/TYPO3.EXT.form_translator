@@ -91,7 +91,7 @@ class FormDefinitionLabelsParser
             }
         }
 
-        $event = new AfterParseFormEvent($formIdentifier, $items);
+        $event = new AfterParseFormEvent($formIdentifier, $form, $items);
         $this->dispatcher->dispatch($event);
         return $event->getItems();
     }
