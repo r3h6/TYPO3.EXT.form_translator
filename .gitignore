@@ -6,3 +6,4 @@
 /.php-cs-fixer.cache
 /var
 /phar-composer
+/.claude/*local*
