@@ -56,6 +56,12 @@
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
 		},
+		"policy": {
+			"advisories": {
+				"block": false,
+				"audit": "report"
+			}
+		},
 		"lock": false,
 		"bin-dir": ".Build/bin",
 		"vendor-dir": ".Build/vendor"
