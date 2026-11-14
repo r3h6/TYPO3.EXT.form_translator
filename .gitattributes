@@ -1,0 +1,4 @@
+/Build export-ignore
+/.ddev export-ignore
+/.github export-ignore
+/config export-ignore

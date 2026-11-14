@@ -1,4 +1,6 @@
-base: 'https://typo3-form-translator.ddev.site/'
+base: /
+dependencies:
+  - r3h6/dev-site
 languages:
   -
     title: English
@@ -42,7 +44,7 @@ languages:
     hreflang: ''
     base: /de-AT/
     websiteTitle: ''
-    navigationTitle: Deutsch
+    navigationTitle: 'Deutsch (Österreich)'
     fallbackType: strict
     fallbacks: ''
     flag: at

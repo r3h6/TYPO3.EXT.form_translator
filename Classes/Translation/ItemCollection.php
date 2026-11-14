@@ -12,7 +12,7 @@ final class ItemCollection implements \IteratorAggregate, \Countable
     /**
      * @var Item[]
      */
-    protected $items = [];
+    private $items = [];
 
     public function count(): int
     {
@@ -50,5 +50,10 @@ final class ItemCollection implements \IteratorAggregate, \Countable
     public function getItem(string $identifier): ?Item
     {
         return $this->items[$identifier] ?? null;
+    }
+
+    public function removeItem(string $identifier): void
+    {
+        unset($this->items[$identifier]);
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace R3H6\FormTranslator\Facade;
 
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as FormConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
 
@@ -18,19 +19,31 @@ class FormPersistenceManagerV13 implements FormPersistenceManagerInterface
 
     public function listForms(): array
     {
-        $settings = $this->getFormSettings();
-        return $this->formPersistenceManager->listForms($settings);
+        return array_values($this->formPersistenceManager->listForms($this->getFormSettings()));
     }
 
-    public function getAccessibleFormStorageFolders(): array
+    public function loadForm(string $persistenceIdentifier): array
     {
-        $settings = $this->getFormSettings();
-        return $this->formPersistenceManager->getAccessibleFormStorageFolders($settings);
+        return $this->formPersistenceManager->load($persistenceIdentifier, $this->getFormSettings(), []);
+    }
+
+    public function saveForm(string $persistenceIdentifier, array $formDefinition): void
+    {
+        $this->formPersistenceManager->save($persistenceIdentifier, $formDefinition, $this->getFormSettings());
     }
 
     private function getFormSettings(): array
     {
-        $typoScriptSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'form');
+        try {
+            $typoScriptSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'form');
+        } catch (NoServerRequestGivenException) {
+            // CLI and install-tool contexts have no Extbase request; use the form defaults.
+            $typoScriptSettings = [
+                'yamlConfigurations' => [
+                    10 => 'EXT:form/Configuration/Yaml/FormSetup.yaml',
+                ],
+            ];
+        }
         $formSettings = $this->extFormConfigurationManager->getYamlConfiguration($typoScriptSettings, false);
         if (!isset($formSettings['formManager'])) {
             // Config sub array formManager is crucial and should always exist. If it does

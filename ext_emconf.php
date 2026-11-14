@@ -7,11 +7,11 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'R3 H6',
     'author_email' => 'r3h6@outlook.com',
     'state' => 'beta',
-    'version' => '3.0.3',
+    'version' => '4.0.0-dev',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.4.0-13.4.99',
-            'form' => '12.4.0-13.4.99',
+            'typo3' => '13.4.0-14.3.99',
+            'form' => '13.4.0-14.3.99',
         ],
         'conflicts' => [],
         'suggests' => [],

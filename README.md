@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/r3h6/form-translator/v/stable)](https://extensions.typo3.org/extension/form_translator/)
-[![TYPO3 12](https://img.shields.io/badge/TYPO3-12-orange.svg?style=flat-square)](https://get.typo3.org/version/12)
-[![TYPO3 11](https://img.shields.io/badge/TYPO3-11-orange.svg?style=flat-square)](https://get.typo3.org/version/11)
+[![TYPO3 14](https://img.shields.io/badge/TYPO3-14-orange.svg?style=flat-square)](https://get.typo3.org/version/14)
+[![TYPO3 13](https://img.shields.io/badge/TYPO3-13-orange.svg?style=flat-square)](https://get.typo3.org/version/13)
 [![Total Downloads](https://poser.pugx.org/r3h6/form-translator/d/total)](https://packagist.org/packages/r3h6/form-translator)
 [![Monthly Downloads](https://poser.pugx.org/r3h6/form-translator/d/monthly)](https://packagist.org/packages/form-translater)
 
@@ -16,6 +16,8 @@ and a cli for creating a source xliff file for a given form.
 
 Either from TYPO3 TER or through composer `$ composer req r3h6/form-translator`.
 
+Requires TYPO3 13.4 or 14.2+ and PHP 8.2+.
+
 
 ## Integration
 
@@ -26,20 +28,52 @@ See available [mirrors](https://github.com/LibreTranslate/LibreTranslate#mirrors
 
 ## How it works
 
-The extensions adds a translation file path to the *.form.yaml file when localize through the backend module.
-```yaml
-# example.form.yaml
-renderingOptions:
-  translation:
-    translationFiles:
-      99: fileadmin/form_definitions/l10n/example.xlf
+All forms share one translation file per language. By default they are stored in
+`form_translations/` on FAL storage `1` (the `fileadmin/` storage):
+
+```text
+fileadmin/form_translations/locallang.xlf      # default language
+fileadmin/form_translations/de.locallang.xlf   # German
+fileadmin/form_translations/de_CH.locallang.xlf
 ```
 
+Translation identifiers are prefixed with the form identifier, so a single file
+holds the strings of every form. The extension registers the shared file for all
+forms at runtime; the `*.form.yaml` files are not modified.
+
+The directory can be changed with the `translationFilesDirectory` extension
+setting, which expects a FAL combined identifier `<storageUid>:<path>` of a local
+storage, for example `1:form_translations/`. When a form is deleted, its entries
+are removed from the shared files.
+
 Customized validation error messages are translated by overriding the form definition
-at runtime using the `afterBuildingFinished` hook from the form framework.
+at runtime. On TYPO3 v14 this uses the `AfterFormIsBuiltEvent` PSR-14 event; on TYPO3
+v13 the `afterBuildingFinished` hook is used.
+
+### Database-stored forms
+
+On TYPO3 v14.2+ the extension supports all form storage adapters, including forms
+stored in the `form_definition` database table. Their persistence identifier is the
+numeric record UID; use it wherever a form identifier is expected, for example:
+
+```bash
+bin/typo3 form:create:xliff 42
+```
+
+Backend users of the Form Translator module need `tables_select` (and, for the form
+manager, `tables_modify`) permission on `form_definition`. Unlike file mounts, database
+storage currently provides no per-backend-group isolation, so every user with table
+access can see all database-stored forms.
 
 
 ## Upgrade
+
+### From v3
+
+Run the install tool upgrade wizard "Migrate form translations to shared files"
+(identifier `formTranslatorSharedTranslationFiles`). It moves the per-form XLIFF
+files into the shared translation files and removes their registration from the
+form definitions.
 
 ### From v2 an TYPO3 v12
 
@@ -51,23 +85,30 @@ or setup a [custom language](https://docs.typo3.org/m/typo3/reference-coreapi/ma
 
 No changes required.
 
+## Development
+
+```bash
+ddev start
+ddev composer install
+ddev dev-setup
+```
+
+`ddev dev-setup` installs TYPO3 into an empty database, imports the development
+site through `typo3 extension:setup`, and repairs the form persistence identifier
+that impexp rewrites during the import. It is safe to run again; an existing
+installation is kept and an already imported site is not imported twice.
+
+Composer writes a `composer.lock` for local development (it is gitignored); TYPO3 v14's
+Composer installer requires a lock file.
+
+The backend admin is `admin` with password `Password$1` (development only).
+The site configuration is generated from
+`Build/dev-site/Initialisation/Site/main/config.yaml` into
+`config/sites/main/config.yaml` on every run.
 
 ## Known issues
 
 - [Issues on GitHub](https://github.com/r3h6/TYPO3.EXT.form_translator/issues)
-
-### Transalte to English overrides the original form labels
-
-**Scenario:** German is used as default language and your form definition labels are in German too.
-
-When you translate a form to English, English will override your original labels even on the German version of your site.<br>
-You have following options:
-
-1. Create a (duplicated) German translation of the form
-2. Add the English locale without charset to the extension configuration `typo3LanguageWhitelist`
-
-**Background:** Beginning with v12, TYPO3 uses the locale configured for the site to determine the language.<br>
-For English, TYPO3 uses the file named `xyz.xlf`, it does not load a file named `en.xyz.xlf`, but it does for `en_US.xyz.xlf`.
 
 
 ## Resources

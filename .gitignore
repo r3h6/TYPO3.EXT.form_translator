@@ -7,3 +7,4 @@
 /var
 /phar-composer
 /.claude/*local*
+/config
